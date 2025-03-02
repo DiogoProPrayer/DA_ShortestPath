@@ -113,17 +113,37 @@ class Edge {
             drivingTime=driving;
             walkingTime=walking;
         }
-        Node * getDest() const;
-        Node * getOrig() const;
-        bool isSelected() const;
-        double getDrivingTime() const;
-        double getWalkingTime() const;
-        Edge *getReverse() const;
-        double getFlow() const;
+        Node * getDest() const {
+            return dest;
+        };
+        Node * getOrig() const {
+            return org;
+        };
+        bool isSelected() const {
+            return selected;
+        };
+        double getDrivingTime() const {
+            return drivingTime;
+        };
+        double getWalkingTime() const {
+            return walkingTime;
+        };
+        Edge *getReverse() const {
+            return reverse;
+        };
+        double getFlow() const {
+            return flow;
+        };
 
-        void setSelected(bool selected);
-        void setReverse(Edge *reverse);
-        void setFlow(double flow);
+        void setSelected(bool selected) {
+            this->selected=selected;
+        };
+        void setReverse(Edge *reverse) {
+            this->reverse=reverse;
+        };
+        void setFlow(double flow) {
+            this->flow=flow;
+        };
 
 };
 class Graph {
@@ -140,6 +160,12 @@ public:
         for (auto v : Nodes)
             if (v->getId() == in.getId())
                 return v;
+        return nullptr;
+    }
+    Node* findNodeByLocation(const std::string &location) {
+        for (int i=0;i<Nodes.size();i++)
+            if (Nodes[i]->getLocation() == location)
+                return Nodes[i];
         return nullptr;
     }
 
@@ -164,7 +190,7 @@ public:
         return false;
     };
 
-bool Graph::addEdge(const Node &source, const Node &dest, double driving, double walking) {
+bool addEdge(const Node &source, const Node &dest, double driving, double walking) {
 
     Node* v1 = findNode(source);
     Node* v2 = findNode(dest);
@@ -186,8 +212,9 @@ bool Graph::addEdge(const Node &source, const Node &dest, double driving, double
         return srcVertex->removeEdge(destNode);
     };
     bool addBidirectionalEdge(const Node &sourc, const Node &dest, double driving, double walking) {
-        addEdge(sourc,dest,walking,driving);
-        addEdge(dest,sourc,driving,walking);
+        if (addEdge(sourc,dest,walking,driving) && addEdge(dest,sourc,driving,walking) ) return true;
+        return false;
+
     };
 
     int getNumVertex() const {
@@ -196,7 +223,11 @@ bool Graph::addEdge(const Node &source, const Node &dest, double driving, double
     std::vector<Node *> getNodes() const {
         return Nodes;
     };
-
+    void printGraph() {
+        for (Node *v : Nodes) {
+            std::cout<< v->getLocation()<<""<<v->getId()<<" "<<v->getCode()<<""<<v->getParking()<<std::endl;
+        }
+    }
 protected:
     std::vector<Node *> Nodes;
 
