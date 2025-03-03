@@ -3,6 +3,6 @@ project(DA_ShortestPath)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(DA_ShortestPath src/Graph.h
+add_executable(DA_ShortestPath
         src/readData.cpp
 )
