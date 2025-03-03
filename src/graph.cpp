@@ -1,11 +1,11 @@
-//
-// Created by cisco on 03/03/2025.
-//
+#ifndef GRAPH_H
+#define GRAPH_H
 
-#include "graph.h"
 #include <string>
 #include <utility>
 #include <vector>
+#include "node.h"
+
 using namespace std;
 
 // Class graph
@@ -16,16 +16,15 @@ class Graph {
         vector<Node *> Nodes;
         double ** distMatrix = nullptr;
         int **pathMatrix = nullptr;
-
-        // Function
-        int findVertexIdx(const Node &in) const;
-
     public:
 
         // Destructor
         ~Graph() {
             deleteMatrix(distMatrix, Nodes.size());
             deleteMatrix(pathMatrix, Nodes.size());
+            for (auto node : Nodes) {
+              delete node;
+            }
         }
 
         // Getters
@@ -111,5 +110,37 @@ class Graph {
             bool e1 = addEdge(orig, dest, drivingTime, walkingTime);
             bool e2 = addEdge(dest, orig, drivingTime, walkingTime);
             return e1 && e2;
-        };
+        }
+
+        // Find vertex index
+        int findVertexIdx(const Node &in) const {
+          for (size_t i = 0; i < Nodes.size(); i++){
+            if (Nodes[i]->getId() == in.getId()){
+              return i;
+            }
+          }
+          return -1;
+        }
+
+        // Delete matrix
+        void deleteMatrix(int **m, int n) {
+            if (m != nullptr) {
+                for (int i = 0; i < n; i++)
+                    if (m[i] != nullptr)
+                        delete [] m[i];
+                delete [] m;
+            }
+        }
+
+        // Delete matrix
+        void deleteMatrix(double **m, int n) {
+            if (m != nullptr) {
+                for (int i = 0; i < n; i++)
+                    if (m[i] != nullptr)
+                        delete [] m[i];
+                delete [] m;
+            }
+        }
 };
+
+#endif

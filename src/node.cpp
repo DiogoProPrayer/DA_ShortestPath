@@ -1,11 +1,10 @@
-//
-// Created by cisco on 03/03/2025.
-//
+#ifndef NODE_H
+#define NODE_H
 
-#include "node.h"
 #include <string>
 #include <utility>
 #include <vector>
+#include "edge.h"
 using namespace std;
 
 // Class node
@@ -19,7 +18,7 @@ class Node {
         bool parking;
         bool visited = false;
         double dist = 0;
-        int inDegree;
+        int inDegree = 0;
         bool processing = false;
         int low = -1, num = -1;
         vector<Edge *> adj;
@@ -105,8 +104,7 @@ class Node {
             return newEdge;
         }
 
-        Edge* addEdge(Node *dest, double drivingTime, double walkingTime);
-        bool removeEdge(Node *n);
+        // Remove outgoing edges
         void removeOutgoingEdges() {
             auto it = adj.begin();
             while (it != adj.end()) {
@@ -132,17 +130,13 @@ class Node {
             delete edge;
         }
 
-
-
         // Remove edge
         bool removeEdge(Node *n) {
             bool removedEdge = false;
             auto it = adj.begin();
-
             while (it != adj.end()) {
                 Edge *edge = *it;
-                Node *orig = edge->getOrig();
-                if (orig == n) {  // Compare edge pointers, not the nodes
+                if (edge->getDest() == n) {  // Compare edge pointers, not the nodes
                     it = adj.erase(it);  // Remove edge from adjacency list
                     deleteEdge(edge);  // Handle additional cleanup
                     removedEdge = true;
@@ -153,3 +147,5 @@ class Node {
             return removedEdge;
         }
 };
+
+#endif

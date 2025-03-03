@@ -1,27 +1,22 @@
-#include <string>
-#include <utility>
-#include <vector>
+#include <iostream>
+#include "graph.h"
+#include "node.h"
+#include "edge.h"
 using namespace std;
 
-void deleteMatrix(int **m, int n);
-void deleteMatrix(double **m, int n);
-inline void deleteMatrix(int **m, int n) {
-    if (m != nullptr) {
-        for (int i = 0; i < n; i++)
-            if (m[i] != nullptr)
-                delete [] m[i];
-        delete [] m;
-    }
+int main(){
+  Graph g;
+
+  Node a("Test1", 1, "p1", false)
+  Node b("Test2", 2, "p2", true);
+
+  g.addNode(a);
+  g.addNode(b);
+
+  g.addBidirectionalEdge(a, b, 10, 30);
+
+  cout << g.getNumVertexes() << endl;
+
+  return 0;
 }
 
-inline void deleteMatrix(double **m, int n) {
-    if (m != nullptr) {
-        for (int i = 0; i < n; i++)
-            if (m[i] != nullptr)
-                delete [] m[i];
-        delete [] m;
-    }
-}
-
-
-#endif
