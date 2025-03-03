@@ -212,7 +212,11 @@ bool addEdge(const Node &source, const Node &dest, double driving, double walkin
         return srcVertex->removeEdge(destNode);
     };
     bool addBidirectionalEdge(const Node &sourc, const Node &dest, double driving, double walking) {
-        if (addEdge(sourc,dest,walking,driving) && addEdge(dest,sourc,driving,walking) ) return true;
+        if (findNode(sourc)!=nullptr && findNode(dest)!=nullptr) {
+            addEdge(sourc,dest,driving,walking);
+            addEdge(dest,sourc,driving,walking);
+            return true;
+        }
         return false;
 
     };
