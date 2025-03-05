@@ -17,7 +17,7 @@ class Node {
         string code;
         bool parking;
         bool visited = false;
-        double dist = 0;
+        double distance = 0;
         int inDegree = 0;
         bool processing = false;
         int low = -1, num = -1;
@@ -51,7 +51,7 @@ class Node {
             return visited;
         }
         double getDistance() const {
-            return dist;
+            return distance;
         }
         int getInDegree() const {
             return inDegree;
@@ -76,8 +76,8 @@ class Node {
         void setVisited(bool visited) {
             this->visited = visited;
         }
-        void setDist(double dist) {
-            this->dist = dist;
+        void setDistance(double ditance) {
+            this->distance = distance;
         }
         void setInDegree(unsigned int inDegree) {
             this->inDegree = inDegree;
