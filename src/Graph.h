@@ -25,6 +25,7 @@ class Node {
         this->location=std::move(Location);
         this->code=std::move(Code);
         this->parking=Parking;
+        this->id=id;
     }
     std::string getLocation() {
         return location;
@@ -162,9 +163,9 @@ public:
                 return v;
         return nullptr;
     }
-    Node* findNodeByLocation(const std::string &location) {
+    Node* findNodeByCode(const std::string &code) {
         for (int i=0;i<Nodes.size();i++)
-            if (Nodes[i]->getLocation() == location)
+            if (Nodes[i]->getCode() == code)
                 return Nodes[i];
         return nullptr;
     }
@@ -229,7 +230,7 @@ bool addEdge(const Node &source, const Node &dest, double driving, double walkin
     };
     void printGraph() {
         for (Node *v : Nodes) {
-            std::cout<< v->getLocation()<<""<<v->getId()<<" "<<v->getCode()<<""<<v->getParking()<<std::endl;
+            std::cout<< v->getLocation()<<" "<<v->getId()<<" "<<v->getCode()<<" "<<v->getParking()<<std::endl;
         }
     }
 protected:
