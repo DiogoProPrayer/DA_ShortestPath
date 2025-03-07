@@ -1,5 +1,5 @@
-#ifndef ROUTE_H
-#define ROUTE_H
+#ifndef GETDRIVING_H
+#define GETDRIVING_H
 
 #include <iostream>
 #include <vector>
@@ -12,10 +12,11 @@ using namespace std;
 #define X -1
 
 template <class T>
-class RouteDriving {
-  bool relax(Edge<T> *e) { 
-    Vertex<T> *v1 = e->getOrig();
-    Vertex<T> *v2 = e->getDest();
+class GetDriving {
+
+  bool check(Edge<T> *e) { 
+    Node<T> *v1 = e->getOrig();
+    Node<T> *v2 = e->getDest();
     double dt = e->getDrivingTime();
     
     if (dt == X){
@@ -38,8 +39,6 @@ class RouteDriving {
       n->setPath(nullptr);
     }
 
-    if (!orig) return;
-
     orig->setDistance(0);
     MutablePriorityQueue<Vertex<T>> pq;
     pq.insert(orig);
@@ -48,12 +47,14 @@ class RouteDriving {
 
       for (auto &e : cn->getAdj()){
         Node<T> *nn = e.getDest();
-        if (relax(&e){
-          pq.insert(nv);
+        if (check(&e){
+          pq.insert(nn);
         }
       }
     }
   }
+  
 }
 
 #endif
+
