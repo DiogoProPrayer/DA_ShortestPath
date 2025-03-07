@@ -1,0 +1,1 @@
+// algortithm to get walking distance/time
