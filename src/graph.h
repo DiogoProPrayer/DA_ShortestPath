@@ -33,7 +33,7 @@ class Graph {
         }
         vector<Node *> getNodes() const {
             return Nodes;
-        }
+        } 
 
         // Functions
         // Find node index
