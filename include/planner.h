@@ -1,11 +1,3 @@
-#include "graph.h"
-#include "node.h"
-#include "edge.h"
-#include "getDriving.h"
-#include "getWalking.h"
-#include "route.h"
-#include "planner.h"
-
 // Call input
 // check mode
 // if driving only, main route - call mainDrivingRoute - handle output
