@@ -121,7 +121,10 @@ class Route {
             }
         }
 
-        pair<pair<vector<int>, vector<int>>, pair<int, int>> mainEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
+        pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, pair<bool, bool>> mainEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
+            bool eml = true;
+            bool aop = true;
+
             for (int id : aNodes){
                 g->removeNode(id);
             }
@@ -129,42 +132,33 @@ class Route {
             for (auto& edge : aEdges){
                 g->removeEdge(edge.first, edge.second);
             }
-            
-            vector<int> pns;
-            for (Node* n : g->getNodes()){
-                if (n->getParking() == 1){
-                    pns.push_back(n->getID());
-                }
-            }
 
             vector<int> bdr;
             vector<int> bwr;
             int bdt = INT_MAX;
             int bwt = INT_MAX;
-            for (int pni : pns){
-                Node *pn = g->findNode(pni);
-
+            for (Node* n : g->getNodes()){
                 GetDriving gd;
                 gd.dijkstra(g, orig);
 
                 vector<int> dPath;
-                if (pn->getPath() == nullptr){
+                if (n->getPath() == nullptr){
                     continue;
                 }
-                Node *cn = g->findNode(pn);
+                Node *cn = g->findNode(n);
                 cn = cn->getPath();
                 while (cn){
                     dPath.push_back(cn->getId());
                     cn = cn->getPath();
                 }
                 reverse(dPath.begin(), dPath.end());
-                int cdt = pn->getDistance();
+                int cdt = n->getDistance();
 
                 GetWalking gw;
-                gw.dijkstra(g, pn);
+                gw.dijkstra(g, n);
 
                 vector<int> wPath;
-                if (dest->getPath() == nullptr || dest->getDistance() > mwt){
+                if (dest->getPath() == nullptr){
                     continue;
                 }
                 cn = g->findNode(dest);
@@ -181,9 +175,23 @@ class Route {
                     bdr = dPath;
                     bwr = wPath;
                 }
+
+                if (dest->getDistance() < mwt && n->getParking() == 1){
+                    eml = false;
+                    aop = false;
+                }
+                else if (dest->getDistance() < mwt){
+                    eml = false;
+                }
+                else if (n->getParking() == 1) {
+                    aop = false;
+                }
+                else{
+                    continue;
+                }
             }
 
-            return {{bdr, bwr}, {bdt, bwt}};
+            return {{{bdr, bwr}, {bdt, bwt}}, {eml, aop}};
         }
 }
 
