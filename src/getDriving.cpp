@@ -6,44 +6,55 @@
 
 using namespace std;
 
+// Define the input X as a -1
 #define X -1
 
+// Class to get driving time
 class GetDriving {
   private:
-    bool check(Edge *e) { 
-      Node *v1 = e->getOrig();
-      Node *v2 = e->getDest();
-      double dt = e->getDrivingTime();
+
+    // Helper function to dijkstra algorithm
+    bool check(Edge *e) {  // edge
+      Node *on = e->getOrig(); // origin node
+      Node *dn = e->getDest(); // destination node
+      double dt = e->getDrivingTime(); // driving time
       
+      // You can't drive
       if (dt == X){
         return false;
       }
 
-      if (v1->getDistance() + dt < v2->getDistance()) {
-        v2->setDistance(v1->getDistance() + dt);
-        v2->setPath(e);
+      // If it's a shorter path - update
+      if (on->getDistance() + dt < dn->getDistance()) {
+        dn->setDistance(on->getDistance() + dt);
+        dn->setPath(e);
         return true;
       }
       return false;
     }
 
   public:
-    void dijkstra(Graph* g, Node* orig) {
-      auto ns = g->getNodes();
 
-      for (auto n : ns){
+    // Dijkstra algorithm
+    void dijkstra(Graph* g, Node* orig) {
+      auto ns = g->getNodes(); // nodes
+
+      // Reset all
+      for (auto n : ns){ // node
         n->setDistance(INT_MAX);
         n->setPath(nullptr);
       }
 
-      orig->setDistance(0);
-      MutablePriorityQueue<Node> pq;
+      // Start calculating the distance
+      orig->setDistance(0); // origin
+      MutablePriorityQueue<Node> pq; // priority queue
       pq.insert(orig);
       while (!pq.empty()) {
-        Node *cn = pq.extractMin();
+        Node *cn = pq.extractMin(); // current node
 
-        for (auto &e : cn->getAdj()){
-          Node *nn = e.getDest();
+        // Check possible paths
+        for (auto &e : cn->getAdj()){ // edge
+          Node *nn = e.getDest(); // next node
           if (check(&e)){
             pq.insert(nn);
           }

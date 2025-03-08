@@ -6,38 +6,47 @@
 
 using namespace std;
 
+// Class to get walking time
 class GetWalking {
   private:
-    bool check(Edge *e) { 
-      Node *v1 = e->getOrig();
-      Node *v2 = e->getDest();
-      double wt = e->getWalkingTime();
 
-      if (v1->getDistance() + wt < v2->getDistance()) {
-        v2->setDistance(v1->getDistance() + wt);
-        v2->setPath(e);
+    // Helper function to dijkstra algorithm
+    bool check(Edge *e) { 
+      Node *on = e->getOrig(); // origin node
+      Node *dn = e->getDest(); // destination node
+      double wt = e->getWalkingTime(); // walking time
+
+      // Check if it's a shorter path
+      if (on->getDistance() + wt < dn->getDistance()) {
+        dn->setDistance(on->getDistance() + wt); 
+        dn->setPath(e);
         return true;
       }
       return false;
     }
 
   public:
-    void dijkstra(Graph* g, Node* orig) {
-      auto ns = g->getNodes();
 
-      for (auto n : ns){
+    // Dijkstra algorithm
+    void dijkstra(Graph* g, Node* orig) {
+      auto ns = g->getNodes(); // nodes
+
+      // Reset all
+      for (auto n : ns){ // node
         n->setDistance(INT_MAX);
         n->setPath(nullptr);
       }
 
-      orig->setDistance(0);
-      MutablePriorityQueue<Node> pq;
+      // Start calculating the distance
+      orig->setDistance(0); // origin
+      MutablePriorityQueue<Node> pq; // priority queue
       pq.insert(orig);
       while (!pq.empty()) {
-        Node *cn = pq.extractMin();
+        Node *cn = pq.extractMin(); // current node
 
-        for (auto &e : cn->getAdj()){
-          Node *nn = e.getDest();
+        // Check possible paths
+        for (auto &e : cn->getAdj()){ // edge
+          Node *nn = e.getDest(); // next node
           if (check(&e)){
             pq.insert(nn);
           }
