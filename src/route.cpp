@@ -34,7 +34,7 @@ class Route {
 
             vector<int> tempPath;
             if (dest->getPath() == nullptr || dest->getParking() == 0){
-                return {path, -1};
+                return {tempPath, -1};
             }
             Node *cn = g->findNode(dest);
             while (cn){
@@ -169,14 +169,13 @@ class Route {
                 reverse(wPath.begin(), wPath.end());
                 int cwt = dest->getDistance();
 
-                if ((cdt + cwt < bdt + bwt) || (cdt + cwt == bdt + bwt && cwt > bwt)){
-                    bdt = cdt;
-                    bwt = cwt;
-                    bdr = dPath;
-                    bwr = wPath;
-                }
-
-                if (dest->getDistance() < mwt && n->getParking() == 1){
+                if (cwt < mwt && n->getParking() == 1){
+                    if ((cdt + cwt < bdt + bwt) || (cdt + cwt == bdt + bwt && cwt > bwt)){
+                        bdt = cdt;
+                        bwt = cwt;
+                        bdr = dPath;
+                        bwr = wPath;
+                    }
                     eml = false;
                     aop = false;
                 }
@@ -192,6 +191,235 @@ class Route {
             }
 
             return {{{bdr, bwr}, {bdt, bwt}}, {eml, aop}};
+        }
+
+        pair<pair<pair<vector<int>, vector<int>>, pair<int, int>, pair<vector<int>, vector<int>>, pair<int, int>>> nwlEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
+            for (int id : aNodes){
+                g->removeNode(id);
+            }
+
+            for (auto& edge : aEdges){
+                g->removeEdge(edge.first, edge.second);
+            }
+
+            vector<int> fbdr;
+            vector<int> fbwr;
+            int fbdt = INT_MAX;
+            int fbwt = INT_MAX;
+            vector<int> sbdr;
+            vector<int> sbwr;
+            int sbdt = INT_MAX;
+            int sbwt = INT_MAX;
+            for (Node* n : g->getNodes()){
+                GetDriving gd;
+                gd.dijkstra(g, orig);
+
+                vector<int> dPath;
+                if (n->getPath() == nullptr){
+                    continue;
+                }
+                Node *cn = g->findNode(n);
+                cn = cn->getPath();
+                while (cn){
+                    dPath.push_back(cn->getId());
+                    cn = cn->getPath();
+                }
+                reverse(dPath.begin(), dPath.end());
+                int cdt = n->getDistance();
+
+                GetWalking gw;
+                gw.dijkstra(g, n);
+
+                vector<int> wPath;
+                if (dest->getPath() == nullptr){
+                    continue;
+                }
+                cn = g->findNode(dest);
+                while (cn){
+                    wPath.push_back(cn->getId());
+                    cn = cn->getPath();
+                }
+                reverse(wPath.begin(), wPath.end());
+                int cwt = dest->getDistance();
+
+                if (n->getParking() == 1){
+                    if ((cdt + cwt < fbdt + fbwt) || (cdt + cwt == fbdt + fbwt && cwt > fbwt)){
+                        sbdt = sbdt;
+                        sbwt = sbwt;
+                        sbdr = sbdr;
+                        sbwr = sbwr;
+                        fbdt = cdt;
+                        fbwt = cwt;
+                        fbdr = dPath;
+                        fbwr = wPath;
+                    }
+                    else if ((cdt + cwt < sbdt + sbwt) || (cdt + cwt == sbdt + sbwt && cwt > sbwt)){
+                        sbdt = cdt;
+                        sbwt = cwt;
+                        sbdr = dPath;
+                        sbwr = wPath;
+                    }
+                    else{
+                        continue;
+                    }
+                }
+                else{
+                    continue;
+                }
+            }
+
+            return {{{fbdr, fbwr}, {fbdt, fbwt}}, {{sbdr, sbwr}, {sbdt, sbwt}}};
+        }
+
+        pair<pair<pair<vector<int>, vector<int>>, pair<int, int>, pair<vector<int>, vector<int>>, pair<int, int>>> apoEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
+            for (int id : aNodes){
+                g->removeNode(id);
+            }
+
+            for (auto& edge : aEdges){
+                g->removeEdge(edge.first, edge.second);
+            }
+
+            vector<int> fbdr;
+            vector<int> fbwr;
+            int fbdt = INT_MAX;
+            int fbwt = INT_MAX;
+            vector<int> sbdr;
+            vector<int> sbwr;
+            int sbdt = INT_MAX;
+            int sbwt = INT_MAX;
+            for (Node* n : g->getNodes()){
+                GetDriving gd;
+                gd.dijkstra(g, orig);
+
+                vector<int> dPath;
+                if (n->getPath() == nullptr){
+                    continue;
+                }
+                Node *cn = g->findNode(n);
+                cn = cn->getPath();
+                while (cn){
+                    dPath.push_back(cn->getId());
+                    cn = cn->getPath();
+                }
+                reverse(dPath.begin(), dPath.end());
+                int cdt = n->getDistance();
+
+                GetWalking gw;
+                gw.dijkstra(g, n);
+
+                vector<int> wPath;
+                if (dest->getPath() == nullptr){
+                    continue;
+                }
+                cn = g->findNode(dest);
+                while (cn){
+                    wPath.push_back(cn->getId());
+                    cn = cn->getPath();
+                }
+                reverse(wPath.begin(), wPath.end());
+                int cwt = dest->getDistance();
+
+                if (cwt < mwt){
+                    if ((cdt + cwt < fbdt + fbwt) || (cdt + cwt == fbdt + fbwt && cwt > fbwt)){
+                        sbdt = fbdt;
+                        sbwt = fbwt;
+                        sbdr = fbdr;
+                        sbwr = fbwr;
+                        fbdt = cdt;
+                        fbwt = cwt;
+                        fbdr = dPath;
+                        fbwr = wPath;
+                    }
+                    else if ((cdt + cwt < sbdt + sbwt) || (cdt + cwt == sbdt + sbwt && cwt > sbwt)){
+                        sbdt = cdt;
+                        sbwt = cwt;
+                        sbdr = dPath;
+                        sbwr = wPath;
+                    }
+                    else{
+                        continue;
+                    }
+                }
+                else{
+                    continue;
+                }
+            }
+
+            return {{{fbdr, fbwr}, {fbdt, fbwt}}, {{sbdr, sbwr}, {sbdt, sbwt}}};
+        }
+
+        pair<pair<pair<vector<int>, vector<int>>, pair<int, int>, pair<vector<int>, vector<int>>, pair<int, int>>> nrEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
+            for (int id : aNodes){
+                g->removeNode(id);
+            }
+
+            for (auto& edge : aEdges){
+                g->removeEdge(edge.first, edge.second);
+            }
+
+            vector<int> fbdr;
+            vector<int> fbwr;
+            int fbdt = INT_MAX;
+            int fbwt = INT_MAX;
+            vector<int> sbdr;
+            vector<int> sbwr;
+            int sbdt = INT_MAX;
+            int sbwt = INT_MAX;
+            for (Node* n : g->getNodes()){
+                GetDriving gd;
+                gd.dijkstra(g, orig);
+
+                vector<int> dPath;
+                if (n->getPath() == nullptr){
+                    continue;
+                }
+                Node *cn = g->findNode(n);
+                cn = cn->getPath();
+                while (cn){
+                    dPath.push_back(cn->getId());
+                    cn = cn->getPath();
+                }
+                reverse(dPath.begin(), dPath.end());
+                int cdt = n->getDistance();
+
+                GetWalking gw;
+                gw.dijkstra(g, n);
+
+                vector<int> wPath;
+                if (dest->getPath() == nullptr){
+                    continue;
+                }
+                cn = g->findNode(dest);
+                while (cn){
+                    wPath.push_back(cn->getId());
+                    cn = cn->getPath();
+                }
+                reverse(wPath.begin(), wPath.end());
+                int cwt = dest->getDistance();
+
+                if ((cdt + cwt < fbdt + fbwt) || (cdt + cwt == fbdt + fbwt && cwt > fbwt)){
+                    sbdt = fbdt;
+                    sbwt = fbwt;
+                    sbdr = fbdr;
+                    sbwr = fbwr;
+                    fbdt = cdt;
+                    fbwt = cwt;
+                    fbdr = dPath;
+                    fbwr = wPath;
+                }
+                else if ((cdt + cwt < sbdt + sbwt) || (cdt + cwt == sbdt + sbwt && cwt > sbwt)){
+                    sbdt = cdt;
+                    sbwt = cwt;
+                    sbdr = dPath;
+                    sbwr = wPath;
+                }
+                else{
+                    continue;
+                }
+            }
+
+            return {{{fbdr, fbwr}, {fbdt, fbwt}}, {{sbdr, sbwr}, {sbdt, sbwt}}};
         }
 }
 
