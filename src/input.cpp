@@ -1,3 +1,7 @@
+// work with menu
+// get and understand input - text and files
+// parse input to planner and build graph, node, edge
+
 #include <iostream>
 #include <fstream>
 #include "Graph.h"
