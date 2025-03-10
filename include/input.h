@@ -1,10 +1,7 @@
 // Declare input.cpp
-
-
-
 #include <iostream>
 #include <fstream>
-#include "Graph.h"
+#include "structs/graph.h"
 
 int main() {
 std::string data,location,code,location2;
