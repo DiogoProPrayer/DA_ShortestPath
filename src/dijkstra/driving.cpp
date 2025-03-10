@@ -12,7 +12,6 @@ bool Driving::check(Edge *e) {  // edge
   Node *on = e->getOrig(); // origin node
   Node *dn = e->getDest(); // destination node
   double dt = e->getDrivingTime(); // driving time
-  
   // You can't drive
   if (dt == X){
     return false;
