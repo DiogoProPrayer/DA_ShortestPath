@@ -12,8 +12,8 @@
 
 using namespace std;
 
-// Calculate main driving route
-pair<vector<int>, int> Route::mainDrivingRoute(Graph* g, Node* orig, Node* dest){
+// Calculate best driving route
+pair<vector<int>, int> Route::bestDrivingRoute(Graph* g, Node* orig, Node* dest){
     // Get driving time
     GetDriving gd; // get driving
     gd.dijkstra(g, orig);
