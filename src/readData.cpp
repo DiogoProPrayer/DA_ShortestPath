@@ -1,8 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include "Graph.h"
+#include "Node.h"
 
-int main() {
+
+void readData() {
 std::string data,location,code,location2;
 int id,fpos;
 double walk,drive;
@@ -10,8 +12,7 @@ bool parking;
 Graph graph;
 std::ifstream locations("assets/Locations.csv");
    if (!locations.is_open()) {
-      std::cerr << "Error: Could not open Locations.csv" << std::endl;
-      return 1; // Exit the program if the file cannot be opened
+      std::cerr << "Error: Could not open Locations.csv" << std::endl;// Exit the program if the file cannot be opened
    }
    getline(locations, data);
    while ( getline(locations, data)) {
@@ -30,8 +31,7 @@ std::ifstream locations("assets/Locations.csv");
    }
 std::ifstream distances("assets/Distances.csv");
    if (!distances.is_open()) {
-      std::cerr << "Error: Could not open Locations.csv" << std::endl;
-      return 1; // Exit the program if the file cannot be opened
+      std::cerr << "Error: Could not open Locations.csv" << std::endl;// Exit the program if the file cannot be opened
    }
    getline(distances, data);
    while ( getline(distances, data)) {
@@ -55,9 +55,6 @@ std::ifstream distances("assets/Distances.csv");
 
    }
    graph.printGraph();
-
-
 }
-
 
 
