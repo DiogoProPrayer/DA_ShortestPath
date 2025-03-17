@@ -5,29 +5,48 @@
 #include "graph.h"
 #include "node.h"
 #include "edge.h"
-#include "GetWalking.h"
+#include "dijkstra.h"
 
 using namespace std;
 
 // Helper function to dijkstra algorithm
-bool GetWalking::check(Edge *e) { 
+bool Dijkstra::check(Edge *e, bool driving) {  // edge
   Node *on = e->getOrig(); // origin node
   Node *dn = e->getDest(); // destination node
-  double wt = e->getWalkingTime(); // walking time
 
-  // Check if it's a shorter path
-  if (on->getDistance() + wt < dn->getDistance()) {
-    dn->setDistance(on->getDistance() + wt); 
-    dn->setPath(e);
-    return true;
+  if (driving) {
+    double dt = e->getDrivingTime(); // driving time
+
+    // You can't drive
+    if (dt == X){
+      return false;
+    }
+
+    // If it's a shorter path - update
+    if (on->getDistance() + dt < dn->getDistance()) {
+      dn->setDistance(on->getDistance() + dt);
+      dn->setPath(e);
+      return true;
+    }
+    return false;
   }
-  return false;
+
+  else {
+    double wt = e->getWalkingTime(); // walking time
+
+    // If it's a shorter path - update
+    if (on->getDistance() + wt < dn->getDistance()) {
+      dn->setDistance(on->getDistance() + wt);
+      dn->setPath(e);
+      return true;
+    }
+    return false;
+  }
 }
 
 
-
 // Dijkstra algorithm
-void GetWalking::dijkstra(Graph* g, Node* orig) {
+void GetDriving::dijkstra(Graph* g, Node* orig, bool driving) {
   auto ns = g->getNodes(); // nodes
 
   // Reset all
@@ -46,7 +65,7 @@ void GetWalking::dijkstra(Graph* g, Node* orig) {
     // Check possible paths
     for (auto &e : cn->getAdj()){ // edge
       Node *nn = e.getDest(); // next node
-      if (check(&e)){
+      if (check(&e, driving)){
         pq.insert(nn);
       }
     }

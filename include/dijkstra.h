@@ -1,5 +1,5 @@
-#ifndef GETDRIVING_H
-#define GETDRIVING_H
+#ifndef DJIKSTRA_H
+#define DJIKSTRA_H
 
 #include "graph.h"
 #include "node.h"
@@ -10,18 +10,18 @@ using namespace std;
 // Define the input X as a -1
 #define X -1
 
-// Class to get driving time
-class GetDriving {
+// Class to get time
+class Dijkstra {
   private:
 
     // Helper function to dijkstra algorithm
-    bool check(Edge *e);
+    bool check(Edge *e, bool driving);
       
 
   public:
 
     // Dijkstra algorithm
-    void dijkstra(Graph* g, Node* orig);
+    void dijkstra(Graph* g, Node* orig, bool driving);
 };
 
 #endif

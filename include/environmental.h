@@ -1,25 +1,18 @@
+#ifndef ENVIRONMENTAL_H
+#define ENVIRONMENTAL_H
+
 #include <vector>
 #include <utility>
 #include "graph.h"
 #include "node.h"
 #include "edge.h"
-#include "getDriving.h"
-#include "getWalking.h"
+#include "dijkstra.h"
 
 using namespace std;
 
-// Class route to get the routes
-class Route {
+// Class environmental to get the environmental routes
+class Environmental {
     public:
-
-        // Calculate main driving route
-        pair<vector<int>, int> mainDrivingRoute(Graph* g, Node* orig, Node* dest);
-
-        // Calculate alternative driving route
-        pair<vector<int>, int> altDrivingRoute(Graph* g, Node* orig, Node* dest);
-        
-        // Calculate restricted driving route
-        pair<vector<int>, int> resDrivingRoute(Graph* g, Node* orig, Node* dest, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges, Node* iNode);
 
         // Calculate main environmental route
         pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, pair<bool, bool>> mainEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges);
@@ -34,3 +27,4 @@ class Route {
         pair<pair<pair<vector<int>, vector<int>>, pair<int, int>, pair<vector<int>, vector<int>>, pair<int, int>>> nrEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges);
 };
 
+#endif
