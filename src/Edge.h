@@ -13,6 +13,7 @@ protected:
     double drivingTime;
     double walkingTime;
     bool selected = false;
+    bool visited = false;
     Edge *reverse = nullptr;
 
     double flow;
@@ -44,6 +45,12 @@ public:
     double getFlow() const {
         return flow;
     };
+    double getVisited() const {
+        return visited;
+    }
+    double setVisited(bool visit) {
+        this->visited=visit;
+    }
 
     void setSelected(bool selected) {
         this->selected=selected;

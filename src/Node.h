@@ -17,9 +17,11 @@ class Node {
         bool processing = false;
         int low = -1, num = -1;
         double dist = 0;
+        int pred;
         std::vector<Edge *> adj;
         Edge *path = nullptr;
         std::vector<Edge *> incoming;
+
         void deleteEdge(Edge *edge) {
             Node *dest = edge->getDest();
 
@@ -52,16 +54,27 @@ class Node {
     bool getParking() const {
         return parking;
     };
+    int getPred()const {
+        return pred;
+    }
     bool isVisited() const {
         return visited;
     };
+    bool isEdgeVisited(Node *dest) {
+        for (Edge *edge : adj) {
+            if (edge->getDest() == dest) {
+                return edge->getVisited();
+            }
+        }
+        return false;
+    }
     bool isProcessing() const {
         return processing;
     };
     bool getIndegree() const {
         return indegree;
     };
-    double getDistance() const {
+    double getDist() const {
         return dist;
     };
     Edge *getPath() const {
@@ -76,6 +89,9 @@ class Node {
     void setProcessing(bool processing) {
         this->processing=processing;
     };
+    void setPred(int p) {
+        this->pred=p;
+    }
 
     int getLow() const {
         return low;
@@ -121,6 +137,19 @@ class Node {
         }
         return removedEdge;
     }
+
+    
+
+
+    void setEdgeVisiTed(Node *dest,bool visit) {
+        for (Edge *edge : adj) {
+            if (edge->getDest() == dest) {
+                edge->setVisited(visit);
+                return;
+            }
+        }
+    }
+
     void removeOutgoingEdges() {
         auto it = adj.begin();
         while (it != adj.end()) {

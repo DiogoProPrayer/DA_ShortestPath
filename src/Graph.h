@@ -3,14 +3,15 @@
 #include <string>
 #include <vector>
 #include "Node.h"
+#include <iostream>
 
 class Graph {
 public:
     ~Graph();
 
-    unsigned findNodeIndex(const Node &in) const {
+    int findNodeIndex(const int id) const {
         for (unsigned i = 0; i < Nodes.size(); i++){
-            if (Nodes[i]->getId()==in.getId() ){return i;};
+            if (Nodes[i]->getId()==id ){return i;};
         }
         return -1;
     };
@@ -20,7 +21,7 @@ public:
                 return v;
         return nullptr;
     }
-    Node* findNodeByCode(const std::string &code) {
+    Node* findNodeByCode(const std::string &code) const{
         for (int i=0;i<Nodes.size();i++)
             if (Nodes[i]->getCode() == code)
                 return Nodes[i];
@@ -48,7 +49,7 @@ public:
         return false;
     };
 
-bool addEdge(const Node &source, const Node &dest, double driving, double walking) {
+bool addEdge(const Node &source, const Node &dest, double driving, double walking) const{
 
     Node* v1 = findNode(source);
     Node* v2 = findNode(dest);
@@ -61,7 +62,7 @@ bool addEdge(const Node &source, const Node &dest, double driving, double walkin
     return true;
 }
 
-    bool removeEdge(const Node &source, const Node &dest) {
+    bool removeEdge(const Node &source, const Node &dest) const{
         Node * srcVertex = findNode(source);
         if (srcVertex == nullptr) {
             return false;
@@ -69,7 +70,7 @@ bool addEdge(const Node &source, const Node &dest, double driving, double walkin
         Node * destNode = findNode(dest);
         return srcVertex->removeEdge(destNode);
     };
-    bool addBidirectionalEdge(const Node &sourc, const Node &dest, double driving, double walking) {
+    bool addBidirectionalEdge(const Node &sourc, const Node &dest, double driving, double walking) const {
         if (findNode(sourc)!=nullptr && findNode(dest)!=nullptr) {
             addEdge(sourc,dest,driving,walking);
             addEdge(dest,sourc,driving,walking);
@@ -89,6 +90,10 @@ bool addEdge(const Node &source, const Node &dest, double driving, double walkin
         for (Node *v : Nodes) {
             std::cout<< v->getLocation()<<" "<<v->getId()<<" "<<v->getCode()<<" "<<v->getParking()<<std::endl;
         }
+    }
+
+    int getNodeSize() const {
+        return static_cast<int>(Nodes.size());
     }
 protected:
     std::vector<Node *> Nodes;

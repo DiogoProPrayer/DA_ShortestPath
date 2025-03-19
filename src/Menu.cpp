@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+#include "Graph.h"
+#include "readData.h"
 int mode=0;
 std::string source;
 std::string dest;
@@ -27,6 +29,8 @@ void read() {
 
 int main() {
     int choice;
+    Graph graph;
+    readData(graph);
 
     while (true){
         menu();
@@ -39,9 +43,10 @@ int main() {
             break;
             case 1:
                 std::cin>>source;
+                break;
             case 2:
                 std::cin>>dest;
-            break;
+                break;
             case 3:
                 std::cin>>avoidNodes;
             break;
@@ -54,7 +59,7 @@ int main() {
             case 6:
                 read();
             std::cin >> test;
-            readfromfile(test);
+            // to do implement this readfromfile(test);
             break;
             case 7:
                 if (mode!=0 && !source.empty() && !dest.empty() && !avoidNodes.empty() && !avoidEdges.empty()&& !includeNode.empty()) {
