@@ -45,10 +45,10 @@ public:
     double getFlow() const {
         return flow;
     };
-    double getVisited() const {
+   bool getVisited() const {
         return visited;
     }
-    double setVisited(bool visit) {
+    void setVisited(bool visit) {
         this->visited=visit;
     }
 

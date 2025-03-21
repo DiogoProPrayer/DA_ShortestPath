@@ -51,6 +51,9 @@ public:
 
 bool addEdge(const Node &source, const Node &dest, double driving, double walking) const{
 
+    if (driving < 0 || walking < 0) {
+        return false; // Invalid edge weights
+    }
     Node* v1 = findNode(source);
     Node* v2 = findNode(dest);
 
@@ -70,15 +73,13 @@ bool addEdge(const Node &source, const Node &dest, double driving, double walkin
         Node * destNode = findNode(dest);
         return srcVertex->removeEdge(destNode);
     };
-    bool addBidirectionalEdge(const Node &sourc, const Node &dest, double driving, double walking) const {
-        if (findNode(sourc)!=nullptr && findNode(dest)!=nullptr) {
-            addEdge(sourc,dest,driving,walking);
-            addEdge(dest,sourc,driving,walking);
-            return true;
+    bool addBidirectionalEdge(const Node &source, const Node &dest, double driving, double walking) const {
+        if (findNode(source) != nullptr && findNode(dest) != nullptr) {
+                addEdge(source, dest, driving, walking);
+                addEdge(dest, source, driving, walking);
         }
         return false;
-
-    };
+    }
 
     int getNumVertex() const {
         return Nodes.size();
