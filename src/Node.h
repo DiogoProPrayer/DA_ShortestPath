@@ -17,7 +17,7 @@ class Node {
         bool processing = false;
         int low = -1, num = -1;
         double dist = 0;
-        int pred;
+        int pred=-1;
         std::vector<Edge *> adj;
         Edge *path = nullptr;
         std::vector<Edge *> incoming;

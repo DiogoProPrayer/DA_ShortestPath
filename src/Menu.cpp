@@ -1,14 +1,14 @@
 #include <iostream>
 #include <string>
-
 #include "Graph.h"
 #include "readData.h"
-int mode=0;
+#include "Menu.h"
+int mode=-1;
+std::string avoidNodes;
 std::string source;
 std::string dest;
-std::string avoidNodes;
 std::string avoidEdges;
-std::string includeNode;
+std::string nodeToInclude;
 std::string test;
 
 void menu() {
@@ -19,7 +19,7 @@ void menu() {
     <<std::endl<<"7.execute \n"<<"8.Exit Menu"<<std::endl;
 }
 void modedisplay() {
-    std::cout<<"Enter Mode \n"<<"1.Driving \n"<<"2.Walking \n"<<"3.Driving-walking \n";
+    std::cout<<"Enter Mode \n"<<"0.Driving \n"<<"1.Walking \n"<<"1.Driving-walking \n";
 }
 
 void read() {
@@ -39,8 +39,8 @@ int main() {
         switch (choice) {
             case 0:
                 modedisplay();
-            std::cin>>mode;
-            break;
+                std::cin>>mode;
+                break;
             case 1:
                 std::cin>>source;
                 break;
@@ -49,33 +49,39 @@ int main() {
                 break;
             case 3:
                 std::cin>>avoidNodes;
-            break;
+                break;
             case 4:
                 std::cin>>avoidEdges;
-            break;
+                break;
             case 5:
-                std::cin>>includeNode;
-            break;
+                std::cin>>nodeToInclude;
+                break;
             case 6:
-                read();
             std::cin >> test;
-            // to do implement this readfromfile(test);
+            // to do implement this readfromfile(test);3
             break;
             case 7:
-                if (mode!=0 && !source.empty() && !dest.empty() && !avoidNodes.empty() && !avoidEdges.empty()&& !includeNode.empty()) {
-                    switch (mode) {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
+                if (mode!=-1 && !source.empty() && !dest.empty()){
+                    switch (mode)
+                    {
+                    case 0:
+                        noRestrictions(stoi(source),stoi(dest),graph,mode);
+                        break;
+                    case 1:
+                        noRestriction(stoi(source),stoi(dest),graph,mode);
+                        break;
+                    case 2:
+                        //todo implement drive-walking
+                        break;
+                    default:
+                        break;
                     }
+                    
                 }
             std::cout<<"One of the necessary fields was not filled \n";
             default:
                 std::cout << "Invalid choice, please try again. \n";
-            break;
+                break;
 
         }
     }
