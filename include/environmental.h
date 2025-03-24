@@ -1,8 +1,10 @@
 #include <vector>
 #include <utility>
-#include "structs/graph.h"
-#include "dijkstra/driving.h"
-#include "dijkstra/walking.h"
+#include "graph.h"
+#include "node.h"
+#include "edge.h"
+#include "getDriving.h"
+#include "getWalking.h"
 
 using namespace std;
 
