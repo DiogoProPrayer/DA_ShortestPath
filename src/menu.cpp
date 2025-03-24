@@ -89,10 +89,11 @@ void menuEcoRoute() {
 
 
 void menu(){
+
     int state = -1;
     while (state != 0) {
         cout << "\n\n"; // Extra space before header
-        cout << COLOR_BLUE_HEADER << "        Shortest Path - MAIN MENU        " << COLOR_RESET << endl;
+        cout << COLOR_BLUE_HEADER << "        Shortest Path - MAIN MENU         " << COLOR_RESET << endl;
         cout << COLOR_GREEN << "1 - Plan Driving Route" << COLOR_RESET << endl;
         cout << COLOR_GREEN << "2 - Environmentally-Friendly Route" << COLOR_RESET << endl;
         cout << COLOR_RED << "0 - Quit" << COLOR_RESET << endl;

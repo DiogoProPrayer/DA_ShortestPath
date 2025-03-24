@@ -1,36 +1,32 @@
-#ifndef GRAPH_H
-#define GRAPH_H
-
-#include <string>
-#include <utility>
-#include <vector>
+#include "graph.h"
 #include "node.h"
 #include "edge.h"
 
 using namespace std;
 
 // Destructor
-~Graph::Graph() {
+Graph::~Graph() {
     deleteMatrix(distMatrix, Nodes.size());
     deleteMatrix(pathMatrix, Nodes.size());
     for (auto node : Nodes) {
         delete node;
     }
+    Nodes.clear();
 }
 
 // Getters
 int Graph::getNumVertex() const {
     return Nodes.size();
 }
+
 vector<Node *> Graph::getNodes() const {
     return Nodes;
 } 
 
-// Functions
 // Find node index
 int Graph::findNodeIndex(const Node &in) const {
-    for (size_t i = 0; i < Nodes.size(); i++){
-        if (Nodes[i]->getId() == in.getId()){
+    for (size_t i = 0; i < Nodes.size(); i++) {
+        if (Nodes[i]->getId() == in.getId()) {
             return i;
         }
     }
@@ -39,8 +35,8 @@ int Graph::findNodeIndex(const Node &in) const {
 
 // Find node
 Node* Graph::findNode(const Node &in) const {
-    for (auto v : Nodes){
-        if (v->getId() == in.getId()){
+    for (auto v : Nodes) {
+        if (v->getId() == in.getId()) {
             return v;
         }
     }
@@ -49,7 +45,7 @@ Node* Graph::findNode(const Node &in) const {
 
 // Add node
 bool Graph::addNode(const Node &in) {
-    if (findNode(in) != nullptr){
+    if (findNode(in) != nullptr) {
         return false;
     }
     Nodes.push_back(new Node(in));
@@ -105,10 +101,10 @@ bool Graph::addBidirectionalEdge(const Node &orig, const Node &dest, double driv
 
 // Find vertex index
 int Graph::findVertexIdx(const Node &in) const {
-    for (size_t i = 0; i < Nodes.size(); i++){
-    if (Nodes[i]->getId() == in.getId()){
-        return i;
-    }
+    for (size_t i = 0; i < Nodes.size(); i++) {
+        if (Nodes[i]->getId() == in.getId()) {
+            return i;
+        }
     }
     return -1;
 }

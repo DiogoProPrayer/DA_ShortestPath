@@ -1,9 +1,9 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-#include "node.h"
-
 using namespace std;
+
+class Node;
 
 // Class edge
 class Edge {
