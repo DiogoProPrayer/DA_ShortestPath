@@ -11,20 +11,31 @@ std::string avoidEdges;
 std::string nodeToInclude;
 std::string test;
 
-void menu() {
+/**
+ * @brief Function that displays the menu
+ * 
+ * @return void
+ * */
 
+void menu() {
     std::cout<<"0.Mode"<<std::endl<<"1.source"<<std::endl<<
     "2.destination"<<std::endl<<"3.Avoid Nodes"<<std::endl<<
     "4.Avoid Segments"<<std::endl<<"5.Include Node"<<std::endl<<"6.execute \n"<<"8.Exit Menu"<<std::endl;
 }
+/**
+ * @brief Function that displays the mode options
+ * 
+ * @return void  
+ */
 void modedisplay() {
     std::cout<<"Enter Mode \n"<<"0.Driving \n"<<"1.Walking \n"<<"1.Driving-walking \n";
 }
 
-void read() {
-    std::cout<<"Enter path to Locations file: \n"<<"Enter path to distance file: \n";
-}
-
+/**
+ * @brief initializes the graph and after the user has inputted the necessary fields, it calls the algorithm function
+ * 
+ * @return int
+ */
 
 int main() {
     int choice;
@@ -73,7 +84,32 @@ int main() {
                     }
                     if(!avoidNodes.empty() && avoidEdges.empty() && nodeToInclude.empty()){
                         std::set<int> limit;
-                        restrictNode(stoi(source),stoi(dest),graph,limit,mode);
+                        restrictN(stoi(source),stoi(dest),graph,limit,mode);
+                    }
+                    if(!avoidEdges.empty() && avoidNodes.empty() && nodeToInclude.empty()){
+                        std::vector<std::pair<int,int>> edgesToAvoid;
+                        restrictEd(stoi(source),stoi(dest),graph,edgesToAvoid,mode);
+                    }
+                    if(!avoidEdges.empty() && !avoidNodes.empty() && nodeToInclude.empty()){
+                        std::set<int> limit;
+                        std::vector<std::pair<int,int>> edgesToAvoid;
+                        restrictEdgesAndNodes(stoi(source),stoi(dest),graph,limit,edgesToAvoid,mode);
+                    }
+                    if(!nodeToInclude.empty() && avoidEdges.empty() && avoidNodes.empty()){
+                        include(stoi(source),stoi(dest),graph,stoi(nodeToInclude),mode);
+                    }
+                    if(!nodeToInclude.empty() && !avoidNodes.empty() && avoidEdges.empty()){
+                        std::set<int> limit;
+                        includeWithRN(stoi(source),stoi(dest),graph,limit,stoi(nodeToInclude),mode);
+                    }
+                    if(!nodeToInclude.empty() && avoidEdges.empty() && !avoidNodes.empty()){
+                        std::vector<std::pair<int,int>> edgesToAvoid;
+                        includeNodeWRE(stoi(source),stoi(dest),graph,edgesToAvoid,stoi(nodeToInclude),mode);
+                    }
+                    if(!nodeToInclude.empty() && !avoidEdges.empty() && !avoidNodes.empty()){
+                        std::set<int> limit;
+                        std::vector<std::pair<int,int>> edgesToAvoid;
+                        includeWithRNE(stoi(source),stoi(dest),graph,limit,edgesToAvoid,stoi(nodeToInclude),mode);
                     }
                     
                 }

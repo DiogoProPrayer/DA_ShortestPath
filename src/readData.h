@@ -8,6 +8,8 @@
 /** 
  * @brief Reads the data from the files Locations.csv(contains the node information) and Distances.csv(contains the connections between the nodes) and adds the nodes and edges to the graph
  * 
+ * @details Complexity O(V+E)
+ * 
  * @param graph The graph to which the nodes and edges will be added
  * 
  * @return void
