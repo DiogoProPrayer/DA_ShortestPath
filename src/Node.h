@@ -5,26 +5,27 @@
 #ifndef NODE_H
 #define NODE_H
 #include "Edge.h"
+#include <limits>
 
 class Node {
     protected:
         std::string location;
         std::string code;
         int id;
-        bool parking;
-        bool visited=false;
+        bool parking = false;
+        bool visited = false;
         unsigned int indegree;
         bool processing = false;
         int low = -1, num = -1;
-        double dist = 0;        
+        double dist = std::numeric_limits<double>::max();        
         int pred=-1;
 
-        double walking_dist = 0;
+        double walking_dist = std::numeric_limits<double>::max();
         int walking_pred = -1;
         bool walking_visited = false;
 
-        std::vector<Edge *> adj;
         Edge *path = nullptr;
+        std::vector<Edge *> adj;
         std::vector<Edge *> incoming;
 
         void deleteEdge(Edge *edge) {
@@ -82,6 +83,10 @@ class Node {
     double getDist() const {
         return dist;
     };
+    double getWalkingDist() const {
+        return walking_dist;
+    };
+
     Edge *getPath() const {
         return path;
     };
@@ -120,6 +125,17 @@ class Node {
     void setPath(Edge *path) {
         this->path=path;
     };
+    void setWalkingDist(double dist) {
+        this->walking_dist=dist;
+    };
+    void setWalkingPred(int pred) {
+        this->walking_pred=pred;
+    };
+    void setWalkingVisited(bool visited) {
+        this->walking_visited=visited;
+    };
+
+
     Edge* addEdge(Node *dest,double  driving,double walking) {
         auto newEdge = new Edge(this, dest, driving, walking);
         adj.push_back(newEdge);
