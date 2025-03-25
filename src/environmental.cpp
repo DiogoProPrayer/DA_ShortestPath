@@ -12,187 +12,164 @@
 
 using namespace std;
 
+
 // Calculate best environmental route
-pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, bool> Environmental::bestRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
-
-    // Get the best driving and walking routes and their times
-    vector<int> bdr; // best driving route
-    vector<int> bwr; // best walking route
-    int bdt = INT_MAX; // best driving time
-    int bwt = INT_MAX; // best walking time
-
-    // Set parking nodes available false
+pair<BestRoute, bool> Environmental::bestRoute(Graph* graph, Node* orig, Node* dest, int maxWalkingTime, vector<int> avoidNodes, vector<pair<Node*, Node*>> avoidEdges){
+    BestRoute bestRoute;
     bool park = false;
 
-    // Remove nodes to be avoided from graph
-    for (int id : aNodes){ // avoid nodes
-        g->removeNode(id);
+    // Remove what can't be used
+    for (int id : avoidNodes){
+        graph->removeNode(id);
+    }
+    for (auto& edge : avoidEdges){
+        graph->removeEdge(edge.first, edge.second);
     }
 
-    // Remove edges to be avoided from graph
-    for (auto& edge : aEdges){ // avoid edges
-        g->removeEdge(edge.first, edge.second);
-    }
 
-    // Get parking nodes
+    // Get parking nodes - check if none
     vector<Node*> parkingNodes;
-    for (Node* n : g->getNodes()){
-      if (n->getParking() == 1){
-        parkingNodes.push_back(n);
+    for (Node* node : graph->getNodes()){
+      if (node->getParking() == 1){
+        parkingNodes.push_back(node);
         park = true;
       }
     }
     if (!park){
-      return {{{bdr, bwr}, {bdt, bwt}}, park};
+      return {bestRoute, park};
     }
 
-    // Go through all parking nodes
-    for (Node* n : parkingNodes){ // node
 
-        // run the algorithm
-        Dijkstra gw; // walking time
-        gw.dijkstra(g, n, false);
+    // Go through all parking nodes - return result
+    for (Node* node : parkingNodes){
+        vector<int> walkPath;
+        vector<int> drivePath;
+        int walkTime;
+        int driveTime;
 
-        // walking path
-        vector<int> wPath; // walking path
 
-        // Check if possible and doesn't exceed maximum walking time - continue to the next node if not
-        if (dest->getPath() == nullptr || dest->getDistance() > mwt){
+        // Get walking time - check if possible
+        Dijkstra getWalking;
+        getWalking.dijkstra(graph, node, false);
+        if (dest->getPath() == nullptr || dest->getDistance() > maxWalkingTime){
             continue;
         }
 
-        // Get walking path
-        cn = g->findNode(dest);
-        while (cn){
-            wPath.push_back(cn->getId());
-            cn = cn->getPath();
+        // Get walking path and distance
+        currentNode = graph->findNode(dest);
+        while (currentNode){
+            walkPath.push_back(currentNode->getId());
+            currentNode = currentNode->getPath();
         }
-        reverse(wPath.begin(), wPath.end());
+        reverse(walkPath.begin(), walkPath.end());
+        walkTime = dest->getDistance();
 
-        // Get walking time of route
-        int cwt = dest->getDistance(); // current walking time
 
-        // get driving route from origin to node
-        pair<vector<int>, int> dr = Driving::indRoute(g, orig, n, true); // driving route
-
-        // get driving path
-        vector<int> dPath = dr.first; // walking path
-
-        // Get driving time of the current route
-        int cdt = dr.second; // current driving time
-
-        // Check if best
-        if ((cdt + cwt < bdt + bwt) || (cdt + cwt == bdt + bwt && cwt > bwt)){
-            bdt = cdt;
-            bwt = cwt;
-            bdr = dPath;
-            bwr = wPath;
-        }
-
-        // If is no better
-        else{
+        // Get driving time - check if possible
+        pair<vector<int>, int> drivingRoute = Driving::indRoute(graph, orig, node, true);
+        if (drivingRoute.second == -1){
             continue;
         }
-    }
 
-    // Return result - both routes and respestive times, conditions met
-    return {{{bdr, bwr}, {bdt, bwt}}, park};
+        // Get driving path and distance
+        drivePath = drivingRoute.first;
+        driveTime = drivingRoute.second;
+
+
+        // Check if better
+        int currentTime = driveTime + walkTime;
+        int bestTime = bestRoute.driveTime + bestRoute.walkTime;
+        if ((currentTime < bestTime) || (currentTime == bestTime && walkTime > bestRoute.walkTime)){
+            bestRoute.driveTime = driveTime;
+            bestRoute.walkTime = walkTime;
+            bestRoute.drivePath = drivePath;
+            bestRoute.walkPath = walkPath;
+        }
+    }
+    return {bestRoute, park};
 }
 
 
 // Calculate aproximate environmental route
-pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, pair<pair<vector<int>, vector<int>>, pair<int, int>>> Environmental::aprRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
+pair<BestRoute, AltRoute> Environmental::aprRoute(Graph* graph, Node* orig, Node* dest, vector<int> avoidNodes, vector<pair<Node*, Node*>> avoidEdges){
+    BestRoute bestRoute;
+    AltRoute altRoute;
 
-    // Get two possible routes and times
-    vector<int> fbdr; // first best driving route
-    vector<int> fbwr; // first best walking route
-    int fbdt = INT_MAX; // first best driving time
-    int fbwt = INT_MAX; // first best walking time
-    vector<int> sbdr; // second best driving route
-    vector<int> sbwr; // second best walking route
-    int sbdt = INT_MAX; // second best driving time
-    int sbwt = INT_MAX; // second best walking time
-
-    // Remove nodes to be avoided from graph
-    for (int id : aNodes){ // avoid nodes
-        g->removeNode(id);
+    // Remove what can't be used
+    for (int id : avoidNodes){
+        graph->removeNode(id);
+    }
+    for (auto& edge : avoidEdges){
+        graph->removeEdge(edge.first, edge.second);
     }
 
-    // Remove edges to be avoided from graph
-    for (auto& edge : aEdges){ // avoid edges
-        g->removeEdge(edge.first, edge.second);
-    }
 
     // Get parking nodes
     vector<Node*> parkingNodes;
-    for (Node* n : g->getNodes()){
-        if (n->getParking() == 1){
-            parkingNodes.push_back(n);
+    for (Node* node : graph->getNodes()){
+        if (node->getParking() == 1){
+            parkingNodes.push_back(node);
         }
     }
 
-    // Go through all parking nodes
-    for (Node* n : parkingNodes){ // node
 
-        // run the algorithm
-        Dijkstra gw; // walking time
-        gw.dijkstra(g, n, false);
+    // Go through all parking nodes - return result
+    for (Node* node : parkingNodes){
+        vector<int> walkPath;
+        vector<int> drivePath;
+        int walkTime;
+        int driveTime;
 
-        // walking path
-        vector<int> wPath; // walking path
 
-        // Check if possible - continue to the next node if not
+        // Get walking time - check if possible
+        Dijkstra getWalking;
+        getWalking.dijkstra(graph, node, false);
         if (dest->getPath() == nullptr){
             continue;
         }
 
-        // Get walking path
-        cn = g->findNode(dest);
-        while (cn){
-            wPath.push_back(cn->getId());
-            cn = cn->getPath();
+        // Get walking path and distance
+        currentNode = graph->findNode(dest);
+        while (currentNode){
+            walkPath.push_back(currentNode->getId());
+            currentNode = currentNode->getPath();
         }
-        reverse(wPath.begin(), wPath.end());
+        reverse(walkPath.begin(), walkPath.end());
+        walkTime = dest->getDistance();
 
-        // Get walking time of route
-        int cwt = dest->getDistance(); // current walking time
 
-        // get driving route from origin to node
-        pair<vector<int>, int> dr = Driving::indRoute(g, orig, n, true); // driving route
-
-        // get driving path
-        vector<int> dPath = dr.first; // walking path
-
-        // Get driving time of the current route
-        int cdt = dr.second; // current driving time
-
-        // Check if best
-        if ((cdt + cwt < fbdt + fbwt) || (cdt + cwt == fbdt + fbwt && cwt > fbwt)){
-            fbdt = cdt;
-            fbwt = cwt;
-            fbdr = dPath;
-            fbwr = wPath;
-            sbdt = fbdt;
-            sbwt = fbwt;
-            sbdr = fbdr;
-            sbwr = fbwr;
-        }
-
-        // Check if second best
-        else if ((cdt + cwt < sbdt + sbwt) || (cdt + cwt == sbdt + sbwt && cwt > sbwt)){
-            sbdt = cdt;
-            sbwt = cwt;
-            sbdr = dPath;
-            sbwr = wPath;
-        }
-
-        // If is no better
-        else{
+        // Get driving time - check if possible
+        pair<vector<int>, int> drivingRoute = Driving::indRoute(graph, orig, node, true);
+        if (drivingRoute.second == -1){
             continue;
         }
-    }
 
-    // Return result - first best routes and times, second best routes and times
-    return {{{fbdr, fbwr}, {fbdt, fbwt}}, {{sbdr, sbwr}, {sbdt, sbwt}}};
+        // Get driving path and distance
+        drivePath = drivingRoute.first;
+        driveTime = drivingRoute.second;
+
+
+        // Check if better
+        int currentTime = driveTime + walkTime;
+        int bestTime = bestRoute.driveTime + bestRoute.walkTime;
+        int altTime = altRoute.driveTime + altRoute.walkTime;
+        if ((currentTime < bestTime) || (currentTime == bestTime && walkTime > bestRoute.walkTime)){
+            altRoute.driveTime = bestRoute.driveTime;
+            altRoute.walkTime = bestRoute.walkTime;
+            altRoute.drivePath = bestRoute.drivePath;
+            altRoute.walkPath = bestRoute.walkPath;
+            bestRoute.driveTime = driveTime;
+            bestRoute.walkTime = walkTime;
+            bestRoute.drivePath = drivePath;
+            bestRoute.walkPath = walkPath;
+        }
+        else if ((currentTime < altTime) || (currentTime == altTime && walkTime > altRoute.walkTime)){
+            altRoute.driveTime = driveTime;
+            altRoute.walkTime = walkTime;
+            altRoute.drivePath = drivePath;
+            altRoute.walkPath = walkPath;
+        }
+    }
+    return {bestRoute, altRoute};
 }
 

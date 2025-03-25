@@ -15,10 +15,10 @@ class Driving {
     public:
 
         // Calculate independent driving route
-        pair<vector<int>, int> indRoute(Graph* g, Node* orig, Node* dest, bool best);
+        pair<vector<int>, int> indRoute(Graph* graph, Node* orig, Node* dest, bool best);
 
         // Calculate restricted driving route
-        pair<vector<int>, int> resRoute(Graph* g, Node* orig, Node* dest, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges, Node* iNode);
+        pair<vector<int>, int> resRoute(Graph* graph, Node* orig, Node* dest, vector<int> avoidNodes, vector<pair<Node*, Node*>> avoidEdges, Node* includeNode);
 };
 
 #endif

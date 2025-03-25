@@ -9,35 +9,40 @@
 
 using namespace std;
 
-// Helper function to dijkstra algorithm
-bool Dijkstra::check(Edge *e, bool driving) {  // edge
-  Node *on = e->getOrig(); // origin node
-  Node *dn = e->getDest(); // destination node
 
+// Helper function
+bool Dijkstra::check(Edge *edge, bool driving) {
+  Node *origNode = edge->getOrig();
+  Node *destNode = edge->getDest();
+
+
+  // If driving
   if (driving) {
-    double dt = e->getDrivingTime(); // driving time
+    double driveTime = edge->getDrivingTime();
 
     // You can't drive
-    if (dt == X){
+    if (driveTime == X){
       return false;
     }
 
     // If it's a shorter path - update
-    if (on->getDistance() + dt < dn->getDistance()) {
-      dn->setDistance(on->getDistance() + dt);
-      dn->setPath(e);
+    if (origNode->getDistance() + driveTime < destNode->getDistance()) {
+      destNode->setDistance(origNode->getDistance() + driveTime);
+      destNode->setPath(edge);
       return true;
     }
     return false;
   }
 
+
+  // If walking
   else {
-    double wt = e->getWalkingTime(); // walking time
+    double walkTime = edge->getWalkingTime();
 
     // If it's a shorter path - update
-    if (on->getDistance() + wt < dn->getDistance()) {
-      dn->setDistance(on->getDistance() + wt);
-      dn->setPath(e);
+    if (origNode->getDistance() + walkTime < destNode->getDistance()) {
+      destNode->setDistance(origNode->getDistance() + walkTime);
+      destNode->setPath(edge);
       return true;
     }
     return false;
@@ -46,27 +51,28 @@ bool Dijkstra::check(Edge *e, bool driving) {  // edge
 
 
 // Dijkstra algorithm
-void GetDriving::dijkstra(Graph* g, Node* orig, bool driving) {
-  auto ns = g->getNodes(); // nodes
+void Dijkstra::dijkstra(Graph* graph, Node* orig, bool driving) {
+  auto nodes = graph->getNodes();
 
   // Reset all
-  for (auto n : ns){ // node
-    n->setDistance(INT_MAX);
-    n->setPath(nullptr);
+  for (auto node : nodes){
+    node->setDistance(INT_MAX);
+    node->setPath(nullptr);
   }
 
+
   // Start calculating the distance
-  orig->setDistance(0); // origin
-  MutablePriorityQueue<Node> pq; // priority queue
-  pq.insert(orig);
-  while (!pq.empty()) {
-    Node *cn = pq.extractMin(); // current node
+  orig->setDistance(0);
+  MutablePriorityQueue<Node> queue;
+  queue.insert(orig);
+  while (!queue.empty()) {
+    Node *currentNode = queue.extractMin();
 
     // Check possible paths
-    for (auto &e : cn->getAdj()){ // edge
-      Node *nn = e.getDest(); // next node
-      if (check(&e, driving)){
-        pq.insert(nn);
+    for (auto &edge : currentNode->getAdj()){
+      Node *nextNode = edge.getDest();
+      if (check(&edge, driving)){
+        queue.insert(nextNode);
       }
     }
   }

@@ -13,18 +13,26 @@ using namespace std;
 // Class environmental to get the environmental routes
 class Environmental {
     public:
+        struct BestRoute {
+            vector<int> drivePath;
+            vector<int> walkPath;
+            int driveTime = INT_MAX;
+            int walkTime = INT_MAX;
+        };
 
-        // Calculate main environmental route
-        pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, pair<bool, bool>> mainEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges);
+        struct AltRoute {
+            vector<int> drivePath;
+            vector<int> walkPath;
+            int driveTime = INT_MAX;
+            int walkTime = INT_MAX;
+        };
 
-        // Calculate environmental route with no walking limit
-        pair<pair<pair<vector<int>, vector<int>>, pair<int, int>, pair<vector<int>, vector<int>>, pair<int, int>>> nwlEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges);
+        // Calculate best environmental route
+        pair<BestRoute, bool> Environmental::bestRoute(Graph* graph, Node* orig, Node* dest, int maxWalkingTime, vector<int> avoidNodes, vector<pair<Node*, Node*>> avoidEdges);
 
-        // Calculate environmental route with any parking option
-        pair<pair<pair<vector<int>, vector<int>>, pair<int, int>, pair<vector<int>, vector<int>>, pair<int, int>>> apoEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges);
-
-        // Calculate environmental route with no rules
-        pair<pair<pair<vector<int>, vector<int>>, pair<int, int>, pair<vector<int>, vector<int>>, pair<int, int>>> nrEnvironmentalRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges);
+        // Calculate aproximate environmental route
+        pair<BestRoute, AltRoute> Environmental::aprRoute(Graph* graph, Node* orig, Node* dest, vector<int> avoidNodes, vector<pair<Node*, Node*>> avoidEdges);
 };
 
 #endif
+

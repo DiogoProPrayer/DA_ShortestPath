@@ -15,13 +15,13 @@ class Dijkstra {
   private:
 
     // Helper function to dijkstra algorithm
-    bool check(Edge *e, bool driving);
+    bool check(Edge *edge, bool driving);
       
 
   public:
 
     // Dijkstra algorithm
-    void dijkstra(Graph* g, Node* orig, bool driving);
+    void dijkstra(Graph* graph, Node* orig, bool driving);
 };
 
 #endif

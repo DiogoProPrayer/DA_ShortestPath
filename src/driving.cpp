@@ -11,130 +11,116 @@
 
 using namespace std;
 
+
 // Calculate independent driving route
-pair<vector<int>, int> Driving::indRoute(Graph* g, Node* orig, Node* dest, bool best){
+pair<vector<int>, int> Driving::indRoute(Graph* graph, Node* orig, Node* dest, bool best){
 
-    // Get driving time
-    Dijkstra gd; // algorithm
-    gd.dijkstra(g, orig, true);
 
-    // path to return
-    vector<int> path;
-    
-    // Check if possible - return distance -1 if not
+  	// Best route
+  	vector<int> path;
+
+    // Get driving time - check if possible
+    Dijkstra getDriving;
+    getDriving.dijkstra(graph, orig, true);
     if (dest->getPath() == nullptr || dest->getParking() == 0){
         return {path, -1};
     }
 
-    // Get path
-    Node *cn = g->findNode(dest); // current node
-    while (cn){
-        path.push_back(cn->getId());
-        cn = cn->getPath();
+    // Get path - return
+    Node *currentNode = graph->findNode(dest);
+    while (currentNode){
+        path.push_back(currentNode->getId());
+        currentNode = currentNode->getPath();
     }
     reverse(path.begin(), path.end());
-
-    // Return result - path and distance
     if (best) {
         return {path, dest->getDistance()};
     }
 
-    // Remove nodes used in main driving route from graph
+
+    // Alternative route
+    vector<int> altPath;
+
+    // Remove nodes used in best route
     for (int i = 1; i < path.size()-1; i++){
-        g->removeNode(path[i]);
+        graph->removeNode(path[i]);
     }
 
-    // Get driving time for alternative route
-    gd.dijkstra(g, orig, true);
-
-    // Alternative path
-    vector<int> apath;
-
-    // Check if possible - return distance -1 if not
+    // Get driving time - check if possible
+    getDriving.dijkstra(graph, orig, true);
     if (dest->getPath() == nullptr || dest->getParking() == 0){
-        return {apath, -1};
+        return {altPath, -1};
     }
 
-    // Get path for alternative route
-    cn = g->findNode(dest);
-    while (cn){
-        apath.push_back(cn->getId());
-        cn = cn->getPath();
+    // Get path - return
+    currentNode = graph->findNode(dest);
+    while (currentNode){
+        altPath.push_back(currentNode->getId());
+        currentNode = currentNode->getPath();
     }
-    reverse(apath.begin(), apath.end());
-
-    // Return result - path and distance
-    return {apath, dest->getDistance()};
+    reverse(altPath.begin(), altPath.end());
+    return {altPath, dest->getDistance()};
 }
 
+
 // Calculate restricted driving route
-pair<vector<int>, int> Driving::resRoute(Graph* g, Node* orig, Node* dest, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges, Node* iNode){
+pair<vector<int>, int> Driving::resRoute(Graph* graph, Node* orig, Node* dest, vector<int> avoidNodes, vector<pair<Node*, Node*>> avoidEdges, Node* includeNode){
 
-    // Remove nodes that can't be used from graph - avoid nodes
-    for (int id : aNodes){ // avoid nodes
-        g->removeNode(id);
+    // Remove what can't be used
+    for (int id : avoidNodes){
+        graph->removeNode(id);
+    }
+    for (auto& edge : avoidEdges){
+        graph->removeEdge(edge.first, edge.second);
     }
 
-    // Remove edges that can't be used from graph - avoid edges
-    for (auto& edge : aEdges){ // avoid edges
-        g->removeEdge(edge.first, edge.second);
+
+    // If no node to include
+    if (includeNode == nullptr) {
+        return indRoute(graph, orig, dest, true)
     }
 
-    // Check if there is a node to be included - include node
-    if (iNode == nullptr) { // no node to be included
-        return indRoute(g, orig, dest, true)
-    }
 
+    // If node to include
     else {
-
-        // total final distance
+        vector<int> path;
         int dist = 0;
 
-        // Get driving time from node to be included
-        Dijkstra gd; // algorithm
-        gd.dijkstra(g, iNode, true);
 
-        // path to return
-        vector<int> path;
-
-        // Check if possible - if not distance -1
+        // Get driving time from node to include - check if possible
+        Dijkstra getDriving;
+        getDriving.dijkstra(graph, includeNode, true);
         if (dest->getPath() == nullptr || dest->getParking() == 0){
             return {path, -1};
         }
 
-        // Get path from destination to node to include
-        Node *cn = g->findNode(dest); // current node
-        while (cn){
-            path.push_back(cn->getId());
-            cn = cn->getPath();
+        // Get path and distance from destination to node to include
+        Node *currentNode = graph->findNode(dest);
+        while (currentNode){
+            path.push_back(currentNode->getId());
+            currentNode = currentNode->getPath();
         }
-
-        // sum distance
         dist += dest->getDistance();
 
-        // Get driving time from origin
-        gd.dijkstra(g, orig);
 
-        // Check if possible - distance -1 if not
-        if (iNode->getPath() == nullptr){ // can't include node
+        // Get driving time from origin - check if possible
+        getDriving.dijkstra(graph, orig);
+        if (includeNode->getPath() == nullptr){
             return {path, -1};
         }
 
-        // Get path from node to be included to origin - not including node to include again
-        cn = g->findNode(iNode);
-        cn = cn->getPath();
-        while (cn){
-            path.push_back(cn->getId());
-            cn = cn->getPath();
+        // Get path and distance from node to be included to origin
+        currentNode = graph->findNode(includeNode);
+        currentNode = currentNode->getPath();
+        while (currentNode){
+            path.push_back(currentNode->getId());
+            currentNode = currentNode->getPath();
         }
+        dist += includeNode->getDistance();
 
-        // sum distance
-        dist += iNode->getDistance();
 
-        // final path
+        // Return
         reverse(path.begin(), path.end());
-
-        // Return result
         return {path, dist};
     }
 }
