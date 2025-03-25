@@ -8,6 +8,7 @@
 
 using namespace std;
 
+
 struct DrivingWalkingResult {
     vector<int> driving_route;
     vector<int> walking_route;
@@ -17,9 +18,24 @@ struct DrivingWalkingResult {
 };
 
 class DrivingWalking {
+private:
+    DrivingWalkingResult result;
+    DrivingWalkingResult alternative1;
+    DrivingWalkingResult alternative2;
+
+
+    Graph graph;
+    int source;
+    int destination;
+    int maxWalkTime;
+    unordered_set<int> avoidNodes;
+    unordered_set<pair<int, int>, pair_hash> avoidSegments;
+
+    vector<Node *> walking_to_parks();
+
 public:
-    DrivingWalking();
-    DrivingWalkingResult calculateRoute(int source, int destination, int maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments);
+    DrivingWalking(Graph graph,int source, int destination, int maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments);
+    bool calculateRoute();
 };
 
 

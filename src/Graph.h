@@ -22,6 +22,7 @@ public:
     std::vector<Node *> getNodes() const;
     void printGraph();
     int getNodeSize() const;
+    Node *getNode(int idx) const;
 
 protected:
     std::vector<Node *> Nodes;

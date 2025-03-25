@@ -16,8 +16,13 @@ class Node {
         unsigned int indegree;
         bool processing = false;
         int low = -1, num = -1;
-        double dist = 0;
+        double dist = 0;        
         int pred=-1;
+
+        double walking_dist = 0;
+        int walking_pred = -1;
+        bool walking_visited = false;
+
         std::vector<Edge *> adj;
         Edge *path = nullptr;
         std::vector<Edge *> incoming;

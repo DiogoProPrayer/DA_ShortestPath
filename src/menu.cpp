@@ -2,6 +2,7 @@
 #include <string>
 #include <unordered_set>
 #include "menu.h"
+#include "driving-walking.h"
 #include <regex>
 
 
@@ -71,8 +72,8 @@ void menuEcoRoute(Graph graph)
 
     if (option == 1)
     {
-        string source, destination, avoidNodes, avoidSegments;
-        int maxWalkTime;
+        string  avoidNodes, avoidSegments;
+        int source, destination, maxWalkTime;
         cout << COLOR_YELLOW << "Enter source node ID: " << COLOR_RESET;
         cin >> source;
         cout << COLOR_YELLOW << "Enter destination node ID: " << COLOR_RESET;
@@ -115,7 +116,8 @@ void menuEcoRoute(Graph graph)
             searchStart = match.suffix().first;
         }
 
-
+        DrivingWalking drivingWalking (graph, source, destination, maxWalkTime, avoidNodesSet, avoidSegmentsSet);
+        drivingWalking.calculateRoute();
 
         cout << COLOR_GREEN << "Calculating environmentally-friendly route..." << COLOR_RESET << endl;
     }
