@@ -3,19 +3,6 @@
 #include "Mode.h"
 #include <iostream>
 #include <fstream>
-
-void readFromFile(std::string path,Graph &graph){
-    std::ifstream file(path);
-    if(!file.is_open()){
-        std::cout<<"Error opening file"<<std::endl;
-        return;
-    }
-    std::string data;
-    while(getline(file, data)){
-
-    }
-
- } 
  
  std::pair<std::pair<std::vector<int>,double>,std::pair<std::vector<int>,double>>  noRestrictions(int source, int dest, Graph &graph, int mode) {
     std::pair<std::pair<std::vector<int>,double>,std::pair<std::vector<int>,double>> paths;

@@ -1,14 +1,17 @@
 #ifndef Read
 #define Read
-
-
-
 #include <iostream>
 #include <fstream>
 #include "Graph.h"
 #include "Node.h"
 
-
+/** 
+ * @brief Reads the data from the files Locations.csv(contains the node information) and Distances.csv(contains the connections between the nodes) and adds the nodes and edges to the graph
+ * 
+ * @param graph The graph to which the nodes and edges will be added
+ * 
+ * @return void
+ */
 void readData( Graph &graph) {
     std::string data,location,code,location2;
     int id,fpos;

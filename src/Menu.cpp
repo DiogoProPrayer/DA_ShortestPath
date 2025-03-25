@@ -15,8 +15,7 @@ void menu() {
 
     std::cout<<"0.Mode"<<std::endl<<"1.source"<<std::endl<<
     "2.destination"<<std::endl<<"3.Avoid Nodes"<<std::endl<<
-    "4.Avoid Segments"<<std::endl<<"5.Include Node"<<std::endl<<"6.Read From File"
-    <<std::endl<<"7.execute \n"<<"8.Exit Menu"<<std::endl;
+    "4.Avoid Segments"<<std::endl<<"5.Include Node"<<std::endl<<"6.execute \n"<<"8.Exit Menu"<<std::endl;
 }
 void modedisplay() {
     std::cout<<"Enter Mode \n"<<"0.Driving \n"<<"1.Walking \n"<<"1.Driving-walking \n";
@@ -57,10 +56,6 @@ int main() {
                 std::cin>>nodeToInclude;
                 break;
             case 6:
-            std::cin >> test;
-            // to do implement this readfromfile(test);3
-            break;
-            case 7:
                 if (mode!=-1 && !source.empty() && !dest.empty()){
                     switch (mode)
                     {
@@ -75,6 +70,10 @@ int main() {
                         break;
                     default:
                         break;
+                    }
+                    if(!avoidNodes.empty() && avoidEdges.empty() && nodeToInclude.empty()){
+                        std::set<int> limit;
+                        restrictNode(stoi(source),stoi(dest),graph,limit,mode);
                     }
                     
                 }
