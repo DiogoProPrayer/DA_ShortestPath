@@ -75,11 +75,18 @@ vector<Node *> DrivingWalking::walking_to_parks()
     return parkingNodes;
 }
 
+pair<DrivingWalkingResult, DrivingWalkingResult> DrivingWalking::alternativeRoutes()
+{
+    this->maxWalkTime = numeric_limits<int>::max();
+    this->result = calculateRoute();
 
+    
+
+    return {result, alternative1};
+}
 
 DrivingWalkingResult DrivingWalking::calculateRoute()
 {
-    DrivingWalkingResult result;
     result.no_parking = true;
     for(auto node : graph.getNodes())
     {
@@ -101,6 +108,10 @@ DrivingWalkingResult DrivingWalking::calculateRoute()
         result.no_range = true;
         return result;
     }
+
+    // Search the shortest paths that connect to those parking spots
+
+
 
     return result;
 }

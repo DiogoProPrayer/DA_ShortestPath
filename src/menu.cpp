@@ -95,8 +95,6 @@ void menuEcoRoute(Graph graph)
             }
             avoidNodesSet.insert(stoi(avoidNodes));
         }
-        cout << "Parsed avoidNodes: " << avoidNodesSet.size() << endl;
-
         cout << COLOR_MAGENTA << "Enter road segments to avoid ((id,id), or empty): " << COLOR_RESET;
         getline(cin, avoidSegments);
 
@@ -116,10 +114,31 @@ void menuEcoRoute(Graph graph)
             searchStart = match.suffix().first;
         }
 
-        DrivingWalking drivingWalking (graph, source, destination, maxWalkTime, avoidNodesSet, avoidSegmentsSet);
-        drivingWalking.calculateRoute();
+
+        if(graph.getNode(source)->getParking() || graph.getNode(destination)->getParking()) {
+            cout << COLOR_RED << "\nSource or destination is a parking node. \nImpossible to calculate path with driving and walking" << COLOR_RESET << endl;
+            return;
+        }
 
         cout << COLOR_GREEN << "Calculating environmentally-friendly route..." << COLOR_RESET << endl;
+
+        DrivingWalking drivingWalking (graph, source, destination, maxWalkTime, avoidNodesSet, avoidSegmentsSet);
+        DrivingWalkingResult result = drivingWalking.calculateRoute();
+
+        if(result.no_parking) {
+            // print the stuff saying no parking
+            cout<<"NO parking\n";
+        }
+        else if(result.no_range) {
+            // print the stuff saying no range
+            cout<<"NO range\n";
+
+            // ask for the alternative routes
+        }
+        else {
+            // print the stuff saying the route
+        }
+
     }
     else if (option == 2)
     {

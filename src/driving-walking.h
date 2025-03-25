@@ -50,6 +50,7 @@ private:
 
 public:
     DrivingWalking(Graph graph,int source, int destination, int maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments);
+    pair<DrivingWalkingResult, DrivingWalkingResult> alternativeRoutes();
     DrivingWalkingResult calculateRoute();
 };
 
