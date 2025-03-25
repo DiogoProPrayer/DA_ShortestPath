@@ -5,8 +5,9 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(DA_ShortestPath src/Graph.h
         src/readData.h
-        src/Menu.cpp
+        src/menu.cpp
         src/Node.h
         src/Edge.h
-        src/Drive.h
+        src/Graph.cpp
+        src/main.cpp
 )

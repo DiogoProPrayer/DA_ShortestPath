@@ -15,7 +15,7 @@ void readData( Graph &graph) {
     double walk,drive;
     bool parking;
 
-    std::ifstream locations("assets/Locations.csv");
+    std::ifstream locations("../assets/Locations.csv");
     if (!locations.is_open()) {
         std::cerr << "Error: Could not open Locations.csv" << std::endl;// Exit the program if the file cannot be opened
     }
@@ -35,9 +35,9 @@ void readData( Graph &graph) {
         graph.addNode(*n);
     }
     locations.close();
-    std::ifstream distances("assets/Distances.csv");
+    std::ifstream distances("../assets/Distances.csv");
     if (!distances.is_open()) {
-        std::cerr << "Error: Could not open Locations.csv" << std::endl;// Exit the program if the file cannot be opened
+        std::cerr << "Error: Could not open Distances.csv" << std::endl;// Exit the program if the file cannot be opened
     }
     getline(distances, data);
     while ( getline(distances, data)) {
@@ -55,7 +55,6 @@ void readData( Graph &graph) {
         Node *n2=graph.findNodeByCode(location2);
         if (n1 && n2) {
             graph.addBidirectionalEdge(*n1,*n2,drive,walk);
-
         }else {
             std::cout<< "one of this nodes is not in the graph";
         }
