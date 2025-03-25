@@ -13,10 +13,12 @@ using namespace std;
 
 // Calculate independent driving route
 pair<vector<int>, int> Driving::indRoute(Graph* g, Node* orig, Node* dest, bool best){
+
     // Get driving time
     Dijkstra gd; // algorithm
     gd.dijkstra(g, orig, true);
 
+    // path to return
     vector<int> path;
     
     // Check if possible - return distance -1 if not
@@ -43,7 +45,7 @@ pair<vector<int>, int> Driving::indRoute(Graph* g, Node* orig, Node* dest, bool 
     }
 
     // Get driving time for alternative route
-    gd.dijkstra(g, orig);
+    gd.dijkstra(g, orig, true);
 
     // Alternative path
     vector<int> apath;
@@ -85,10 +87,14 @@ pair<vector<int>, int> Driving::resRoute(Graph* g, Node* orig, Node* dest, vecto
 
     else {
 
+        // total final distance
+        int dist = 0;
+
         // Get driving time from node to be included
         Dijkstra gd; // algorithm
         gd.dijkstra(g, iNode, true);
-        
+
+        // path to return
         vector<int> path;
 
         // Check if possible - if not distance -1
@@ -103,12 +109,14 @@ pair<vector<int>, int> Driving::resRoute(Graph* g, Node* orig, Node* dest, vecto
             cn = cn->getPath();
         }
 
+        // sum distance
+        dist += dest->getDistance();
 
         // Get driving time from origin
         gd.dijkstra(g, orig);
 
         // Check if possible - distance -1 if not
-        if (iNode->getPath() == nullptr){ // include node
+        if (iNode->getPath() == nullptr){ // can't include node
             return {path, -1};
         }
 
@@ -119,9 +127,14 @@ pair<vector<int>, int> Driving::resRoute(Graph* g, Node* orig, Node* dest, vecto
             path.push_back(cn->getId());
             cn = cn->getPath();
         }
+
+        // sum distance
+        dist += iNode->getDistance();
+
+        // final path
         reverse(path.begin(), path.end());
 
         // Return result
-        return {path, dest->getDistance()};
+        return {path, dist};
     }
 }

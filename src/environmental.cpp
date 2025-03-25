@@ -8,14 +8,21 @@
 #include "edge.h"
 #include "dijkstra.h"
 #include "environmental.h"
+#include "driving.h"
 
 using namespace std;
 
 // Calculate best environmental route
-pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, pair<bool, bool>> Environmental::bestRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
-    // Set exceed maximum limit of walking time and abssent of parking true
-    bool eml = true; // exceed maximum limit
-    bool aop = true; // abssent of parking
+pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, bool> Environmental::bestRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
+
+    // Get the best driving and walking routes and their times
+    vector<int> bdr; // best driving route
+    vector<int> bwr; // best walking route
+    int bdt = INT_MAX; // best driving time
+    int bwt = INT_MAX; // best walking time
+
+    // Set parking nodes available false
+    bool park = false;
 
     // Remove nodes to be avoided from graph
     for (int id : aNodes){ // avoid nodes
@@ -27,45 +34,114 @@ pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, pair<bool, bool>> Env
         g->removeEdge(edge.first, edge.second);
     }
 
-    // Get the best driving and walking routes and their times
-    vector<int> bdr; // best driving route
-    vector<int> bwr; // best walking route
-    int bdt = INT_MAX; // best driving time
-    int bwt = INT_MAX; // best walking time
+    // Get parking nodes
+    vector<Node*> parkingNodes;
+    for (Node* n : g->getNodes()){
+      if (n->getParking() == 1){
+        parkingNodes.push_back(n);
+        park = true;
+      }
+    }
+    if (!park){
+      return {{{bdr, bwr}, {bdt, bwt}}, park};
+    }
 
-    // Go through all nodes
-    for (Node* n : g->getNodes()){ // node
+    // Go through all parking nodes
+    for (Node* n : parkingNodes){ // node
 
-        // Get driving time from origin
-        Dijkstra gd; // algorithm
-        gd.dijkstra(g, orig, true);
+        // run the algorithm
+        Dijkstra gw; // walking time
+        gw.dijkstra(g, n, false);
 
-        vector<int> dPath; // driving path
+        // walking path
+        vector<int> wPath; // walking path
 
-        // Check if possible - continue to next node if not
-        if (n->getPath() == nullptr){
+        // Check if possible and doesn't exceed maximum walking time - continue to the next node if not
+        if (dest->getPath() == nullptr || dest->getDistance() > mwt){
             continue;
         }
 
-        // Get driving path from origin to current node
-        Node *cn = g->findNode(n); // current node
-        cn = cn->getPath();
+        // Get walking path
+        cn = g->findNode(dest);
         while (cn){
-            dPath.push_back(cn->getId());
+            wPath.push_back(cn->getId());
             cn = cn->getPath();
         }
-        reverse(dPath.begin(), dPath.end());
+        reverse(wPath.begin(), wPath.end());
+
+        // Get walking time of route
+        int cwt = dest->getDistance(); // current walking time
+
+        // get driving route from origin to node
+        pair<vector<int>, int> dr = Driving::indRoute(g, orig, n, true); // driving route
+
+        // get driving path
+        vector<int> dPath = dr.first; // walking path
 
         // Get driving time of the current route
-        int cdt = n->getDistance(); // current driving time
+        int cdt = dr.second; // current driving time
 
-        // Get walking time 
-        Dijkstra gw; // algorithm
+        // Check if best
+        if ((cdt + cwt < bdt + bwt) || (cdt + cwt == bdt + bwt && cwt > bwt)){
+            bdt = cdt;
+            bwt = cwt;
+            bdr = dPath;
+            bwr = wPath;
+        }
+
+        // If is no better
+        else{
+            continue;
+        }
+    }
+
+    // Return result - both routes and respestive times, conditions met
+    return {{{bdr, bwr}, {bdt, bwt}}, park};
+}
+
+
+// Calculate aproximate environmental route
+pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, pair<pair<vector<int>, vector<int>>, pair<int, int>>> Environmental::aprRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges){
+
+    // Get two possible routes and times
+    vector<int> fbdr; // first best driving route
+    vector<int> fbwr; // first best walking route
+    int fbdt = INT_MAX; // first best driving time
+    int fbwt = INT_MAX; // first best walking time
+    vector<int> sbdr; // second best driving route
+    vector<int> sbwr; // second best walking route
+    int sbdt = INT_MAX; // second best driving time
+    int sbwt = INT_MAX; // second best walking time
+
+    // Remove nodes to be avoided from graph
+    for (int id : aNodes){ // avoid nodes
+        g->removeNode(id);
+    }
+
+    // Remove edges to be avoided from graph
+    for (auto& edge : aEdges){ // avoid edges
+        g->removeEdge(edge.first, edge.second);
+    }
+
+    // Get parking nodes
+    vector<Node*> parkingNodes;
+    for (Node* n : g->getNodes()){
+        if (n->getParking() == 1){
+            parkingNodes.push_back(n);
+        }
+    }
+
+    // Go through all parking nodes
+    for (Node* n : parkingNodes){ // node
+
+        // run the algorithm
+        Dijkstra gw; // walking time
         gw.dijkstra(g, n, false);
 
+        // walking path
         vector<int> wPath; // walking path
 
-        // Check if possible - if not continue to next node
+        // Check if possible - continue to the next node if not
         if (dest->getPath() == nullptr){
             continue;
         }
@@ -81,148 +157,36 @@ pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, pair<bool, bool>> Env
         // Get walking time of route
         int cwt = dest->getDistance(); // current walking time
 
-        // Check if valid - current walking time doesn't exceed maximum walking time and the node is a parking node
-        if (cwt < mwt && n->getParking() == 1){
+        // get driving route from origin to node
+        pair<vector<int>, int> dr = Driving::indRoute(g, orig, n, true); // driving route
 
-            // Check if the routes are better - total time inferior than hte best total time and if it's equal check if on the current route we walk more
-            if ((cdt + cwt < bdt + bwt) || (cdt + cwt == bdt + bwt && cwt > bwt)){
-                bdt = cdt; // best driving time = current driving time
-                bwt = cwt; // best walking time = current walking time 
-                bdr = dPath; // best driving route = driving path
-                bwr = wPath; // best walking route = walking path
-            } 
+        // get driving path
+        vector<int> dPath = dr.first; // walking path
 
-            // If it's a valid path then it doesn't exceed maximum limit walking time and also it means it is a parking node
-            eml = false;
-            aop = false;
+        // Get driving time of the current route
+        int cdt = dr.second; // current driving time
+
+        // Check if best
+        if ((cdt + cwt < fbdt + fbwt) || (cdt + cwt == fbdt + fbwt && cwt > fbwt)){
+            fbdt = cdt;
+            fbwt = cwt;
+            fbdr = dPath;
+            fbwr = wPath;
+            sbdt = fbdt;
+            sbwt = fbwt;
+            sbdr = fbdr;
+            sbwr = fbwr;
         }
 
-        // If it's not a parking node but it doesn't exceed maximum walking limit
-        else if (dest->getDistance() < mwt){
-            eml = false;
+        // Check if second best
+        else if ((cdt + cwt < sbdt + sbwt) || (cdt + cwt == sbdt + sbwt && cwt > sbwt)){
+            sbdt = cdt;
+            sbwt = cwt;
+            sbdr = dPath;
+            sbwr = wPath;
         }
 
-        // If it exceeds maximum walking limit but it's a parking node
-        else if (n->getParking() == 1) {
-            aop = false;
-        }
-
-        // If it fails both conditions
-        else{
-            continue;
-        }
-    }
-
-    // Return result - both routes and respestive times, conditions met
-    return {{{bdr, bwr}, {bdt, bwt}}, {eml, aop}};
-}
-
-
-// Calculate aproximate environmental route
-pair<pair<pair<vector<int>, vector<int>>, pair<int, int>>, pair<pair<vector<int>, vector<int>>, pair<int, int>>> Environmental::aprRoute(Graph* g, Node* orig, Node* dest, int mwt, vector<int> aNodes, vector<pair<Node*, Node*>> aEdges, bool eml, bool aop){
-
-    // Remove nodes to be avoided from graph
-    for (int id : aNodes){ // avoid nodes
-        g->removeNode(id);
-    }
-
-    // Remove edges to be avoided from graph
-    for (auto& edge : aEdges){ // avoid edges
-        g->removeEdge(edge.first, edge.second);
-    }
-
-    // Get two possible routes and times
-    vector<int> fbdr; // first best driving route
-    vector<int> fbwr; // first best walking route
-    int fbdt = INT_MAX; // first best driving time
-    int fbwt = INT_MAX; // first best walking time
-    vector<int> sbdr; // second best driving route
-    vector<int> sbwr; // second best walking route
-    int sbdt = INT_MAX; // second best driving time
-    int sbwt = INT_MAX; // second best walking time
-
-    // Go through all nodes
-    for (Node* n : g->getNodes()){ // node
-
-        // Get driving time for driving from origin
-        Dijkstra gd; // algorithm
-        gd.dijkstra(g, orig, true);
-
-        vector<int> dPath; // driving path
-
-        // Check if possible - continue to next node if not
-        if (n->getPath() == nullptr){
-            continue;
-        }
-
-        // Get path for driving route
-        Node *cn = g->findNode(n); // current node
-        cn = cn->getPath();
-        while (cn){
-            dPath.push_back(cn->getId());
-            cn = cn->getPath();
-        }
-        reverse(dPath.begin(), dPath.end());
-
-        // Get driving time of current driving route
-        int cdt = n->getDistance(); // current driving time
-
-        // Get walking time from current node
-        Dijkstra gw; // algortihm
-        gw.dijkstra(g, n, false);
-
-        vector<int> wPath; // walking path
-
-        // Check if possible - move to next node if not
-        if (dest->getPath() == nullptr){
-            continue;
-        }
-        // Get path for walking route
-        cn = g->findNode(dest);
-        while (cn){
-            wPath.push_back(cn->getId());
-            cn = cn->getPath();
-        }
-        reverse(wPath.begin(), wPath.end());
-
-        // Get walking time for current walking route
-        int cwt = dest->getDistance(); // current walking time
-
-        // check if any condition applies
-        if ((eml && aop) || (eml && n->getParking() == 1) || (aop && cwt < mwt)){
-
-            // Check if current route is better than the best of the best routes
-            if ((cdt + cwt < fbdt + fbwt) || (cdt + cwt == fbdt + fbwt && cwt > fbwt)){
-                // Put the best of the best routes as the second best route as well as the times
-                sbdt = fbdt;
-                sbwt = fbwt;
-                sbdr = fbdr;
-                sbwr = fbwr;
-
-                // Put the current routes and times as the best of the best routes
-                fbdt = cdt;
-                fbwt = cwt;
-                fbdr = dPath;
-                fbwr = wPath;
-            }
-            
-            // Check if it is at least better than the second best route
-            else if ((cdt + cwt < sbdt + sbwt) || (cdt + cwt == sbdt + sbwt && cwt > sbwt)){
-
-                // Put the current routes and times as the second best routes
-                sbdt = cdt;
-                sbwt = cwt;
-                sbdr = dPath;
-                sbwr = wPath;
-            }
-
-            // If is no better
-            else{
-                continue;
-            }
-        }
-
-        // If the condition isn't met
+        // If is no better
         else{
             continue;
         }
