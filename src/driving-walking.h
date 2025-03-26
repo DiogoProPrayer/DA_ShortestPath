@@ -13,7 +13,7 @@ struct DrivingWalkingResult {
     vector<int> driving_route = {};
     vector<int> walking_route = {};
     int driving_time = 0;
-    int walking_time = 0;
+    double walking_time = 0;
     int parking_node = 0;
 
     bool no_parking = false;
@@ -42,7 +42,7 @@ private:
     Graph graph;
     int source;
     int destination;
-    int maxWalkTime;
+    double maxWalkTime;
     unordered_set<int> avoidNodes;
     unordered_set<pair<int, int>, pair_hash> avoidSegments;
 
@@ -50,7 +50,7 @@ private:
     bool driving_to_parks(unordered_set<Node *> parkingNodes);
 
 public:
-    DrivingWalking(Graph graph,int source, int destination, int maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments);
+    DrivingWalking(Graph graph,int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments);
     pair<DrivingWalkingResult, DrivingWalkingResult> alternativeRoutes();
     DrivingWalkingResult calculateRoute();
 };

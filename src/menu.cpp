@@ -143,7 +143,8 @@ void menuEcoRoute(Graph graph)
     // if (option == 1)
     // {
     string avoidNodes, avoidSegments;
-    int source, destination, maxWalkTime;
+    int source, destination;
+    double maxWalkTime;
     cout << COLOR_YELLOW << "Enter source node ID: " << COLOR_RESET;
     cin >> source;
     cout << COLOR_YELLOW << "Enter destination node ID: " << COLOR_RESET;
@@ -193,32 +194,94 @@ void menuEcoRoute(Graph graph)
 
     DrivingWalking drivingWalking(graph, source, destination, maxWalkTime, avoidNodesSet, avoidSegmentsSet);
     DrivingWalkingResult result = drivingWalking.calculateRoute();
+    if (result.no_parking || result.no_range){
+        if (result.no_parking && !result.no_range)
+        {
+            cout << COLOR_YELLOW << "\n\nSource:"<< source << COLOR_RESET << endl;
+            cout << COLOR_YELLOW << "Destination:"<< destination << COLOR_RESET << endl;
+            cout << COLOR_RED << "DrivingRoute:none"<<endl;
+            cout << COLOR_RED <<"ParkingNode:none" << endl;
+            cout << COLOR_RED << "WalkingRoute:none"<<endl;
+            cout << COLOR_RED << "TotalTime:" << COLOR_RESET<<endl;
+            cout<<COLOR_MAGENTA<<"Message:There are no available parking lots close to the destination."<<COLOR_RESET<<endl;
 
-    if (result.no_parking)
-    {
-        cout << COLOR_YELLOW << "\n\nSource:"<< source << COLOR_RESET << endl;
-        cout << COLOR_YELLOW << "Destination:"<< destination << COLOR_RESET << endl;
-        cout << COLOR_RED << "DrivingRoute:none"<<endl;
-        cout << COLOR_RED <<"ParkingNode:none" << endl;
-        cout << COLOR_RED << "WalkingRoute:none"<<endl;
-        cout << COLOR_RED << "TotalTime:" << COLOR_RESET<<endl;
-        cout<<COLOR_MAGENTA<<"Message:There are no available parking lots. It's impossible to calculate a sustainable route."<<COLOR_RESET<<endl;
-    }
-    else if (result.no_range)
-    {
-        cout << COLOR_YELLOW << "\n\nSource:"<< source << COLOR_RESET << endl;
-        cout << COLOR_YELLOW << "Destination:"<< destination << COLOR_RESET << endl;
-        cout << COLOR_RED << "DrivingRoute:none"<<endl;
-        cout << COLOR_RED <<"ParkingNode:none" << endl;
-        cout << COLOR_RED << "WalkingRoute:none"<<endl;
-        cout << COLOR_RED << "TotalTime:" << COLOR_RESET<<endl;
-        if(maxWalkTime == 1) {
-            cout<<COLOR_MAGENTA<<"Message:No possible route with a maximum walking time of "<<maxWalkTime<<" minute."<<COLOR_RESET<<endl;
-        } else {
-            cout<<COLOR_MAGENTA<<"Message:No possible route with a maximum walking time of "<<maxWalkTime<<" minutes."<<COLOR_RESET<<endl;
+
+
+        }
+        else if (result.no_range && !result.no_parking)
+        {
+            cout << COLOR_YELLOW << "\n\nSource:"<< source << COLOR_RESET << endl;
+            cout << COLOR_YELLOW << "Destination:"<< destination << COLOR_RESET << endl;
+            cout << COLOR_RED << "DrivingRoute:none"<<endl;
+            cout << COLOR_RED <<"ParkingNode:none" << endl;
+            cout << COLOR_RED << "WalkingRoute:none"<<endl;
+            cout << COLOR_RED << "TotalTime:" << COLOR_RESET<<endl;
+            if(maxWalkTime == 1) {
+                cout<<COLOR_MAGENTA<<"Message:No possible route with a maximum walking time of "<<maxWalkTime<<" minute."<<COLOR_RESET<<endl;
+            } else {
+                cout<<COLOR_MAGENTA<<"Message:No possible route with a maximum walking time of "<<maxWalkTime<<" minutes."<<COLOR_RESET<<endl;
+            }
+        } else if (result.no_range && result.no_parking){
+            cout << COLOR_YELLOW << "\n\nSource:"<< source << COLOR_RESET << endl;
+            cout << COLOR_YELLOW << "Destination:"<< destination << COLOR_RESET << endl;
+            cout << COLOR_RED << "DrivingRoute:none"<<endl;
+            cout << COLOR_RED <<"ParkingNode:none" << endl;
+            cout << COLOR_RED << "WalkingRoute:none"<<endl;
+            cout << COLOR_RED << "TotalTime:" << COLOR_RESET<<endl;
+            cout<<COLOR_MAGENTA<<"Message:There are no available parking lots close and no possible route with a maximum walking time of "<<maxWalkTime<<" minutes."<<COLOR_RESET<<endl;
         }
 
-        // ask for the alternative routes
+        cout<<"Doing alternative route..." << endl;
+        
+        pair<DrivingWalkingResult,DrivingWalkingResult> res = drivingWalking.alternativeRoutes();
+
+        if (res.first.no_parking || res.first.no_range){return;}
+
+        cout << COLOR_YELLOW << "\n\nSource:"<< source << COLOR_RESET << endl;
+        cout << COLOR_YELLOW << "Destination:"<< destination << COLOR_RESET << endl;
+        cout << COLOR_GREEN << "DrivingRoute1:";
+        cout << res.first.driving_route[0];
+        for (int i = 1; i < res.first.driving_route.size(); i++)
+        {
+            cout << "," <<res.first.driving_route[i];
+
+        }
+        cout<< "(" << res.first.driving_time << ")" << COLOR_RESET << endl;
+        cout << COLOR_CYAN <<"ParkingNode1: " << res.first.parking_node << endl;
+        cout << COLOR_GREEN << "WalkingRoute1:";
+        cout << res.first.walking_route[0];
+        for (int i = 1; i < res.first.walking_route.size(); i++)
+        {
+            cout << "," <<res.first.walking_route[i];
+        }
+        cout << "(" << res.first.walking_time << ")" << endl;
+        cout << COLOR_MAGENTA << "TotalTime1:" << res.first.driving_time+res.first.walking_time << COLOR_RESET<<endl;
+
+        if(res.second.no_parking || res.second.no_range){
+            cout << COLOR_RED << "DrivingRoute2:none"<<endl;
+            cout << COLOR_RED <<"ParkingNode2:none" << endl;
+            cout << COLOR_RED << "WalkingRoute2:none"<<endl;
+            cout << COLOR_RED << "TotalTime2:" << COLOR_RESET<<endl;
+            return;
+        }
+
+        cout << COLOR_GREEN << "DrivingRoute2:";
+        cout << res.second.driving_route[0];
+        for (int i = 1; i < res.second.driving_route.size(); i++)
+        {
+            cout << "," <<res.second.driving_route[i];
+
+        }
+        cout<< "(" << res.second.driving_time << ")" << COLOR_RESET << endl;
+        cout << COLOR_CYAN <<"ParkingNode2: " << res.second.parking_node << endl;
+        cout << COLOR_GREEN << "WalkingRoute2:";
+        cout << res.second.walking_route[0];
+        for (int i = 1; i < res.second.walking_route.size(); i++)
+        {
+            cout << "," <<res.second.walking_route[i];
+        }
+        cout << "(" << res.second.walking_time << ")" << endl;
+        cout << COLOR_MAGENTA << "TotalTime2:" << res.second.driving_time+res.second.walking_time << COLOR_RESET<<endl;
     }
     else
     {

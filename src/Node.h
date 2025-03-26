@@ -15,7 +15,6 @@ protected:
     int id;
     bool parking = false;
 
-
     // Dynamic attributes (resettable between algorithm runs)
     bool visited = false;
     
@@ -70,6 +69,7 @@ public:
     void setWalkingDist(double dist) { this->walking_dist = dist; }
     void setWalkingPred(int pred) { this->walking_pred = pred; }
     void setWalkingVisited(bool visited) { this->walking_visited = visited; }
+    void setParking(bool parking) { this->parking = parking; }
 
     // Other member functions
     bool isEdgeVisited(Node *dest) {

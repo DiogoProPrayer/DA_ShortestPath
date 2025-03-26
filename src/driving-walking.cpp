@@ -4,7 +4,7 @@
 using namespace std;
 
 
-DrivingWalking::DrivingWalking(Graph graph, int source, int destination, int maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments)
+DrivingWalking::DrivingWalking(Graph graph, int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments)
 {
     this->graph = graph;
     this->source = source;
@@ -172,24 +172,52 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 
 DrivingWalkingResult DrivingWalking::calculateRoute()
 {
-    result.no_parking = true;
     for(auto node : graph.getNodes())
     {
         node->resetNode();
-
-        if(node->getParking()){
-            result.no_parking = false;
-            break;
-        }
     }
-    if(result.no_parking) {return result;}
-
 
     unordered_set<Node *> parkingNodes = walking_to_parks();
 
     // Search the shortest paths that connect to those parking spots
-    if(parkingNodes.empty()){ 
+    if(parkingNodes.empty()){
+        for(auto node : graph.getNodes())
+        {
+            node->resetNode();
+        }
+        unordered_set<int> tempAvoidNodes = avoidNodes;
+        unordered_set<pair<int, int>, pair_hash> tempAvoidSegments = avoidSegments;
+        avoidNodes.clear();
+        avoidSegments.clear();
+
+        unordered_set<Node *> parkingNodes = walking_to_parks();
+        if (!parkingNodes.empty())
+        {
+            result.no_parking = true;
+            return result;
+        }
+
+        avoidNodes = tempAvoidNodes;
+        avoidSegments = tempAvoidSegments;
+        double tempTime = maxWalkTime;
+        maxWalkTime = std::numeric_limits<double>::max();
+
+        for(auto node : graph.getNodes())
+        {
+            node->resetNode();
+        }
+
+        parkingNodes = walking_to_parks();
+        if (!parkingNodes.empty())
+        {
+            result.no_range = true;
+            return result;
+        }
+
+        result.no_parking = true;
         result.no_range = true;
+        maxWalkTime = tempTime;
+
         return result;
     }
 
@@ -204,26 +232,35 @@ DrivingWalkingResult DrivingWalking::calculateRoute()
 
 pair<DrivingWalkingResult, DrivingWalkingResult> DrivingWalking::alternativeRoutes()
 {
-    this->maxWalkTime = numeric_limits<int>::max();
-    this->result = calculateRoute();
-
-    if(result.no_parking || result.no_range)
+    for(auto node : graph.getNodes())
     {
-        return {result, result};
+        node->resetNode();
+    }
+
+    this->maxWalkTime = numeric_limits<int>::max();
+    this->avoidNodes.clear();
+    this->avoidSegments.clear();
+    this->result = DrivingWalkingResult();
+
+    this->alternative1 = calculateRoute();
+
+    if(alternative1.no_parking || alternative1.no_range)
+    {
+        cout<<"Failed on first alternative route"<<endl;
+        return {alternative1, alternative1};
     }
 
     for(auto node : graph.getNodes())
     {
         node->resetNode();
     }
+    this->result = DrivingWalkingResult();
 
-    avoidNodes.insert(result.parking_node);
+    graph.getNode(alternative1.parking_node)->setParking(false);
 
-    DrivingWalkingResult alternative1 = calculateRoute();
-    if(alternative1.no_parking || alternative1.no_range)
-    {
-        return {result, alternative1};
-    }
+    DrivingWalkingResult alternative2 = calculateRoute();
 
-    return {result, alternative1};
+    graph.getNode(alternative1.parking_node)->setParking(true);
+    
+    return {alternative1, alternative2};
 }
