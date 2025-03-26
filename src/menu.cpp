@@ -18,6 +18,11 @@ using namespace std;
 #define COLOR_MAGENTA "\033[1;35m"         // Magenta
 #define COLOR_RESET "\033[0m"              // Reset
 
+void reset() {
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
 void menuDrivingRoute(Graph graph)
 {
     int option;
@@ -28,14 +33,17 @@ void menuDrivingRoute(Graph graph)
     cout << COLOR_RED << "0 - Back" << COLOR_RESET << endl;
     cout << COLOR_YELLOW << "Enter your choice: " << COLOR_RESET;
     cin >> option;
+    reset();
 
     if (option == 1)
     {
         string source, destination;
         cout << COLOR_YELLOW << "Enter source node ID: " << COLOR_RESET;
         cin >> source;
+        reset();
         cout << COLOR_YELLOW << "Enter destination node ID: " << COLOR_RESET;
         cin >> destination;
+        reset();
         cout << COLOR_GREEN << "Calculating best and alternative routes..." << COLOR_RESET << endl;
         singleMode result=noRestriction(stoi(source),stoi(destination),graph,0);
         cout<<"Best path: ";
@@ -65,12 +73,13 @@ void menuDrivingRoute(Graph graph)
         string source, destination, avoidNodes, avoidSegments, includeNode;
         cout << COLOR_YELLOW << "Enter source node ID: " << COLOR_RESET;
         cin >> source;
+        reset();
         int sourc=stoi(source);
         cout << COLOR_YELLOW << "Enter destination node ID: " << COLOR_RESET;
         cin >> destination;
+        reset();
         int dest=stoi(destination);
         cout << COLOR_CYAN << "Enter nodes to avoid (comma-separated, or empty): " << COLOR_RESET;
-        cin.ignore();
         getline(cin, avoidNodes);
         unordered_set<int> avoidNodesSet;
         if (!avoidNodes.empty())
@@ -97,7 +106,7 @@ void menuDrivingRoute(Graph graph)
             searchStart = match.suffix().first;
         }
         cout << COLOR_GREEN << "Enter a node that must be included (or empty): " << COLOR_RESET;
-        cin>> includeNode;
+        getline (cin, includeNode);
         int include=-1;
         if (!includeNode.empty())
         {
@@ -119,75 +128,6 @@ void menuDrivingRoute(Graph graph)
         
 }
 
-void menuWalkingRoute(Graph graph){
-    int option;
-    cout << "\n\n"; // Extra space before header
-    cout << COLOR_BLUE_HEADER << "        ROUTE PLANNING - DRIVING        " << COLOR_RESET << endl;
-    cout << COLOR_GREEN << "1 - Independent Route Planning (T2.1)" << COLOR_RESET << endl;
-    cout << COLOR_GREEN << "2 - Restricted Route Planning (T2.2)" << COLOR_RESET << endl;
-    cout << COLOR_RED << "0 - Back" << COLOR_RESET << endl;
-    cout << COLOR_YELLOW << "Enter your choice: " << COLOR_RESET;
-    cin >> option;
-
-    if (option == 1)
-    {
-        string source, destination;
-        cout << COLOR_YELLOW << "Enter source node ID: " << COLOR_RESET;
-        cin >> source;
-        cout << COLOR_YELLOW << "Enter destination node ID: " << COLOR_RESET;
-        cin >> destination;
-
-        cout << COLOR_GREEN << "Calculating best and alternative routes..." << COLOR_RESET << endl;
-    }
-    else if (option == 2)
-    {
-        string source, destination, avoidNodes, avoidSegments, includeNode;
-        cout << COLOR_YELLOW << "Enter source node ID: " << COLOR_RESET;
-        cin >> source;
-        int sourc=stoi(source);
-        cout << COLOR_YELLOW << "Enter destination node ID: " << COLOR_RESET;
-        cin >> destination;
-        int dest=stoi(destination);
-        cout << COLOR_CYAN << "Enter nodes to avoid (comma-separated, or empty): " << COLOR_RESET;
-        cin.ignore();
-        getline(cin, avoidNodes);
-        unordered_set<int> avoidNodesSet;
-        if (!avoidNodes.empty())
-        {
-            size_t pos = 0;
-            while ((pos = avoidNodes.find(",")) != string::npos)
-            {
-                avoidNodesSet.insert(stoi(avoidNodes.substr(0, pos)));
-                avoidNodes.erase(0, pos + 1);
-            }
-            avoidNodesSet.insert(stoi(avoidNodes));
-        }
-        cout << COLOR_MAGENTA << "Enter road segments to avoid ((id,id), or empty): " << COLOR_RESET;
-        getline(cin, avoidSegments);
-        vector<pair<int, int>> avoidEdges;
-        regex segmentRegex(R"(\((\d+),(\d+)\))");
-        smatch match;
-        string::const_iterator searchStart(avoidSegments.cbegin());
-        while (regex_search(searchStart, avoidSegments.cend(), match, segmentRegex))
-        {
-            int id1 = stoi(match[1].str());
-            int id2 = stoi(match[2].str());
-            avoidEdges.push_back({id1, id2});
-            searchStart = match.suffix().first;
-        }
-        cout << COLOR_GREEN << "Enter a node that must be included (or empty): " << COLOR_RESET;
-        cin>> includeNode;
-        int include=-1;
-        if (!includeNode.empty())
-        {
-            include = stoi(includeNode);
-        }
-        cout << COLOR_GREEN << "Calculating route..." << COLOR_RESET << endl;
-        walking(sourc,dest,graph,avoidNodesSet,avoidEdges,include);
-        
-
-    }
-};
 
 void menuEcoRoute(Graph graph)
 {
