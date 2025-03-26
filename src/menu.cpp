@@ -46,8 +46,8 @@ void menuDrivingRoute(Graph graph)
         reset();
         cout << COLOR_GREEN << "Calculating best and alternative routes..." << COLOR_RESET << endl;
         singleMode result=noRestriction(stoi(source),stoi(destination),graph,0);
-        cout<<"Source:"<<source<<endl;
-        cout<<"Destination"<<destination<<endl;
+        cout<<"Source: "<<source<<endl;
+        cout<<"Destination: "<<destination<<endl;
         cout<<"Best path: ";
         if(result.bestpath.empty()) {
             cout<<COLOR_RED<<"No possible route"<<COLOR_RESET<<endl;
@@ -116,9 +116,9 @@ void menuDrivingRoute(Graph graph)
         }
         cout << COLOR_GREEN << "Calculating route..." << COLOR_RESET << endl;
         singleMode result=driving(sourc,dest,graph,avoidNodesSet,avoidEdges,include);
-        cout<<"Source:"<<source<<endl;
-        cout<<"Destination"<<destination<<endl;
-        cout<<"Restricted Driving Rote:";
+        cout<<"Source: "<<source<<endl;
+        cout<<"Destination: "<<destination<<endl;
+        cout<<"Restricted Driving Rote: ";
         if(result.bestpath.empty()) {
             cout<<COLOR_RED<<"No possible route with imposed restrictions"<<COLOR_RESET<<endl;
         }

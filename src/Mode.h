@@ -142,6 +142,7 @@ void algorithm(int source, int dest, const Graph& graph, int mode){
     std::vector<Node*> Nodes = graph.getNodes();
     for (int i = 0; i < graph.getNodeSize(); i++) {
         Nodes[i]->setVisited(false);
+        Nodes[i]->setPred(-1);
         Nodes[i]->setDist(std::numeric_limits<double>::infinity());
         if(Nodes[i]->getAdj().empty()){
             for(Edge* edge:Nodes[i]->getAdj()){
@@ -274,7 +275,7 @@ singleMode restrictedEdgesAndNodes(int source,int dest,Graph graph,std::unordere
 
 singleMode includeNodeWithRestrictNodesAndEdges(int source, int dest,  Graph& graph,std::unordered_set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid,int include,int mode){
      singleMode result;
-    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1||graph.findNodeIndex(include)==-1) return result;
+    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1||graph.findNodeIndex(include)==-1)return result;
     std::vector<Node*> Nodes = graph.getNodes();
     std::pair<std::vector<int>,double> path;
     unsetNodesAndEdges(graph);
@@ -295,6 +296,8 @@ singleMode includeNodeWithRestrictNodesAndEdges(int source, int dest,  Graph& gr
     result.bestDistance=path.second;
     return result;
 }
+
+
 
 
 
