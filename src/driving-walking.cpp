@@ -186,7 +186,7 @@ DrivingWalkingResult DrivingWalking::calculateRoute()
 
 
     unordered_set<Node *> parkingNodes = walking_to_parks();
-    
+
     // Search the shortest paths that connect to those parking spots
     if(parkingNodes.empty()){ 
         result.no_range = true;
@@ -207,6 +207,23 @@ pair<DrivingWalkingResult, DrivingWalkingResult> DrivingWalking::alternativeRout
     this->maxWalkTime = numeric_limits<int>::max();
     this->result = calculateRoute();
 
+    if(result.no_parking || result.no_range)
+    {
+        return {result, result};
+    }
+
+    for(auto node : graph.getNodes())
+    {
+        node->resetNode();
+    }
+
+    avoidNodes.insert(result.parking_node);
+
+    DrivingWalkingResult alternative1 = calculateRoute();
+    if(alternative1.no_parking || alternative1.no_range)
+    {
+        return {result, alternative1};
+    }
 
     return {result, alternative1};
 }
