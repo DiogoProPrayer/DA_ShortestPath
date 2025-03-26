@@ -169,8 +169,8 @@ void setSomeEdgesVisited(Graph &graph,std::vector<std::pair<int,int>> &edgesToAv
     for(std::pair<int,int> edge:edgesToAvoid){
         index1=graph.findNodeIndex(edge.first);
         index2=graph.findNodeIndex(edge.second);
-        Nodes[index1]->setEdgeVisiTed(Nodes[index2],true);
-        Nodes[index2]->setEdgeVisiTed(Nodes[index1],true);
+        Nodes[index1]->setEdgeVisited(Nodes[index2],true);
+        Nodes[index2]->setEdgeVisited(Nodes[index1],true);
     } 
 }
 /**
