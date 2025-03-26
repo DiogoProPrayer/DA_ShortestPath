@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int main() {
+/*int main() {
     Graph graph;
     readData(graph);
 
@@ -12,4 +12,6 @@ int main() {
     menu(graph);
     
     return 0;
-}
+}*/
+
+

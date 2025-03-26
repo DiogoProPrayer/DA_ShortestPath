@@ -8,9 +8,41 @@
 #include <limits>
 #include <utility>
 #include <queue>
-#include <set>
+#include <unordered_set>
 #include <algorithm>
 #include "Graph.h"
+
+
+struct singleMode{
+    std::vector<int> bestpath;
+    std::vector<int> alternative;
+    double bestDistance;
+    double alternativeDistance;
+
+};
+
+/**
+ * @brief Function made for finding alternative path by seting the nodes in the best path to visited
+ * 
+ *  @details Complexity O()
+ * 
+ * @param source
+ * @param dest
+ * @param path
+ * @return std::set<int>
+ */
+
+ std::unordered_set<int> limit(int source,int dest,std::vector<int>path){
+    std:: unordered_set<int> limit;
+    for(int i:path){
+        if(i!=dest){
+            limit.emplace(i);
+        }
+    }
+    return limit;
+}
+
+
 
 /**
  * @brief Get the path between two nodes
@@ -41,12 +73,6 @@ std::pair<std::vector<int>,double> getPath(int source,int dest,Graph &graph){
     return {path,distance};
 
 }
-
-
-
-
-
-
 
 /**
  * @brief personalized compare function for the priority queue
@@ -136,7 +162,8 @@ void algorithm(int source, int dest, const Graph& graph, int mode){
  * @param graph
  * @param limit
 */
- void setSomeNodesVisited(Graph &graph,std::set<int> &limit){
+ void setSomeNodesVisited(Graph &graph,std::unordered_set<int> &limit){
+    if (limit.empty()){return;}
     std::vector<Node*> Nodes = graph.getNodes();
     for (int i = 0; i < graph.getNodeSize(); i++) {
         Nodes[i]->setVisited(false);
@@ -163,6 +190,7 @@ void algorithm(int source, int dest, const Graph& graph, int mode){
  * @param edgesToAvoid 
  */
 void setSomeEdgesVisited(Graph &graph,std::vector<std::pair<int,int>> &edgesToAvoid){
+    if (edgesToAvoid.empty()){return;}
     std::vector<Node*> Nodes = graph.getNodes();
     int index1;
     int index2;
@@ -173,63 +201,30 @@ void setSomeEdgesVisited(Graph &graph,std::vector<std::pair<int,int>> &edgesToAv
         Nodes[index2]->setEdgeVisited(Nodes[index1],true);
     } 
 }
-/**
- * @brief Find the shortest path between two nodes without any restrictions
- * 
- * @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param graph
- * @param mode
- */
-void noRestriction(int source, int dest,Graph &graph,int mode) {
-    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1){ 
-        std::cout <<"one of the nodes is invalid \n";
-        return ;
-    } 
+
+singleMode noRestriction(int source,int dest,Graph graph,int mode){
+    std::pair<std::vector<int>,double> path;
+    singleMode result;
     unsetNodesAndEdges(graph);
     algorithm(source,dest,graph,mode);
-
-}
-
-/**
- * @brief Find the shortest path between two nodes with restrictions on the nodes
- * 
- * @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param graph
- * @param limit
- * @param mode
- */
-
-
-void restrictNode(int source, int dest,  Graph& graph,std::set<int> &limit,int mode) {
-    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1) return;
-    setSomeNodesVisited(graph,limit);
-    algorithm(source,dest,graph,mode);
-}
-
-/**
- * @brief Find the shortest path between two nodes with restrictions on the edges
- * 
- * @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param graph
- * @param edgesToAvoid
- * @param mode
- */
-
-void restrictEdges(int source,int dest,Graph graph,std::vector<std::pair<int,int>> &edgesToAvoid,int mode) {
-    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1) return;
+    path=getPath(source,dest,graph);
+    result.bestpath=path.first;
+    result.bestDistance=getPath(source,dest,graph).second;
+    std::unordered_set<int> lim=limit(source,dest,result.bestpath);
     unsetNodesAndEdges(graph);
-    setSomeEdgesVisited(graph,edgesToAvoid);
+    setSomeNodesVisited(graph,lim);
     algorithm(source,dest,graph,mode);
+    path=getPath(source,dest,graph);
+    result.alternative=path.first;
+    result.alternativeDistance=path.second;
+    return result;
 }
+
+
+
+
+
+
 /**
  * @brief Find the shortest path between two nodes with restrictions on the nodes and edges
  * 
@@ -243,97 +238,27 @@ void restrictEdges(int source,int dest,Graph graph,std::vector<std::pair<int,int
  * @param mode
  */
 
-void restrictedEdgesAndNodes(int source,int dest,Graph graph,std::set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid, int mode){
-    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1) return;
+singleMode restrictedEdgesAndNodes(int source,int dest,Graph graph,std::unordered_set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid, int mode){
+    singleMode result;
+    std::pair<std::vector<int>,double> path;
+    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1) return result;
     std::vector<Node*> Nodes = graph.getNodes();
-    setSomeEdgesVisited(graph,edgesToAvoid);
+    unsetNodesAndEdges(graph);
     setSomeNodesVisited(graph,limit);
+    setSomeEdgesVisited(graph,edgesToAvoid);
     algorithm(source,dest,graph,mode);
-
+    path=getPath(source,dest,graph);
+    result.bestpath=path.first;
+    result.bestDistance=path.second;
+     return result;
 }
-/**
- * @brief Find the shortest path between two nodes with a node included
- * 
- * @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param graph
- * @param include
- * @param mode
- */
 
 
-void includeNode(int source,int dest,Graph &graph,int include, int mode, std::pair<std::vector<int>,double> &path){
-    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1||graph.findNodeIndex(include)==-1) return;
-    std::vector<Node*> Nodes = graph.getNodes();
-    unsetNodesAndEdges(graph);
-    algorithm(source,include,graph,mode);
-    if(Nodes[graph.findNodeIndex(include)]->getDist()==std::numeric_limits<double>::infinity()) return;
-    path=getPath(source,include,graph);
-    unsetNodesAndEdges(graph);
-    algorithm(include,dest,graph,mode);
-    std::pair<std::vector<int>,double> path2=getPath(include,dest,graph);
-    path.first.insert(path.first.end(),path2.first.begin()+1,path2.first.end());
-    path.second+=path2.second;
-    if(Nodes[graph.findNodeIndex(dest)]->getDist()==std::numeric_limits<double>::infinity()) return;
-}
-/**
- * @brief Find the shortest path between two nodes with a node included and restrictions on the edges
- * 
- * @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param graph
- * @param edgesToAvoid
- * @param include
- * @param mode
- */
-void includeNodeWithRestrictEdges(int source,int dest,Graph &graph,std::vector<std::pair<int,int>> &edgesToAvoid,int include,int mode,std::pair<std::vector<int>,double> &path){
-    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1||graph.findNodeIndex(include)==-1) return;
-    std::vector<Node*> Nodes = graph.getNodes();
-    unsetNodesAndEdges(graph);
-    setSomeEdgesVisited(graph,edgesToAvoid);
-    algorithm(source,include,graph,mode);
-    if(Nodes[graph.findNodeIndex(include)]->getDist()==std::numeric_limits<double>::infinity()) return;
-    path=getPath(source,include,graph);
-    unsetNodesAndEdges(graph);
-    setSomeEdgesVisited(graph,edgesToAvoid);
-    algorithm(include,dest,graph,mode);
-    if(Nodes[graph.findNodeIndex(dest)]->getDist()==std::numeric_limits<double>::infinity()) return;
-    std::pair<std::vector<int>,double> path2=getPath(include,dest,graph);
-    path.first.insert(path.first.end(),path2.first.begin()+1,path2.first.end());
-    path.second+=path2.second;
-}
-/**
- * @brief Find the shortest path between two nodes with a node included and restrictions on the nodes
- * 
- * @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param graph
- * @param limit
- * @param include
- * @param mode
-*/
-void includeNodeWithRestrictNodes(int source, int dest,  Graph& graph,std::set<int> &limit,int include,int mode,std::pair<std::vector<int>,double> &path){
-    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1||graph.findNodeIndex(include)==-1) return;
-    std::vector<Node*> Nodes = graph.getNodes();
-    unsetNodesAndEdges(graph);
-    setSomeNodesVisited(graph,limit);
-    algorithm(source,include,graph,mode);
-    if(Nodes[graph.findNodeIndex(include)]->getDist()==std::numeric_limits<double>::infinity()) return;
-    path=getPath(source,include,graph);
-    unsetNodesAndEdges(graph);
-    setSomeNodesVisited(graph,limit);
-    algorithm(include,dest,graph,mode);
-    if(Nodes[graph.findNodeIndex(dest)]->getDist()==std::numeric_limits<double>::infinity()) return;
-    std::pair<std::vector<int>,double> path2=getPath(include,dest,graph);
-    path.first.insert(path.first.end(),path2.first.begin()+1,path2.first.end());
-    path.second+=path2.second;
-}
+
+
+
+
+
 /**
  * @brief Find the shortest path between two nodes with a node included and restrictions on the nodes and edges
  * 
@@ -350,46 +275,53 @@ void includeNodeWithRestrictNodes(int source, int dest,  Graph& graph,std::set<i
  * 
  */
 
-void includeNodeWithRestrictNodesAndEdges(int source, int dest,  Graph& graph,std::set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid,int include,int mode,std::pair<std::vector<int>,double> &path){
-    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1||graph.findNodeIndex(include)==-1) return;
+singleMode includeNodeWithRestrictNodesAndEdges(int source, int dest,  Graph& graph,std::unordered_set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid,int include,int mode){
+     singleMode result;
+    if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1||graph.findNodeIndex(include)==-1) return result;
     std::vector<Node*> Nodes = graph.getNodes();
+    std::pair<std::vector<int>,double> path;
     unsetNodesAndEdges(graph);
     setSomeNodesVisited(graph,limit);
     setSomeEdgesVisited(graph,edgesToAvoid);
     algorithm(source,include,graph,mode);
-    if(Nodes[graph.findNodeIndex(include)]->getDist()==std::numeric_limits<double>::infinity()) return;
+    if(Nodes[graph.findNodeIndex(include)]->getDist()==std::numeric_limits<double>::infinity()) return result;
     path=getPath(source,include,graph);
     unsetNodesAndEdges(graph);
     setSomeNodesVisited(graph,limit);
     setSomeEdgesVisited(graph,edgesToAvoid);
     algorithm(include,dest,graph,mode);
-    if(Nodes[graph.findNodeIndex(dest)]->getDist()==std::numeric_limits<double>::infinity()) return;
+    if(Nodes[graph.findNodeIndex(dest)]->getDist()==std::numeric_limits<double>::infinity()) return result;
     std::pair<std::vector<int>,double> path2=getPath(include,dest,graph);
     path.first.insert(path.first.end(),path2.first.begin()+1,path2.first.end());
     path.second+=path2.second;
+    result.bestpath=path.first;
+    result.bestDistance=path.second;
+    return result;
 }
 
-/**
- * @brief Function made for finding alternative path by seting the nodes in the best path to visited
- * 
- *  @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param path
- * @return std::set<int>
- */
 
-std::set<int> limit(int source,int dest,std::pair<std::vector<int>,double> path){
-    std::set<int> limit;
-    for(int i:path.first){
-        if(i!=dest && i!=dest){
-            limit.emplace(i);
-        }
+
+
+singleMode driving(int source, int dest,  Graph& graph,std::unordered_set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid,int include){
+     if(include==-1){
+         return restrictedEdgesAndNodes(source,dest,graph,limit,edgesToAvoid,0);
+         
+     }
+     return includeNodeWithRestrictNodesAndEdges(source,dest,graph,limit,edgesToAvoid,include,0);
+
+}
+
+singleMode walking(int source, int dest,  Graph& graph,std::unordered_set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid,int include){
+    if(edgesToAvoid.empty() && limit.empty()&& include==-1){
+       return noRestriction(source,dest,graph,1);
     }
-    return limit;
-}
+    if(include==-1){
+        return restrictedEdgesAndNodes(source,dest,graph,limit,edgesToAvoid,1);
+        
+    }
+     return includeNodeWithRestrictNodesAndEdges(source,dest,graph,limit,edgesToAvoid,include,1);
 
+}
 
 
 #endif // MODE_H
