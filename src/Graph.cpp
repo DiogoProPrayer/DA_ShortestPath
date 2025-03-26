@@ -38,25 +38,7 @@ bool Graph::addNode(const Node &in)
     return true;
 }
 
-bool Graph::removeNode(const int in)
-{
-    for (auto it = Nodes.begin(); it != Nodes.end(); it++)
-    {
-        if ((*it)->getId() == in)
-        {
-            auto v = *it;
-            v->removeOutgoingEdges();
-            for (auto u : Nodes)
-            {
-                u->removeEdge(v);
-            }
-            Nodes.erase(it);
-            delete v;
-            return true;
-        }
-    }
-    return false;
-}
+
 
 bool Graph::addEdge(const Node &source, const Node &dest, double driving, double walking) const
 {
@@ -74,16 +56,7 @@ bool Graph::addEdge(const Node &source, const Node &dest, double driving, double
     return true;
 }
 
-bool Graph::removeEdge(const Node &source, const Node &dest) const
-{
-    Node *srcVertex = findNode(source);
-    if (srcVertex == nullptr)
-    {
-        return false;
-    }
-    Node *destNode = findNode(dest);
-    return srcVertex->removeEdge(destNode);
-}
+
 
 bool Graph::addBidirectionalEdge(const Node &source, const Node &dest, double driving, double walking) const
 {

@@ -12,11 +12,8 @@ protected:
     Node *dest;
     double drivingTime;
     double walkingTime;
-    bool selected = false;
     bool visited = false;
-    Edge *reverse = nullptr;
 
-    double flow;
 public:
     Edge(Node *org,Node*dest, double driving, double walking) {
         this->org=org;
@@ -30,20 +27,12 @@ public:
     Node * getOrig() const {
         return org;
     };
-    bool isSelected() const {
-        return selected;
-    };
+
     double getDrivingTime() const {
         return drivingTime;
     };
     double getWalkingTime() const {
         return walkingTime;
-    };
-    Edge *getReverse() const {
-        return reverse;
-    };
-    double getFlow() const {
-        return flow;
     };
    bool getVisited() const {
         return visited;
@@ -52,15 +41,8 @@ public:
         this->visited=visit;
     }
 
-    void setSelected(bool selected) {
-        this->selected=selected;
-    };
-    void setReverse(Edge *reverse) {
-        this->reverse=reverse;
-    };
-    void setFlow(double flow) {
-        this->flow=flow;
-    };
+ 
+
 
 };
 #endif //EDGE_H
