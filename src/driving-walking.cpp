@@ -1,5 +1,6 @@
 #include "driving-walking.h"
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 
@@ -13,12 +14,12 @@ DrivingWalking::DrivingWalking(Graph graph, int source, int destination, int max
     this->avoidSegments = avoidSegments;
 }
 
-vector<Node *> DrivingWalking::walking_to_parks()
+unordered_set<Node *> DrivingWalking::walking_to_parks()
 {
     priority_queue<Node *, vector<Node*>, CompareNodeWalking> pq;
-    vector<Node *> parkingNodes;
+    unordered_set<Node *> parkingNodes;
 
-    Node *sourceNode = graph.getNode(source);
+    Node *sourceNode = graph.getNode(destination);
     sourceNode->setWalkingDist(0);
     sourceNode->setWalkingPred(-1);
     pq.push(sourceNode);
@@ -29,23 +30,23 @@ vector<Node *> DrivingWalking::walking_to_parks()
         pq.pop();
 
         // If the node has already been visited, skip it
-        if (current->isVisited()) 
+        if (current->getWalkingVisited()) 
         {
             continue;
         }
 
         // Stop processing if the walking distance exceeds maxWalkTime
-        if (current->getWalkingDist() >= maxWalkTime)
+        if (current->getWalkingDist() > maxWalkTime)
         {
             break;
         }
 
-        current->setVisited(true);
+        current->setWalkingVisited(true);
 
         // If it's a parking node, store it
         if (current->getParking())
         {
-            parkingNodes.push_back(current);
+            parkingNodes.emplace(current);
         }
 
         // Process adjacent nodes
@@ -55,7 +56,7 @@ vector<Node *> DrivingWalking::walking_to_parks()
 
             // Skip if the segment should be avoided or if the destination node is in the avoid list
             if (avoidSegments.find({current->getId(), dest->getId()}) != avoidSegments.end() ||
-                avoidNodes.find(dest->getId()) != avoidNodes.end())
+            avoidNodes.find(dest->getId()) != avoidNodes.end() || avoidSegments.find({dest->getId(), current->getId()}) != avoidSegments.end())
             {
                 continue;
             }
@@ -63,7 +64,7 @@ vector<Node *> DrivingWalking::walking_to_parks()
             double newDist = current->getWalkingDist() + edge->getWalkingTime();
 
             // Ensure the new distance is better and within maxWalkTime
-            if (newDist < dest->getWalkingDist() && newDist < maxWalkTime)
+            if (newDist < dest->getWalkingDist() && newDist <= maxWalkTime)
             {
                 dest->setWalkingDist(newDist);
                 dest->setWalkingPred(current->getId());
@@ -75,21 +76,107 @@ vector<Node *> DrivingWalking::walking_to_parks()
     return parkingNodes;
 }
 
-pair<DrivingWalkingResult, DrivingWalkingResult> DrivingWalking::alternativeRoutes()
+
+
+bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 {
-    this->maxWalkTime = numeric_limits<int>::max();
-    this->result = calculateRoute();
+    priority_queue<Node *, vector<Node*>, CompareNodeDriving> pq;
+    Node *sourceNode = graph.getNode(source);
+    sourceNode->setDist(0);
+    sourceNode->setPred(-1);
+    pq.push(sourceNode);
 
-    
+    Node *nodeWithshortestPath = nullptr;
 
-    return {result, alternative1};
+    while (!pq.empty())
+    {
+        Node *current = pq.top();
+        pq.pop();
+
+        if (current->isVisited()) 
+        {
+            continue;
+        }
+
+        current->setVisited(true);
+
+        // If current node is a parking node and is in the set of valid parking nodes
+        if (current->getParking() && parkingNodes.find(current) != parkingNodes.end())
+        {
+            double totalTime = current->getDist() + current->getWalkingDist();
+
+            if (nodeWithshortestPath == nullptr || 
+                totalTime < (nodeWithshortestPath->getDist() + nodeWithshortestPath->getWalkingDist()) ||
+                (totalTime == (nodeWithshortestPath->getDist() + nodeWithshortestPath->getWalkingDist()) &&
+                 current->getWalkingDist() > nodeWithshortestPath->getWalkingDist())) 
+            {
+                nodeWithshortestPath = current;
+            }
+        }
+
+        for (auto edge : current->getAdj())
+        {
+            Node *dest = edge->getDest();
+
+            if (avoidSegments.find({current->getId(), dest->getId()}) != avoidSegments.end() ||
+                avoidNodes.find(dest->getId()) != avoidNodes.end() || avoidSegments.find({dest->getId(), current->getId()}) != avoidSegments.end())
+            {
+                continue;
+            }
+
+            double newDist = current->getDist() + edge->getDrivingTime();
+
+            if (newDist < dest->getDist())
+            {
+                dest->setDist(newDist);
+                dest->setPred(current->getId());
+                pq.push(dest);
+            }
+        }
+    }
+
+    if (nodeWithshortestPath == nullptr){
+        return false;
+    }
+
+    // Clear previous results
+    result.driving_route.clear();
+    result.walking_route.clear();
+
+    int node = nodeWithshortestPath->getId();
+    // Store driving path
+    while(node != -1)
+    {
+        result.driving_route.push_back(node);
+        node = graph.getNode(node)->getPred();
+    }
+    reverse(result.driving_route.begin(), result.driving_route.end());
+    // Store walking path
+    node = nodeWithshortestPath->getWalkingPred();
+    result.walking_route.push_back(nodeWithshortestPath->getId());
+    while (node != -1)
+    {
+        result.walking_route.push_back(node);
+        node = graph.getNode(node)->getWalkingPred();
+    }
+
+    result.driving_time = nodeWithshortestPath->getDist();
+    result.walking_time = nodeWithshortestPath->getWalkingDist();
+    result.parking_node = nodeWithshortestPath->getId();
+
+    return true;
 }
+
+
+
 
 DrivingWalkingResult DrivingWalking::calculateRoute()
 {
     result.no_parking = true;
     for(auto node : graph.getNodes())
     {
+        node->resetNode();
+
         if(node->getParking()){
             result.no_parking = false;
             break;
@@ -98,20 +185,28 @@ DrivingWalkingResult DrivingWalking::calculateRoute()
     if(result.no_parking) {return result;}
 
 
-    vector<Node *> parkingNodes = walking_to_parks();
-    for(auto node : parkingNodes)
-    {
-        cout << "Parking node: " << node->getId() << " " << node->getLocation() << "   Tempo:"<< node->getWalkingDist() << endl;
-    }
+    unordered_set<Node *> parkingNodes = walking_to_parks();
+    
     // Search the shortest paths that connect to those parking spots
     if(parkingNodes.empty()){ 
         result.no_range = true;
         return result;
     }
 
-    // Search the shortest paths that connect to those parking spots
-
-
+    if(!driving_to_parks(parkingNodes))
+    {
+        result.no_range = true;
+        return result;
+    }
 
     return result;
+}
+
+pair<DrivingWalkingResult, DrivingWalkingResult> DrivingWalking::alternativeRoutes()
+{
+    this->maxWalkTime = numeric_limits<int>::max();
+    this->result = calculateRoute();
+
+
+    return {result, alternative1};
 }

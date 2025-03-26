@@ -46,7 +46,8 @@ private:
     unordered_set<int> avoidNodes;
     unordered_set<pair<int, int>, pair_hash> avoidSegments;
 
-    vector<Node *> walking_to_parks();
+    unordered_set<Node *> walking_to_parks();
+    bool driving_to_parks(unordered_set<Node *> parkingNodes);
 
 public:
     DrivingWalking(Graph graph,int source, int destination, int maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments);

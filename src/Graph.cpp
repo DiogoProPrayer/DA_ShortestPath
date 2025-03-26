@@ -120,9 +120,10 @@ int Graph::getNodeSize() const
 
 Node *Graph::getNode(int idx) const
 {
-    if (idx < 0 || idx >= Nodes.size())
+    if (idx < 0 || idx > Nodes.size())
     {
         std::cout << "Invalid Node index" << std::endl;
+        std::cout << "idx is " << idx << " and Nodes.size() is " << Nodes.size() << std::endl;
         return nullptr;
     }
     return Nodes[idx - 1];
