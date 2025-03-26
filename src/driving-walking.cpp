@@ -260,6 +260,7 @@ pair<DrivingWalkingResult, DrivingWalkingResult> DrivingWalking::alternativeRout
 
     DrivingWalkingResult alternative2 = calculateRoute();
 
-
+    graph.getNode(alternative1.parking_node)->setParking(true);
+    
     return {alternative1, alternative2};
 }
