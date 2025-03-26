@@ -126,9 +126,6 @@ void algorithm(int source, int dest, const Graph& graph, int mode){
                     dis.push({ destNode->getDist(), destNode->getId() });
                 }
             }
-
-
-            
         }
     }
 }
