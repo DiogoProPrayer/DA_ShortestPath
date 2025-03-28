@@ -23,15 +23,12 @@ struct singleMode{
 
 /**
  * @brief Function made for finding alternative path by seting the nodes in the best path to visited
- * 
- *  @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param path
- * @return std::set<int>
+ * @details Complexity O(n)
+ * @param source The starting node ID
+ * @param dest The destination node ID
+ * @param path Vector with node IDs of path
+ * @return std::set<int> Set with node IDs to avoid
  */
-
  std::unordered_set<int> limit(int source,int dest,std::vector<int>path){
     std:: unordered_set<int> limit;
     for(int i:path){
@@ -45,15 +42,13 @@ struct singleMode{
 
 
 /**
- * @brief Get the path between two nodes
- *
- * @details Complexity O()
- *
- * @param source
- * @param dest
- * @param graph
- * @return std::pair<std::vector<int>,double>
- */
+* @brief Get the path between two nodes
+* @details Complexity O(n)
+* @param source The starting node ID
+* @param dest The destination node ID
+* @param graph Graph object - with nodes
+* @return pair<vector<int>, double> - path and distance
+*/
 std::pair<std::vector<int>,double> getPath(int source,int dest,Graph &graph){
     std::vector<int> path;
     double distance=0;
@@ -76,26 +71,22 @@ std::pair<std::vector<int>,double> getPath(int source,int dest,Graph &graph){
 
 /**
  * @brief personalized compare function for the priority queue
- * 
- * @param d1 
- * @param d2 
- * @return true 
- * @return false 
+ * @param d1 First pair - node and distance
+ * @param d2 Secon pair - node and distance
+ * @return true if first pair distance >
+ * @return false if second pair distance >
  */
-
 bool compare(const std::pair<double, int>& d1, const std::pair<double, int>& d2) {
     return d1.first > d2.first;
 }
 
 /**
  * @brief Dijkstra's algorithm to find the shortest path between two nodes
- * 
- * @details Complexity O(E+VlogV)
- * 
- * @param source 
- * @param dest 
- * @param graph 
- * @param mode 
+ * @details Complexity O((E+V) logV)
+ * @param source The starting node ID
+ * @param dest The destination node ID
+ * @param graph Graph object - with nodes
+ * @param mode Decide between driving and walking
  */
 void algorithm(int source, int dest, const Graph& graph, int mode){
     std::pair<double, int> DistNode;  // pair.first-distance to the node from the source, pair.second is the destination node
@@ -129,15 +120,12 @@ void algorithm(int source, int dest, const Graph& graph, int mode){
         }
     }
 }
+
 /**
  * @brief Set all nodes and edges to unvisited and set the distance for the dijkstra algorithm
- * 
  * @details Complexity O(V+E)
- * 
- * @param graph 
+ * @param graph Graph object - with nodes
  */
-
-
  void unsetNodesAndEdges(Graph &graph){
     std::vector<Node*> Nodes = graph.getNodes();
     for (int i = 0; i < graph.getNodeSize(); i++) {
@@ -152,13 +140,12 @@ void algorithm(int source, int dest, const Graph& graph, int mode){
     }
 
  }
+
 /** 
  * @brief Set the nodes to avoid to visited
- * 
- * @details Complexity O()
- * 
- * @param graph
- * @param limit
+ * @details Complexity O(V + E)
+ * @param graph Graph object - with nodes
+ * @param limit Set of node IDs - to mark as visited
 */
  void setSomeNodesVisited(Graph &graph,std::unordered_set<int> &limit){
     if (limit.empty()){return;}
@@ -181,11 +168,9 @@ void algorithm(int source, int dest, const Graph& graph, int mode){
 
 /**
  * @brief Set the edges to avoid to visited
- * 
- * @details Complexity O()
- * 
- * @param graph 
- * @param edgesToAvoid 
+ * @details Complexity O(n)
+ * @param graph Graph object - with nodes
+ * @param edgesToAvoid Vector with edges to avoid
  */
 void setSomeEdgesVisited(Graph &graph,std::vector<std::pair<int,int>> &edgesToAvoid){
     if (edgesToAvoid.empty()){return;}
@@ -200,6 +185,15 @@ void setSomeEdgesVisited(Graph &graph,std::vector<std::pair<int,int>> &edgesToAv
     } 
 }
 
+/**
+ * @brief Find the shortest path between two nodes with no restrictions on the nodes and edges
+ * @details Complexity O((V + E) log(V))
+ * @param source The starting node ID
+ * @param destination The destination node ID
+ * @param graph Graph object - with nodes
+ * @param mode Decide between driving and walking
+ * @return singleMode - best path and distance
+ */
 singleMode noRestriction(int source,int dest,Graph graph,int mode){
     std::pair<std::vector<int>,double> path;
     singleMode result;
@@ -218,24 +212,17 @@ singleMode noRestriction(int source,int dest,Graph graph,int mode){
     return result;
 }
 
-
-
-
-
-
 /**
  * @brief Find the shortest path between two nodes with restrictions on the nodes and edges
- * 
- * @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param graph
- * @param limit
- * @param edgesToAvoid
- * @param mode
+ * @details Complexity O((V + E) log(V))
+ * @param source The starting node ID
+ * @param destination The destination node ID
+ * @param graph Graph object - with nodes
+ * @param limit Set of node IDs - to mark as visited
+ * @param edgesToAvoid Set of edges to avoid
+ * @param mode Decide between driving and walking
+ * @return singleMode - best path and distance
  */
-
 singleMode restrictedEdgesAndNodes(int source,int dest,Graph graph,std::unordered_set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid, int mode){
     singleMode result;
     std::pair<std::vector<int>,double> path;
@@ -251,28 +238,18 @@ singleMode restrictedEdgesAndNodes(int source,int dest,Graph graph,std::unordere
      return result;
 }
 
-
-
-
-
-
-
 /**
  * @brief Find the shortest path between two nodes with a node included and restrictions on the nodes and edges
- * 
- * @details Complexity O()
- * 
- * @param source
- * @param dest
- * @param graph
- * @param limit
- * @param edgesToAvoid
- * @param include
- * @param mode
- * 
- * 
+ * @details Complexity O((V + E) log(V))
+ * @param source The starting node ID
+ * @param destination The destination node ID
+ * @param graph Graph object - with nodes
+ * @param limit Set of node IDs - to mark as visited
+ * @param edgesToAvoid Set of edges to avoid
+ * @param include Node ID to include in path
+ * @param mode Decide between driving and walking
+ * @return singleMode - best path and distance
  */
-
 singleMode includeNodeWithRestrictNodesAndEdges(int source, int dest,  Graph& graph,std::unordered_set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid,int include,int mode){
      singleMode result;
     if(graph.findNodeIndex(source)==-1||graph.findNodeIndex(dest)==-1||graph.findNodeIndex(include)==-1)return result;
@@ -297,11 +274,18 @@ singleMode includeNodeWithRestrictNodesAndEdges(int source, int dest,  Graph& gr
     return result;
 }
 
-
-
-
-
-
+/**
+ * @brief Calculates driving path between two nodes
+ * @details Complexity O((V + E) log(V))
+ * @param source The starting node ID
+ * @param destination The destination node ID
+ * @param graph Graph object - with nodes
+ * @param limit Set of node IDs - to mark as visited
+ * @param edgesToAvoid Set of edges to avoid
+ * @param include Node ID to include in path
+ * @param mode Decide between driving and walking
+ * @return singleMode - best path and distance
+ */
 singleMode driving(int source, int dest,  Graph& graph,std::unordered_set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid,int include){
      if(include==-1){
          return restrictedEdgesAndNodes(source,dest,graph,limit,edgesToAvoid,0);
@@ -311,6 +295,18 @@ singleMode driving(int source, int dest,  Graph& graph,std::unordered_set<int> &
 
 }
 
+/**
+ * @brief Calculates walking path between two nodes
+ * @details Complexity O((V + E) log(V))
+ * @param source The starting node ID
+ * @param destination The destination node ID
+ * @param graph Graph object - with nodes
+ * @param limit Set of node IDs - to mark as visited
+ * @param edgesToAvoid Set of edges to avoid
+ * @param include Node ID to include in path
+ * @param mode Decide between driving and walking
+ * @return singleMode - best path and distance
+ */
 singleMode walking(int source, int dest,  Graph& graph,std::unordered_set<int> &limit,std::vector<std::pair<int,int>> &edgesToAvoid,int include){
     if(edgesToAvoid.empty() && limit.empty()&& include==-1){
        return noRestriction(source,dest,graph,1);
