@@ -44,7 +44,19 @@ private:
     unordered_set<int> avoidNodes;
     unordered_set<pair<int, int>, pair_hash> avoidSegments;
 
+    /**
+    * @brief Gets parking nodes within max walking time
+    * @details Complexity O(E log V)
+    * @return Set of parking nodes
+    */
     unordered_set<Node *> walking_to_parks();
+
+    /**
+    * @brief Calculates driving route to valid parking nodes
+    * @details Complexity O(E log V)
+    * @param parkingNodes Set of valid parking nodes
+    * @return True if possible, false otherwise
+    */
     bool driving_to_parks(unordered_set<Node *> parkingNodes);
 
 public:

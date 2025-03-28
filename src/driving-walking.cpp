@@ -3,14 +3,6 @@
 #include "driving-walking.h"
 using namespace std;
 
-/**
-* @brief DrivingWalking constructor
-* @param graph The graph representing the map
-* @param source The starting node ID for driving
-* @param maxWalkTime Maximum walking time allowed
-* @param avoidNodes Set of node IDs to avoid
-* @param avoidSegments Set of segments (pair of node IDs) to avoid
-*/
 DrivingWalking::DrivingWalking(Graph graph, int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments)
 {
     this->graph = graph;
@@ -21,11 +13,6 @@ DrivingWalking::DrivingWalking(Graph graph, int source, int destination, double 
     this->avoidSegments = avoidSegments;
 }
 
-/**
-* @brief Gets parking nodes within max walking time
-* @details Complexity O(E log V)
-* @return Set of parking nodes
-*/
 unordered_set<Node *> DrivingWalking::walking_to_parks()
 {
     priority_queue<Node *, vector<Node*>, CompareNodeWalking> pq;
@@ -88,12 +75,6 @@ unordered_set<Node *> DrivingWalking::walking_to_parks()
     return parkingNodes;
 }
 
-/**
-* @brief Calculates driving route to valid parking nodes
-* @details Complexity O(E log V)
-* @param parkingNodes Set of valid parking nodes
-* @return True if possible, false otherwise
-*/
 bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 {
     priority_queue<Node *, vector<Node*>, CompareNodeDriving> pq;
@@ -183,11 +164,6 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
     return true;
 }
 
-/**
-* @brief Calculates the complete driving and walking rout
-* @details Complexity O(E log V)
-* @return DrivingWalkingResult - routes and times
-*/
 DrivingWalkingResult DrivingWalking::calculateRoute()
 {
     for(auto node : graph.getNodes())
@@ -248,11 +224,6 @@ DrivingWalkingResult DrivingWalking::calculateRoute()
     return result;
 }
 
-/**
-* @brief Calculates alternative routes by relaxing restrictions
-* @details Complexity O((E log V))
-* @return Pair of DrivingWalkingResult - 2 alternative routes
-*/
 pair<DrivingWalkingResult, DrivingWalkingResult> DrivingWalking::alternativeRoutes()
 {
     for(auto node : graph.getNodes())

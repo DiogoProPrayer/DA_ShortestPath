@@ -15,19 +15,28 @@ protected:
     bool visited = false;
 
 public:
-    Edge(Node *org,Node*dest, double driving, double walking) {
+
+    /**
+    * @brief Edge constructor
+    * @param org Pointer to the origin Node
+    * @param dest Pointer to the destination Node
+    * @param driving The driving time for the edge
+    * @param walking The walking time for the edge
+    */
+    Edge(Node *org, Node*dest, double driving, double walking) {
         this->org=org;
         this->dest=dest;
         drivingTime=driving;
         walkingTime=walking;
     }
+
+    // Getters
     Node * getDest() const {
         return dest;
     };
     Node * getOrig() const {
         return org;
     };
-
     double getDrivingTime() const {
         return drivingTime;
     };
@@ -40,10 +49,6 @@ public:
     void setVisited(bool visit) {
         this->visited=visit;
     }
-
- 
-
-
 };
 #endif //EDGE_H
 
