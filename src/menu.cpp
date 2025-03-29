@@ -159,7 +159,7 @@ void menuEcoRoute(Graph graph)
             cout<<COLOR_MAGENTA<<"Message:There are no available parking lots close and no possible route with a maximum walking time of "<<maxWalkTime<<" minutes."<<COLOR_RESET<<endl;
         }
 
-        cout<<"Doing alternative route..." << endl;
+        cout<<"\n\nCalculating alternative route..." << endl;
         
         pair<DrivingWalkingResult,DrivingWalkingResult> res = drivingWalking.alternativeRoutes();
 
