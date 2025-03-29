@@ -32,7 +32,7 @@ struct singleMode{
  std::unordered_set<int> limit(int source,int dest,std::vector<int>path){
     std:: unordered_set<int> limit;
     for(int i:path){
-        if(i!=dest){
+        if(i!=dest && i!=source){
             limit.emplace(i);
         }
     }
@@ -105,12 +105,10 @@ void algorithm(int source, int dest, const Graph& graph, int mode){
         Node* sourceNode=Nodes[index];
         adj = Nodes[index]->getAdj();
         sourceNode->setVisited(true);
-
         for (Edge* edg:adj) {
             d=mode==0? edg->getDrivingTime():edg->getWalkingTime();
             Node* destNode = edg->getDest();
-
-            if (d != -1 && !destNode->isVisited() && !sourceNode->isEdgeVisited(destNode)) {
+            if (d !=-1 && !destNode->isVisited() && !sourceNode->isEdgeVisited(destNode)) {
                 if (sourceNode->getDist() + d< destNode->getDist()) {
                     destNode->setDist(sourceNode->getDist() + d);
                     destNode->setPred(sourceNode->getId());
@@ -299,7 +297,7 @@ singleMode driving(int source, int dest,  Graph& graph,std::unordered_set<int> &
  * @brief Calculates walking path between two nodes
  * @details Complexity O((V + E) log(V))
  * @param source The starting node ID
- * @param destination The destination node ID
+ * @param dest The destination node ID
  * @param graph Graph object - with nodes
  * @param limit Set of node IDs - to mark as visited
  * @param edgesToAvoid Set of edges to avoid

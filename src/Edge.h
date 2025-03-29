@@ -4,6 +4,7 @@
 
 #ifndef EDGE_H
 #define EDGE_H
+#include "Node.h"
 
 class Node;
 class Edge {
@@ -49,6 +50,9 @@ public:
     void setVisited(bool visit) {
         this->visited=visit;
     }
+    void print() {
+       std:: cout<<" " <<drivingTime<<" "<<walkingTime<<std::endl;
+   }
 };
 #endif //EDGE_H
 
