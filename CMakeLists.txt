@@ -12,4 +12,5 @@ add_executable(DA_ShortestPath src/Graph.h
         src/main.cpp
         src/driving-walking.cpp
         src/bash.cpp
+        src/Mode.cpp
 )

@@ -12,4 +12,14 @@ void bash(Graph graph)
     system("clear");
     cout << "Path for the input file: ";
     cin >> input;
+
+    // Open the file
+    ifstream file(input);
+    if (!file.is_open()) {
+        cout << "Error opening file: " << input << endl;
+        return;
+    }
+    // Read the file line by line
+
+    
 }
