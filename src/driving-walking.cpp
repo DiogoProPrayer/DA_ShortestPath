@@ -1,8 +1,7 @@
-#include "driving-walking.h"
 #include <queue>
 #include <algorithm>
+#include "driving-walking.h"
 using namespace std;
-
 
 DrivingWalking::DrivingWalking(Graph graph, int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments)
 {
@@ -75,8 +74,6 @@ unordered_set<Node *> DrivingWalking::walking_to_parks()
 
     return parkingNodes;
 }
-
-
 
 bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 {
@@ -166,9 +163,6 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 
     return true;
 }
-
-
-
 
 DrivingWalkingResult DrivingWalking::calculateRoute()
 {

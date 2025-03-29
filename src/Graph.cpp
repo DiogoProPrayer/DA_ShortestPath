@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Graph.h"
 
 int Graph::findNodeIndex(const int id) const
@@ -38,8 +39,6 @@ bool Graph::addNode(const Node &in)
     return true;
 }
 
-
-
 bool Graph::addEdge(const Node &source, const Node &dest, double driving, double walking) const
 {
     if (driving < 0 || walking < 0)
@@ -56,14 +55,13 @@ bool Graph::addEdge(const Node &source, const Node &dest, double driving, double
     return true;
 }
 
-
-
 bool Graph::addBidirectionalEdge(const Node &source, const Node &dest, double driving, double walking) const
 {
     if (findNode(source) != nullptr && findNode(dest) != nullptr)
     {
         addEdge(source, dest, driving, walking);
         addEdge(dest, source, driving, walking);
+        return true;
     }
     return false;
 }

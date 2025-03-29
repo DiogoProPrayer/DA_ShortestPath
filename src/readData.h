@@ -8,7 +8,10 @@
 #include "Graph.h"
 #include "Node.h"
 
-
+/**
+ * @brief Reads location and distance data from CSV files and populates the graph
+ * @param graph Reference to the graph that will be populated
+ */
 void readData( Graph &graph) {
     std::string data,location,code,location2;
     int id,fpos;

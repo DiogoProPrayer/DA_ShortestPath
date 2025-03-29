@@ -19,11 +19,22 @@ struct pair_hash
     }
 };
 
-
+/**
+ * @brief Displays the menu for selecting a driving route
+ * @param graph Reference to the Graph object
+ */
 void menuDrivingRoute(Graph graph);
 
+/**
+ * @brief Displays the menu for selecting an eco-friendly route
+ * @param graph Reference to the Graph object
+ */
 void menuEcoRoute(Graph graph);
 
+/**
+ * @brief Main menu function for the program
+ * @param graph Reference to the Graph object
+ */
 void menu(Graph graph);
 
 #endif

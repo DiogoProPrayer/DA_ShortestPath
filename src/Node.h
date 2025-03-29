@@ -28,7 +28,10 @@ protected:
     std::vector<Edge *> adj;
     std::vector<Edge *> incoming;
 
-    // Helper to delete an edge from the destination's incoming list
+    /**
+    * @brief Helper to delete an edge from the destination's incoming list
+    * @param edge Pointer to the edge to be deleted
+    */
     void deleteEdge(Edge *edge) {
         Node *dest = edge->getDest();
         auto it = dest->incoming.begin();
@@ -43,7 +46,13 @@ protected:
     }
 
 public:
-    // Constructor
+    /**
+     * @brief Node constructor
+     * @param Location The location of the node
+     * @param id The ID of the node
+     * @param Code The code of the node
+     * @param Parking Say whether one can park
+     */
     Node(std::string Location, int id, std::string Code, bool Parking)
         : location(std::move(Location)), code(std::move(Code)), id(id), parking(Parking) {}
 
@@ -61,17 +70,6 @@ public:
     int getWalkingPred() const { return walking_pred; }
     bool getWalkingVisited() const { return walking_visited; }
     std::vector<Edge *> getAdj() const { return adj; }
-
-    // Setter methods for dynamic attributes
-    void setVisited(bool visited) { this->visited = visited; }
-    void setDist(double dist) { this->dist = dist; }
-    void setPred(int p) { this->pred = p; }
-    void setWalkingDist(double dist) { this->walking_dist = dist; }
-    void setWalkingPred(int pred) { this->walking_pred = pred; }
-    void setWalkingVisited(bool visited) { this->walking_visited = visited; }
-    void setParking(bool parking) { this->parking = parking; }
-
-    // Other member functions
     bool isEdgeVisited(Node *dest) {
         for (Edge *edge : adj) {
             if (edge->getDest() == dest) {
@@ -81,6 +79,14 @@ public:
         return false;
     }
 
+    // Setter methods for dynamic attributes
+    void setVisited(bool visited) { this->visited = visited; }
+    void setDist(double dist) { this->dist = dist; }
+    void setPred(int p) { this->pred = p; }
+    void setWalkingDist(double dist) { this->walking_dist = dist; }
+    void setWalkingPred(int pred) { this->walking_pred = pred; }
+    void setWalkingVisited(bool visited) { this->walking_visited = visited; }
+    void setParking(bool parking) { this->parking = parking; }
     void setEdgeVisited(Node *dest, bool visit) {
         for (Edge *edge : adj) {
             if (edge->getDest() == dest) {
@@ -90,7 +96,13 @@ public:
         }
     }
 
-    // Add an edge from this node to a destination node
+    /**
+     * @brief Add an edge from this node to a destination node
+     * @param dest Pointer to the destination node
+     * @param driving Driving time for the edge
+     * @param walking Walking time for the edge
+     * @return Pointer to the created Edge
+     */
     Edge* addEdge(Node *dest, double driving, double walking) {
         auto newEdge = new Edge(this, dest, driving, walking);
         adj.push_back(newEdge);
@@ -98,10 +110,9 @@ public:
         return newEdge;
     }
 
-   
-
-
-    // Reset dynamic attributes to default values.
+    /**
+     * @brief Reset dynamic attributes to default values.
+     */
     void resetNode() {
         visited = false;
         dist = std::numeric_limits<double>::max();
