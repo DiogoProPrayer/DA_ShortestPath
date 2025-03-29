@@ -14,16 +14,6 @@ using namespace std;
 #define COLOR_RESET "\033[0m"              // Reset
 
 
-#define COLOR_BLUE_HEADER "\033[1;97;44m"  // Bright white on blue
-#define COLOR_GREEN_HEADER "\033[1;97;42m" // Bright white on green
-#define COLOR_RED "\033[1;31m"             // Red
-#define COLOR_GREEN "\033[1;32m"           // Green
-#define COLOR_YELLOW "\033[1;33m"          // Yellow
-#define COLOR_CYAN "\033[1;36m"            // Cyan
-#define COLOR_MAGENTA "\033[1;35m"         // Magenta
-#define COLOR_RESET "\033[0m"              // Reset
-
-
 /*
  * @brief Main function to run the program
  * @return 0 on success
