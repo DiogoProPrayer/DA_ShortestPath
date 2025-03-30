@@ -1,19 +1,16 @@
 #include <iostream>
-#include <string>
-#include "bash.h"
-#include "Graph.h"
+#include "batch.h"
 
 using namespace std;
 
 
-void bash(Graph graph)
+void batch(Graph graph)
 {
     string input;
     system("clear");
-    cout << "Path for the input file: ";
+    cout << "Full path for the input file: ";
     cin >> input;
 
-    // Open the file
     ifstream file(input);
     if (!file.is_open()) {
         cout << "Error opening file: " << input << endl;
