@@ -114,17 +114,17 @@ void menuDrivingRoute(Graph graph)
         }
         cout << COLOR_GREEN << "Calculating route..." << COLOR_RESET << endl;
         singleMode result=driving(sourc,dest,graph,avoidNodesSet,avoidEdges,include);
-        cout<< COLOR_GREEN <<"\n \n Source: "<<source<<COLOR_RESET<<endl;
-        cout<< COLOR_GREEN <<"Destination: "<<destination<<COLOR_RESET<<endl;
+        cout<< COLOR_YELLOW <<"\n \n Source: "<<source<<COLOR_RESET<<endl;
+        cout<< COLOR_YELLOW <<"Destination: "<<destination<<COLOR_RESET<<endl;
         cout<< COLOR_GREEN <<"Restricted Driving Rote: "<<COLOR_RESET;
         if(result.bestpath.empty()) {
             cout<<COLOR_RED<<"No possible route with imposed restrictions"<<COLOR_RESET<<endl;
         }
         else{
             for(int i=0;i<result.bestpath.size();i++){
-                cout<<COLOR_GREEN<<result.bestpath[i]<<" ";
+                cout<<result.bestpath[i]<<" ";
             }
-            cout<<"("<<result.bestDistance<<")"<<COLOR_RESET<<endl;
+            cout<<"("<<result.bestDistance<<")"<<endl;
         }
     }
         
@@ -152,9 +152,9 @@ void menuWalkingRoute(Graph graph)
         reset();
         cout << COLOR_GREEN << "Calculating best and alternative routes..." << COLOR_RESET << endl;
         singleMode result=noRestriction(stoi(source),stoi(destination),graph,1);
-        cout<<"Source: "<<source<<endl;
-        cout<<"Destination: "<<destination<<endl;
-        cout<<"Best path: ";
+        cout<<COLOR_YELLOW<<"Source: "<<source<<endl;
+        cout<<COLOR_YELLOW<<"Destination: "<<destination<<endl;
+        cout<<COLOR_GREEN<<"Best path: "<<COLOR_RESET;
         if(result.bestpath.empty()) {
             cout<<COLOR_RED<<"No possible route"<<COLOR_RESET<<endl;
         }
@@ -165,7 +165,7 @@ void menuWalkingRoute(Graph graph)
             cout<<"("<<result.bestDistance<<")"<<endl;
 
         }
-        cout<<"Alternative path: ";
+        cout<<COLOR_GREEN<<"Alternative path: "<<COLOR_RESET;
         if(result.alternative.empty()) {
             cout<<COLOR_RED<<"No possible route"<<COLOR_RESET<<endl;
         }
@@ -222,9 +222,9 @@ void menuWalkingRoute(Graph graph)
         }
         cout << COLOR_GREEN << "Calculating route..." << COLOR_RESET << endl;
         singleMode result=walking(sourc,dest,graph,avoidNodesSet,avoidEdges,include);
-        cout<<"Source: "<<source<<endl;
-        cout<<"Destination: "<<destination<<endl;
-        cout<<"Restricted Driving Rote: ";
+        cout<<COLOR_YELLOW<<"Source: "<<source<<endl;
+        cout<<COLOR_YELLOW<<"Destination: "<<destination<<endl;
+        cout<<COLOR_GREEN<<"Restricted Driving Rote: "<<COLOR_RESET;
         if(result.bestpath.empty()) {
             cout<<COLOR_RED<<"No possible route with imposed restrictions"<<COLOR_RESET<<endl;
         }
@@ -241,7 +241,8 @@ void menuWalkingRoute(Graph graph)
 
 void menuEcoRoute(Graph graph) {
     int option;
-    cout << COLOR_GREEN_HEADER << "\n\n ROUTE PLANNING - ECO ROUTE        " << COLOR_RESET << endl;
+    cout << "\n\n";
+    cout << COLOR_GREEN_HEADER << " ROUTE PLANNING - ECO ROUTE        " << COLOR_RESET << endl;
     cout << COLOR_GREEN << "1 - Best Route for Driving & Walking (T3.1)" << COLOR_RESET << endl;
     cout << COLOR_RED << "0 - Back" << COLOR_RESET << endl;
     cout << COLOR_YELLOW << "Enter your choice: " << COLOR_RESET;

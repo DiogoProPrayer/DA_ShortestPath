@@ -67,7 +67,7 @@ inline void unsetNodesAndEdges(Graph &graph, int mode){
             Nodes[i]->setPred(-1);
             Nodes[i]->setDist(std::numeric_limits<double>::infinity());
         }
-        if(Nodes[i]->getAdj().empty()){
+        if(!Nodes[i]->getAdj().empty()){
             for(Edge* edge:Nodes[i]->getAdj()){
                 edge->setVisited(false);
             }
@@ -138,7 +138,7 @@ inline void algorithm(int source,const Graph &graph, int mode){
                     if (sourceNode->getDist() + d< destNode->getDist()) {
                         destNode->setDist(sourceNode->getDist() + d);
                         destNode->setPred(sourceNode->getId());
-                        dis.push({ destNode->getDist(), destNode->getId() });
+                        dis.push({ destNode->getDist(), destNode->getId()});
                     }
                 }
                 else {
@@ -206,6 +206,9 @@ inline std::pair<std::vector<int>,double> getPathDW(int source,int dest,Graph &g
  inline singleMode noRestriction(int source,int dest,Graph graph,int mode){
     std::pair<std::vector<int>,double> path;
     singleMode result;
+    if (graph.findNodeIndex(source)==-1 || graph.findNodeIndex(dest)==-1) {
+        return result;
+    }
     unsetNodesAndEdges(graph,mode);
     algorithm(source,graph,mode);
     path=getPath(source,dest,graph,mode);
@@ -366,7 +369,7 @@ inline WalkDrive walkingDriving(int source, int dest,  Graph& graph,std::unorder
     someEdgesVisited(graph,edgesToAvoid);
     algorithm(dest,graph,1);
     Node* Node;
-    int count;
+    int count=0;
     std::priority_queue<WalkDrive, std::vector<WalkDrive>, decltype(&walkcomp)>alt(walkcomp);
     for (int node: parkingNodes) {
         if (limit.find(node)==limit.end()) {
