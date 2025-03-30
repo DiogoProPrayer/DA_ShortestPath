@@ -1,0 +1,137 @@
+\doxysection{Edge Class Reference}
+\hypertarget{class_edge}{}\label{class_edge}\index{Edge@{Edge}}
+
+
+{\ttfamily \#include $<$Edge.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_edge_a3ad46b1f94ba018c3887706cb6532f36}{Edge}} (\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_edge_a2d8ad3c71be57bfb6eedba0315c4a880}{org}}, \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_edge_a70eb1c0683ec0a252fbeff0cdf7403ef}{dest}}, double \mbox{\hyperlink{_walk_drive_8h_a51b0081a23ec324c6453e0ea9a18dcca}{driving}}, double \mbox{\hyperlink{_walk_drive_8h_ae4fc5c385fa8539b9ec9da230f014700}{walking}})
+\begin{DoxyCompactList}\small\item\em \doxylink{class_edge}{Edge} constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_af2cd0f7cba34228f76c4b20a84a2de9d}{get\+Dest}} () const
+\item 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_af999c2a84d2da0e46eabe8674bc68b91}{get\+Orig}} () const
+\item 
+double \mbox{\hyperlink{class_edge_ac17adf824adf8f1ffbcbcdec5a52fd0d}{get\+Driving\+Time}} () const
+\item 
+double \mbox{\hyperlink{class_edge_af4c649139ee4f87c3944a1ecffccf05b}{get\+Walking\+Time}} () const
+\item 
+bool \mbox{\hyperlink{class_edge_a23f2335498dd519408e27acca941317c}{get\+Visited}} () const
+\item 
+void \mbox{\hyperlink{class_edge_abdc5553d33379775bf9635777c894aa7}{set\+Visited}} (bool visit)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_a2d8ad3c71be57bfb6eedba0315c4a880}{org}}
+\item 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_a70eb1c0683ec0a252fbeff0cdf7403ef}{dest}}
+\item 
+double \mbox{\hyperlink{class_edge_afe6252f160e3319045f202b22c9df339}{driving\+Time}}
+\item 
+double \mbox{\hyperlink{class_edge_a981699d25ded1def9228fe137b679e20}{walking\+Time}}
+\item 
+bool \mbox{\hyperlink{class_edge_aa4e2883518a2e2bd15cf8f1272e83327}{visited}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_edge_a3ad46b1f94ba018c3887706cb6532f36}\index{Edge@{Edge}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{Edge()}{Edge()}}
+{\footnotesize\ttfamily \label{class_edge_a3ad46b1f94ba018c3887706cb6532f36} 
+Edge\+::\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{org}{, }\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{dest}{, }\item[{double}]{driving}{, }\item[{double}]{walking}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxylink{class_edge}{Edge} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em org} & Pointer to the origin \doxylink{class_node}{Node} \\
+\hline
+{\em dest} & Pointer to the destination \doxylink{class_node}{Node} \\
+\hline
+{\em driving} & The driving time for the edge \\
+\hline
+{\em walking} & The walking time for the edge \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edge_af2cd0f7cba34228f76c4b20a84a2de9d}\index{Edge@{Edge}!getDest@{getDest}}
+\index{getDest@{getDest}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getDest()}{getDest()}}
+{\footnotesize\ttfamily \label{class_edge_af2cd0f7cba34228f76c4b20a84a2de9d} 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} Edge\+::get\+Dest (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_edge_ac17adf824adf8f1ffbcbcdec5a52fd0d}\index{Edge@{Edge}!getDrivingTime@{getDrivingTime}}
+\index{getDrivingTime@{getDrivingTime}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getDrivingTime()}{getDrivingTime()}}
+{\footnotesize\ttfamily \label{class_edge_ac17adf824adf8f1ffbcbcdec5a52fd0d} 
+double Edge\+::get\+Driving\+Time (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_edge_af999c2a84d2da0e46eabe8674bc68b91}\index{Edge@{Edge}!getOrig@{getOrig}}
+\index{getOrig@{getOrig}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getOrig()}{getOrig()}}
+{\footnotesize\ttfamily \label{class_edge_af999c2a84d2da0e46eabe8674bc68b91} 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} Edge\+::get\+Orig (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_edge_a23f2335498dd519408e27acca941317c}\index{Edge@{Edge}!getVisited@{getVisited}}
+\index{getVisited@{getVisited}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getVisited()}{getVisited()}}
+{\footnotesize\ttfamily \label{class_edge_a23f2335498dd519408e27acca941317c} 
+bool Edge\+::get\+Visited (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_edge_af4c649139ee4f87c3944a1ecffccf05b}\index{Edge@{Edge}!getWalkingTime@{getWalkingTime}}
+\index{getWalkingTime@{getWalkingTime}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getWalkingTime()}{getWalkingTime()}}
+{\footnotesize\ttfamily \label{class_edge_af4c649139ee4f87c3944a1ecffccf05b} 
+double Edge\+::get\+Walking\+Time (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_edge_abdc5553d33379775bf9635777c894aa7}\index{Edge@{Edge}!setVisited@{setVisited}}
+\index{setVisited@{setVisited}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setVisited()}{setVisited()}}
+{\footnotesize\ttfamily \label{class_edge_abdc5553d33379775bf9635777c894aa7} 
+void Edge\+::set\+Visited (\begin{DoxyParamCaption}\item[{bool}]{visit}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_edge_a70eb1c0683ec0a252fbeff0cdf7403ef}\index{Edge@{Edge}!dest@{dest}}
+\index{dest@{dest}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{dest}{dest}}
+{\footnotesize\ttfamily \label{class_edge_a70eb1c0683ec0a252fbeff0cdf7403ef} 
+\mbox{\hyperlink{class_node}{Node}}\texorpdfstring{$\ast$}{*} Edge\+::dest\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_edge_afe6252f160e3319045f202b22c9df339}\index{Edge@{Edge}!drivingTime@{drivingTime}}
+\index{drivingTime@{drivingTime}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{drivingTime}{drivingTime}}
+{\footnotesize\ttfamily \label{class_edge_afe6252f160e3319045f202b22c9df339} 
+double Edge\+::driving\+Time\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_edge_a2d8ad3c71be57bfb6eedba0315c4a880}\index{Edge@{Edge}!org@{org}}
+\index{org@{org}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{org}{org}}
+{\footnotesize\ttfamily \label{class_edge_a2d8ad3c71be57bfb6eedba0315c4a880} 
+\mbox{\hyperlink{class_node}{Node}}\texorpdfstring{$\ast$}{*} Edge\+::org\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_edge_aa4e2883518a2e2bd15cf8f1272e83327}\index{Edge@{Edge}!visited@{visited}}
+\index{visited@{visited}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{visited}{visited}}
+{\footnotesize\ttfamily \label{class_edge_aa4e2883518a2e2bd15cf8f1272e83327} 
+bool Edge\+::visited = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_edge_a981699d25ded1def9228fe137b679e20}\index{Edge@{Edge}!walkingTime@{walkingTime}}
+\index{walkingTime@{walkingTime}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{walkingTime}{walkingTime}}
+{\footnotesize\ttfamily \label{class_edge_a981699d25ded1def9228fe137b679e20} 
+double Edge\+::walking\+Time\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_edge_8h}{Edge.\+h}}\end{DoxyCompactItemize}

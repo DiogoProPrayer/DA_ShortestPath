@@ -1,0 +1,53 @@
+\doxysection{Graph.\+h}
+\hypertarget{_graph_8h_source}{}\label{_graph_8h_source}\index{src/Graph.h@{src/Graph.h}}
+\mbox{\hyperlink{_graph_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GRAPH\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GRAPH\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_node_8h}{Node.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph}{Graph}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_graph_a902c5b3eacb66d60752525ab23297a95}{\string~Graph}}();}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_node}{Node}}*\ \mbox{\hyperlink{class_graph_af79af858a85d22185c262e6ebab61e65}{findNode}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_node}{Node}}\ \&in)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_node}{Node}}*\ \mbox{\hyperlink{class_graph_a25c493e60a1356fd4446a7221b594db7}{findNodeByCode}}(\textcolor{keyword}{const}\ std::string\ \&code)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_a073110c22fd8433f8d289b37a0df7488}{addNode}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_node}{Node}}\ \&in);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_a510a921735ca04863755d49bca1a2b0f}{addEdge}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_node}{Node}}\ \&source,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_node}{Node}}\ \&dest,\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_walk_drive_8h_a51b0081a23ec324c6453e0ea9a18dcca}{driving}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_walk_drive_8h_ae4fc5c385fa8539b9ec9da230f014700}{walking}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_afdd1bbf1a5fac4ae84347c97fdc955e1}{addBidirectionalEdge}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_node}{Node}}\ \&source,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_node}{Node}}\ \&dest,\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_walk_drive_8h_a51b0081a23ec324c6453e0ea9a18dcca}{driving}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_walk_drive_8h_ae4fc5c385fa8539b9ec9da230f014700}{walking}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_abb5e0517e2979c54eebdafc2a9875e8f}{getNumVertex}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00075\ \ \ \ \ std::vector<Node\ *>\ \mbox{\hyperlink{class_graph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a5ac05db53839e72af76cdb2bafe88b77}{printGraph}}();}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_a97a6ee81d4a4837cfc949d512c05e5d8}{getNodeSize}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{class_node}{Node}}\ *\mbox{\hyperlink{class_graph_ab1aed12b46c724e884ddd6c5f70e6758}{getNode}}(\textcolor{keywordtype}{int}\ idx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00096\ \ \ \ \ std::vector<Node\ *>\ \mbox{\hyperlink{class_graph_aa11ae6cc9599144667c7134d7a7af927}{Nodes}};}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{double}\ **\mbox{\hyperlink{class_graph_a9e61864da69191c1896a25a708d1a02d}{distMatrix}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{int}\ **\mbox{\hyperlink{class_graph_a3ae09699c3616af3ebfcb1eb045f2b62}{pathMatrix}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_a48fc08564ef7b53660a8ba7e809897a5}{findVertexIdx}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_node}{Node}}\ \&in)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00100\ \};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00107\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_graph_8h_ad56527992afe31a371065e795da57d25}{deleteMatrix}}(\textcolor{keywordtype}{int}\ **m,\ \textcolor{keywordtype}{int}\ n);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_graph_8h_ad56527992afe31a371065e795da57d25}{deleteMatrix}}(\textcolor{keywordtype}{double}\ **m,\ \textcolor{keywordtype}{int}\ n);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif\ }}
+
+\end{DoxyCode}
