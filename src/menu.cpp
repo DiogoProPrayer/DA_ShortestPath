@@ -310,7 +310,6 @@ void menuEcoRoute(Graph graph)
 
     DrivingWalking drivingWalking(graph, source, destination, maxWalkTime, avoidNodesSet, avoidSegmentsSet);
     DrivingWalkingResult result = drivingWalking.calculateRoute();
-    cout<<" out of the loop" << endl;
     if (result.no_parking || result.no_range){
         if (result.no_parking && !result.no_range)
         {

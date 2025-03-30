@@ -72,7 +72,6 @@ unordered_set<Node *> DrivingWalking::walking_to_parks()
             }
         }
     }
-    cout<<"Parking nodes found: " << parkingNodes.size() << endl;
     return parkingNodes;
 }
 
@@ -88,9 +87,9 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 
     Node *nodeWithshortestPath = nullptr;
 
+
     while (!pq.empty())
     {
-        cout<<"pq size: " << pq.size() << endl;
         Node *current = pq.top();
         pq.pop();
 
@@ -145,7 +144,6 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
     result.driving_route.clear();
     result.walking_route.clear();
 
-    cout<<"Got out of cclears" << endl;
 
 
     int node = nodeWithshortestPath->getId();
