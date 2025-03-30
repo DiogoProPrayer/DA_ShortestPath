@@ -80,7 +80,7 @@ public:
     void setDist(double dist) { this->dist = dist; }
     void setPred(int p) { this->pred = p; }
     void setWalkingDist(double dist) { this->walking_dist = dist; }
-    void setWalkingPred(int pred) { this->walking_pred = pred; }
+    void setWalkingPred(int p) { this->walking_pred = p; }
     void setWalkingVisited(bool visited) { this->walking_visited = visited; }
     void setParking(bool parking) { this->parking = parking; }
     void setEdgeVisited(Node *dest, bool visit) {

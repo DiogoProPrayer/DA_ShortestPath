@@ -1,18 +1,7 @@
+#include "driving-walking.h"
 #include <queue>
 #include <algorithm>
-#include "driving-walking.h"
 using namespace std;
-
-/**
-*   @brief DrivingWalking constructor
-*   @details Complexity O(V+E+n+m),n-elements in avoidNodes, m-elements in avoidSegments
-*   @param graph Graph object
-*   @param source The starting node ID
-*   @param destination The destination node ID
-*   @param maxWalkTime The maximum walking time allowed
-*   @param avoidNodes Set of node IDs to avoid
-*   @param avoidSegments Set of edges to avoid 
-*/
 
 
 DrivingWalking::DrivingWalking(Graph graph, int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments)
@@ -24,7 +13,6 @@ DrivingWalking::DrivingWalking(Graph graph, int source, int destination, double 
     this->avoidNodes = avoidNodes;
     this->avoidSegments = avoidSegments;
 }
-
 
 unordered_set<Node *> DrivingWalking::walking_to_parks()
 {
@@ -40,10 +28,14 @@ unordered_set<Node *> DrivingWalking::walking_to_parks()
     {
         Node *current = pq.top();
         pq.pop();
+
+        // If the node has already been visited, skip it
         if (current->getWalkingVisited()) 
         {
             continue;
         }
+
+        // Stop processing if the walking distance exceeds maxWalkTime
         if (current->getWalkingDist() > maxWalkTime)
         {
             break;
@@ -80,9 +72,11 @@ unordered_set<Node *> DrivingWalking::walking_to_parks()
             }
         }
     }
-
+    cout<<"Parking nodes found: " << parkingNodes.size() << endl;
     return parkingNodes;
 }
+
+
 
 bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 {
@@ -96,6 +90,7 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 
     while (!pq.empty())
     {
+        cout<<"pq size: " << pq.size() << endl;
         Node *current = pq.top();
         pq.pop();
 
@@ -125,7 +120,7 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
             Node *dest = edge->getDest();
 
             if (avoidSegments.find({current->getId(), dest->getId()}) != avoidSegments.end() ||
-                avoidNodes.find(dest->getId()) != avoidNodes.end() || avoidSegments.find({dest->getId(), current->getId()}) != avoidSegments.end())
+                avoidNodes.find(dest->getId()) != avoidNodes.end() || avoidSegments.find({dest->getId(), current->getId()}) != avoidSegments.end() || dest->isVisited())
             {
                 continue;
             }
@@ -141,6 +136,7 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
         }
     }
 
+
     if (nodeWithshortestPath == nullptr){
         return false;
     }
@@ -148,6 +144,9 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
     // Clear previous results
     result.driving_route.clear();
     result.walking_route.clear();
+
+    cout<<"Got out of cclears" << endl;
+
 
     int node = nodeWithshortestPath->getId();
     // Store driving path
@@ -172,6 +171,9 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 
     return true;
 }
+
+
+
 
 DrivingWalkingResult DrivingWalking::calculateRoute()
 {
