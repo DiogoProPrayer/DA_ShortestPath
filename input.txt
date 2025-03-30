@@ -41,11 +41,18 @@ Source:8
 Destination:5
 MaxWalkTime:5
 AvoidNodes:
-AvoidSegments:
+AvoidSegments: 
 
 Mode:driving-walking
 Source:8
 Destination:5
 MaxWalkTime:5
 AvoidNodes:
-AvoidSegments:
+AvoidSegments: (1,2) , (2,1)
+
+Mode:driving-walking
+Source:8
+Destination:5
+MaxWalkTime:5
+AvoidNodes: 4
+AvoidSegments: 
