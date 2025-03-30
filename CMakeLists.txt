@@ -10,5 +10,5 @@ add_executable(DA_ShortestPath src/Graph.h
         src/Edge.h
         src/Graph.cpp
         src/main.cpp
-        src/driving-walking.cpp
+        src/WalkDrive.h
 )

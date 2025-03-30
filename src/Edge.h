@@ -31,7 +31,7 @@ public:
         walkingTime=walking;
     }
 
-    // Getters
+
     Node * getDest() const {
         return dest;
     };
@@ -50,9 +50,7 @@ public:
     void setVisited(bool visit) {
         this->visited=visit;
     }
-    void print() {
-       std:: cout<<" " <<drivingTime<<" "<<walkingTime<<std::endl;
-   }
+  
 };
 #endif //EDGE_H
 
