@@ -12,10 +12,28 @@ void processRestrictedDriving(Graph graph, string source, string destination, st
     cout << "AvoidSegments: " << avoidEdges << endl;
     cout << "IncludeNode: " << includeNodes << endl;
 
+    for (auto node : graph.getNodes())
+    {
+        node->resetNode();
+    }
+    // Implement the logic for processing the driving case here - BELEM
     
 }
 
+void processDriving(Graph graph, string source, string destination)
+{
+    cout << "Processing driving case..." << endl;
+    cout << "Source: " << source << endl;
+    cout << "Destination: " << destination << endl;
 
+    for (auto node : graph.getNodes())
+    {
+        node->resetNode();
+    }
+
+    // Implement the logic for processing the driving case here - BELEM
+    
+}
 
 void parseCase(ifstream &file, string &line, Graph graph)
 {
@@ -53,7 +71,9 @@ void parseCase(ifstream &file, string &line, Graph graph)
             if (line.find("AvoidSegments") == 0)
             {
                 avoidSegments = line.substr(14);
-            } else {
+            }
+            else
+            {
                 cout << "Error: AvoidSegments not found in test" << endl;
                 return;
             }
@@ -67,12 +87,13 @@ void parseCase(ifstream &file, string &line, Graph graph)
                 cout << "Error: IncludeNode not found in test" << endl;
                 return;
             }
-            
-            processRestrictedDriving(graph, source, destination, avoidNodes, avoidSegments, includeNode);
 
+            processRestrictedDriving(graph, source, destination, avoidNodes, avoidSegments, includeNode);
         }
         else if (line.find("Mode:") == 0)
         {
+            processDriving(graph, source, destination);
+
             parseCase(file, line, graph);
         }
         else
@@ -114,7 +135,6 @@ void batch(Graph graph)
         // Check if the line starts with "Mode:" else continue
         if (line.find("Mode:") == 0)
         {
-            cout << "called parse for line" <<line << endl;
             parseCase(file, line, graph);
         }
     }
