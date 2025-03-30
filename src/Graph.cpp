@@ -41,7 +41,7 @@ bool Graph::addNode(const Node &in)
 
 bool Graph::addEdge(const Node &source, const Node &dest, double driving, double walking) const
 {
-    if (driving < 0 || walking < 0)
+    if (driving <-1 || walking < -1)
     {
         return false;
     }

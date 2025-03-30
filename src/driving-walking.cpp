@@ -3,6 +3,18 @@
 #include "driving-walking.h"
 using namespace std;
 
+/**
+*   @brief DrivingWalking constructor
+*   @details Complexity O(V+E+n+m),n-elements in avoidNodes, m-elements in avoidSegments
+*   @param graph Graph object
+*   @param source The starting node ID
+*   @param destination The destination node ID
+*   @param maxWalkTime The maximum walking time allowed
+*   @param avoidNodes Set of node IDs to avoid
+*   @param avoidSegments Set of edges to avoid 
+*/
+
+
 DrivingWalking::DrivingWalking(Graph graph, int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments)
 {
     this->graph = graph;
@@ -12,6 +24,7 @@ DrivingWalking::DrivingWalking(Graph graph, int source, int destination, double 
     this->avoidNodes = avoidNodes;
     this->avoidSegments = avoidSegments;
 }
+
 
 unordered_set<Node *> DrivingWalking::walking_to_parks()
 {
@@ -27,14 +40,10 @@ unordered_set<Node *> DrivingWalking::walking_to_parks()
     {
         Node *current = pq.top();
         pq.pop();
-
-        // If the node has already been visited, skip it
         if (current->getWalkingVisited()) 
         {
             continue;
         }
-
-        // Stop processing if the walking distance exceeds maxWalkTime
         if (current->getWalkingDist() > maxWalkTime)
         {
             break;

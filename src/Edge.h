@@ -4,6 +4,7 @@
 
 #ifndef EDGE_H
 #define EDGE_H
+#include "Node.h"
 
 class Node;
 class Edge {
@@ -30,7 +31,7 @@ public:
         walkingTime=walking;
     }
 
-    // Getters
+
     Node * getDest() const {
         return dest;
     };
@@ -49,6 +50,7 @@ public:
     void setVisited(bool visit) {
         this->visited=visit;
     }
+  
 };
 #endif //EDGE_H
 

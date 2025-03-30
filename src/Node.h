@@ -9,13 +9,11 @@
 
 class Node {
 protected:
-    // Static attributes (do not change during algorithm runs)
     std::string location;
     std::string code;
     int id;
     bool parking = false;
 
-    // Dynamic attributes (resettable between algorithm runs)
     bool visited = false;
     
     double dist = std::numeric_limits<double>::max();
@@ -56,13 +54,12 @@ public:
     Node(std::string Location, int id, std::string Code, bool Parking)
         : location(std::move(Location)), code(std::move(Code)), id(id), parking(Parking) {}
 
-    // Getters for static attributes
     std::string getLocation() const { return location; }
     std::string getCode() const { return code; }
     int getId() const { return id; }
     bool getParking() const { return parking; }
 
-    // Getters for dynamic attributes
+   
     bool isVisited() const { return visited; }
     double getDist() const { return dist; }
     int getPred() const { return pred; }
@@ -79,7 +76,6 @@ public:
         return false;
     }
 
-    // Setter methods for dynamic attributes
     void setVisited(bool visited) { this->visited = visited; }
     void setDist(double dist) { this->dist = dist; }
     void setPred(int p) { this->pred = p; }
