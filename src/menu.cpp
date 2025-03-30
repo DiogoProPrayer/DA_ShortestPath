@@ -136,16 +136,9 @@ void menuDrivingRoute(Graph graph)
 void menuEcoRoute(Graph graph)
 {
     int option;
-    cout << "\n\n"; // Extra space before header
+    cout << "\n\n";
     cout << COLOR_GREEN_HEADER << "        ROUTE PLANNING - ECO ROUTE        " << COLOR_RESET << endl;
-    // cout << COLOR_GREEN << "1 - Best Route for Driving & Walking (T3.1)" << COLOR_RESET << endl;
-    // cout << COLOR_GREEN << "2 - Approximate Solution (T3.2)" << COLOR_RESET << endl;
-    // cout << COLOR_RED << "0 - Back" << COLOR_RESET << endl;
-    // cout << COLOR_YELLOW << "Enter your choice: " << COLOR_RESET;
-    // cin >> option;
-
-    // if (option == 1)
-    // {
+    
     string avoidNodes, avoidSegments;
     int source, destination;
     double maxWalkTime;
@@ -310,11 +303,6 @@ void menuEcoRoute(Graph graph)
         cout << COLOR_MAGENTA << "TotalTime:" << result.driving_time+result.walking_time << COLOR_RESET<<endl;
     }
 
-    // }
-    // else if (option == 2)
-    // {
-    //     cout << COLOR_GREEN << "Suggesting best approximate alternatives..." << COLOR_RESET << endl;
-    // }
 }
 
 void menu(Graph graph)
