@@ -4,38 +4,126 @@
 #include <unordered_set>
 #include <regex>
 #include "driving-walking.h"
+#include "Mode.h"
 
 using namespace std;
 
-void processRestrictedDriving(Graph graph, string source, string destination, string avoidNodes, string avoidEdges, string includeNodes)
+void processRestrictedDriving(Graph graph, string s, string d, string avoidNodes, string avoidSegments, string includeNode)
 {
-    cout << "Source: " << source << endl;
-    cout << "Destination: " << destination << endl;
-    cout << "AvoidNodes: " << avoidNodes << endl;
-    cout << "AvoidSegments: " << avoidEdges << endl;
-    cout << "IncludeNode: " << includeNodes << endl;
+    int source = stoi(s);
+    int destination = stoi(d);
 
     for (auto node : graph.getNodes())
     {
         node->resetNode();
     }
-    // Implement the logic for processing the driving case here - BELEM
+
+    unordered_set<int> avoidNodesSet;
+    if (!avoidNodes.empty())
+    {
+        size_t pos = 0;
+        while ((pos = avoidNodes.find(",")) != string::npos)
+        {
+            avoidNodesSet.insert(stoi(avoidNodes.substr(0, pos)));
+            avoidNodes.erase(0, pos + 1);
+        }
+        avoidNodesSet.insert(stoi(avoidNodes));
+    }
+
+    vector<pair<int, int>> avoidEdges;
+    regex segmentRegex(R"(\((\d+),(\d+)\))");
+    smatch match;
+    string::const_iterator searchStart(avoidSegments.cbegin());
+    while (regex_search(searchStart, avoidSegments.cend(), match, segmentRegex))
+    {
+        int id1 = stoi(match[1].str());
+        int id2 = stoi(match[2].str());
+        avoidEdges.push_back({id1, id2});
+        searchStart = match.suffix().first;
+    }
+
+    int include = -1;
+    if (!includeNode.empty())
+    {
+        include = stoi(includeNode);
+    }
+
+    // Open file output.txt to append text
+    ofstream out("output.txt", ios::app);
+    if (!out.is_open())
+    {
+        cout << "Error opening file: output.txt" << endl;
+        return;
+    }
+
+    singleMode result = driving(source, destination, graph, avoidNodesSet, avoidEdges, include);
+    out << "\n\nSource:" << source << endl;
+    out << "Destination:" << destination << endl;
+    out << "RestrictedDrivingRoute:";
+    if (result.bestpath.empty())
+    {
+        out << "No possible route with imposed restrictions" << endl;
+    }
+    else
+    {
+        out << result.bestpath[0];
+        for (int i = 1; i < result.bestpath.size(); i++)
+        {
+            out << "," <<result.bestpath[i];
+        }
+        out << "(" << result.bestDistance << ")" << endl;
+    }
 }
 
-void processDriving(Graph graph, string source, string destination)
+void processDriving(Graph graph, string s, string d)
 {
-    int intsource = stoi(source);
-    int intdest = stoi(destination);
-
-    cout << "Source: " << intsource << endl;
-    cout << "Destination: " << intdest << endl;
+    int source = stoi(s);
+    int destination = stoi(d);
 
     for (auto node : graph.getNodes())
     {
         node->resetNode();
     }
 
-    // Implement the logic for processing the driving case here - BELEM
+    // open file output.txt to append text
+    ofstream out("output.txt", ios::app);
+    if (!out.is_open())
+    {
+        cout << "Error opening file: output.txt" << endl;
+        return;
+    }
+
+    singleMode result = noRestriction(source, destination, graph, 0);
+    out << "\n\nSource:" << source << endl;
+    out << "Destination:" << destination << endl;
+    out << "BestDrivingRoute:";
+    if (result.bestpath.empty())
+    {
+        out << "No possible route" << endl;
+    }
+    else
+    {
+        out << result.bestpath[0];
+        for (int i = 1; i < result.bestpath.size(); i++)
+        {
+            out << "," << result.bestpath[i];
+        }
+        out << "(" << result.bestDistance << ")" << endl;
+    }
+    out << "AlternativeDrivingRoute:";
+    if (result.alternative.empty())
+    {
+        out << "none" << endl;
+    }
+    else
+    {
+        out << result.alternative[0];
+        for (int i = 1; i < result.alternative.size(); i++)
+        {
+            out << "," << result.alternative[i];
+        }
+        out << "(" << result.alternativeDistance << ")" << endl;
+    }
 }
 
 void processEco(Graph graph, string s, string d, string maximumwalkingtime, string avoidNodes, string avoidSegments)
@@ -72,22 +160,6 @@ void processEco(Graph graph, string s, string d, string maximumwalkingtime, stri
         searchStart = match.suffix().first;
     }
 
-    cout << "Source: " << source << endl;
-    cout << "Destination: " << destination << endl;
-    cout << "MaxWalkTime: " << maxWalk << endl;
-
-    cout << "AvoidNodes: ";
-    for (auto node : avoidNodesSet)
-    {
-        cout << node << " ";
-    }
-    cout << endl;
-    cout << "AvoidSegments: ";
-    for (auto edge : avoidSegmentsSet)
-    {
-        cout << "(" << edge.first << "," << edge.second << ") ";
-    }
-    cout << endl;
 
     for (auto node : graph.getNodes())
     {
@@ -226,7 +298,6 @@ void parseCase(ifstream &file, string &line, Graph graph)
     string source, destination, avoidNodes, avoidSegments, includeNode, maxWalk;
     if (mode == "driving")
     {
-        cout << "\n\nMode:driving" << endl;
         getline(file, line);
         if (line.find("Source:") == 0)
         {
@@ -288,7 +359,6 @@ void parseCase(ifstream &file, string &line, Graph graph)
     }
     else if (mode == "driving-walking")
     {
-        cout << "\n\nMode:driving-walking" << endl;
         getline(file, line);
         if (line.find("Source:") == 0)
         {

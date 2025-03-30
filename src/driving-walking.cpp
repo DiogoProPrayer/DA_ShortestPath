@@ -116,6 +116,10 @@ bool DrivingWalking::driving_to_parks(unordered_set<Node *> parkingNodes)
 
         for (auto edge : current->getAdj())
         {
+            if(edge->getDrivingTime() < 0)
+            {
+                continue;
+            }
             Node *dest = edge->getDest();
 
             if (avoidSegments.find({current->getId(), dest->getId()}) != avoidSegments.end() ||

@@ -453,6 +453,9 @@ void menu(Graph graph)
         case 3:
             menuEcoRoute(graph);
             break;
+        case 0:
+            system("clear");
+            break;
         default:
             cout << COLOR_RED << "Invalid Input." << COLOR_RESET << endl;
             break;
