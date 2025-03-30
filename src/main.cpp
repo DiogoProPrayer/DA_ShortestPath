@@ -1,7 +1,7 @@
 #include <iostream>
 #include "menu.h"
 #include "readData.h"
-#include "bash.h"
+#include "batch.h"
 
 using namespace std;
 
@@ -28,7 +28,7 @@ int main() {
         cin>>input;
         if(input==1){
             system("clear");
-            bash(graph);
+            batch(graph);
         }
         else if(input==2){
             system("clear");
