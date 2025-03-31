@@ -1,0 +1,66 @@
+\doxysection{src/batch.cpp File Reference}
+\hypertarget{batch_8cpp}{}\label{batch_8cpp}\index{src/batch.cpp@{src/batch.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include "{}batch.\+h"{}}\newline
+{\ttfamily \#include "{}menu.\+h"{}}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include $<$regex$>$}\newline
+{\ttfamily \#include "{}driving-\/walking.\+h"{}}\newline
+{\ttfamily \#include "{}Mode.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{batch_8cpp_ae8b8abca8edf30d6dc197d639fbdea9a}{process\+Restricted\+Driving}} (\mbox{\hyperlink{classGraph}{Graph}} graph, string s, string d, string avoid\+Nodes, string avoid\+Segments, string include\+Node)
+\item 
+void \mbox{\hyperlink{batch_8cpp_a81eddbab34b30e115df3070675bd745c}{process\+Driving}} (\mbox{\hyperlink{classGraph}{Graph}} graph, string s, string d)
+\item 
+void \mbox{\hyperlink{batch_8cpp_a69bb47c5999da0d8f023f5b819478ccd}{process\+Eco}} (\mbox{\hyperlink{classGraph}{Graph}} graph, string s, string d, string maximumwalkingtime, string avoid\+Nodes, string avoid\+Segments)
+\item 
+void \mbox{\hyperlink{batch_8cpp_acb266a763c12adba65837c1b3ccef1ac}{parse\+Case}} (ifstream \&file, string \&line, \mbox{\hyperlink{classGraph}{Graph}} graph)
+\item 
+void \mbox{\hyperlink{batch_8cpp_a9fbbc57a178076d7c4233be9441c9d7b}{batch}} (\mbox{\hyperlink{classGraph}{Graph}} graph)
+\begin{DoxyCompactList}\small\item\em Processes batch tests from an input file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{batch_8cpp_a9fbbc57a178076d7c4233be9441c9d7b}\label{batch_8cpp_a9fbbc57a178076d7c4233be9441c9d7b} 
+\index{batch.cpp@{batch.cpp}!batch@{batch}}
+\index{batch@{batch}!batch.cpp@{batch.cpp}}
+\doxysubsubsection{\texorpdfstring{batch()}{batch()}}
+{\footnotesize\ttfamily void batch (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph }\end{DoxyParamCaption})}
+
+
+
+Processes batch tests from an input file. 
+
+Prompts the user for the full path of an input file containing test cases, clears any previous output file, and then processes each test case.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The graph object containing nodes and edges. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{batch_8cpp_acb266a763c12adba65837c1b3ccef1ac}\label{batch_8cpp_acb266a763c12adba65837c1b3ccef1ac} 
+\index{batch.cpp@{batch.cpp}!parseCase@{parseCase}}
+\index{parseCase@{parseCase}!batch.cpp@{batch.cpp}}
+\doxysubsubsection{\texorpdfstring{parseCase()}{parseCase()}}
+{\footnotesize\ttfamily void parse\+Case (\begin{DoxyParamCaption}\item[{ifstream \&}]{file,  }\item[{string \&}]{line,  }\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph }\end{DoxyParamCaption})}
+
+\Hypertarget{batch_8cpp_a81eddbab34b30e115df3070675bd745c}\label{batch_8cpp_a81eddbab34b30e115df3070675bd745c} 
+\index{batch.cpp@{batch.cpp}!processDriving@{processDriving}}
+\index{processDriving@{processDriving}!batch.cpp@{batch.cpp}}
+\doxysubsubsection{\texorpdfstring{processDriving()}{processDriving()}}
+{\footnotesize\ttfamily void process\+Driving (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph,  }\item[{string}]{s,  }\item[{string}]{d }\end{DoxyParamCaption})}
+
+\Hypertarget{batch_8cpp_a69bb47c5999da0d8f023f5b819478ccd}\label{batch_8cpp_a69bb47c5999da0d8f023f5b819478ccd} 
+\index{batch.cpp@{batch.cpp}!processEco@{processEco}}
+\index{processEco@{processEco}!batch.cpp@{batch.cpp}}
+\doxysubsubsection{\texorpdfstring{processEco()}{processEco()}}
+{\footnotesize\ttfamily void process\+Eco (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph,  }\item[{string}]{s,  }\item[{string}]{d,  }\item[{string}]{maximumwalkingtime,  }\item[{string}]{avoid\+Nodes,  }\item[{string}]{avoid\+Segments }\end{DoxyParamCaption})}
+
+\Hypertarget{batch_8cpp_ae8b8abca8edf30d6dc197d639fbdea9a}\label{batch_8cpp_ae8b8abca8edf30d6dc197d639fbdea9a} 
+\index{batch.cpp@{batch.cpp}!processRestrictedDriving@{processRestrictedDriving}}
+\index{processRestrictedDriving@{processRestrictedDriving}!batch.cpp@{batch.cpp}}
+\doxysubsubsection{\texorpdfstring{processRestrictedDriving()}{processRestrictedDriving()}}
+{\footnotesize\ttfamily void process\+Restricted\+Driving (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph,  }\item[{string}]{s,  }\item[{string}]{d,  }\item[{string}]{avoid\+Nodes,  }\item[{string}]{avoid\+Segments,  }\item[{string}]{include\+Node }\end{DoxyParamCaption})}
+

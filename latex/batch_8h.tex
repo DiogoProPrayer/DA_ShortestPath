@@ -1,0 +1,134 @@
+\doxysection{src/batch.h File Reference}
+\hypertarget{batch_8h}{}\label{batch_8h}\index{src/batch.h@{src/batch.h}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include "{}Graph.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{batch_8h_a8cbbb3b522f1e89570b0622bfcbf0cab}{process\+Restricted\+Driving}} (\mbox{\hyperlink{classGraph}{Graph}} graph, std\+::string s, std\+::string d, std\+::string avoid\+Nodes, std\+::string avoid\+Segments, std\+::string include\+Node)
+\begin{DoxyCompactList}\small\item\em Processes a restricted driving request. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{batch_8h_abc6a5187331c159afb3f5f678fb08d60}{process\+Driving}} (\mbox{\hyperlink{classGraph}{Graph}} graph, std\+::string s, std\+::string d)
+\begin{DoxyCompactList}\small\item\em Processes a driving request without restrictions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{batch_8h_aa29fd65bd2a493e4bd133ecf385f5d8c}{process\+Eco}} (\mbox{\hyperlink{classGraph}{Graph}} graph, std\+::string s, std\+::string d, std\+::string maximumwalkingtime, std\+::string avoid\+Nodes, std\+::string avoid\+Segments)
+\begin{DoxyCompactList}\small\item\em Processes an eco (driving-\/walking) routing request. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{batch_8h_af6ab5af5e994e82eced4171d061dcfae}{parse\+Case}} (std\+::ifstream \&file, std\+::string \&line, \mbox{\hyperlink{classGraph}{Graph}} graph)
+\begin{DoxyCompactList}\small\item\em Parses a test case from an input file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{batch_8h_a9fbbc57a178076d7c4233be9441c9d7b}{batch}} (\mbox{\hyperlink{classGraph}{Graph}} graph)
+\begin{DoxyCompactList}\small\item\em Processes batch tests from an input file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{batch_8h_a9fbbc57a178076d7c4233be9441c9d7b}\label{batch_8h_a9fbbc57a178076d7c4233be9441c9d7b} 
+\index{batch.h@{batch.h}!batch@{batch}}
+\index{batch@{batch}!batch.h@{batch.h}}
+\doxysubsubsection{\texorpdfstring{batch()}{batch()}}
+{\footnotesize\ttfamily void batch (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph }\end{DoxyParamCaption})}
+
+
+
+Processes batch tests from an input file. 
+
+Prompts the user for the full path of an input file containing test cases, clears any previous output file, and then processes each test case.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The graph object containing nodes and edges. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{batch_8h_af6ab5af5e994e82eced4171d061dcfae}\label{batch_8h_af6ab5af5e994e82eced4171d061dcfae} 
+\index{batch.h@{batch.h}!parseCase@{parseCase}}
+\index{parseCase@{parseCase}!batch.h@{batch.h}}
+\doxysubsubsection{\texorpdfstring{parseCase()}{parseCase()}}
+{\footnotesize\ttfamily void parse\+Case (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{file,  }\item[{std\+::string \&}]{line,  }\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph }\end{DoxyParamCaption})}
+
+
+
+Parses a test case from an input file. 
+
+Reads a block of lines corresponding to a test case, extracts the mode and its parameters, and then calls the appropriate processing function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & The input file stream. \\
+\hline
+{\em line} & The current line from the input file. \\
+\hline
+{\em graph} & The graph object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{batch_8h_abc6a5187331c159afb3f5f678fb08d60}\label{batch_8h_abc6a5187331c159afb3f5f678fb08d60} 
+\index{batch.h@{batch.h}!processDriving@{processDriving}}
+\index{processDriving@{processDriving}!batch.h@{batch.h}}
+\doxysubsubsection{\texorpdfstring{processDriving()}{processDriving()}}
+{\footnotesize\ttfamily void process\+Driving (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph,  }\item[{std\+::string}]{s,  }\item[{std\+::string}]{d }\end{DoxyParamCaption})}
+
+
+
+Processes a driving request without restrictions. 
+
+Resets all nodes in the graph, calculates the best driving route (and an alternative route if available), and appends the results to "{}output.\+txt"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The graph object. \\
+\hline
+{\em s} & The source node as a string. \\
+\hline
+{\em d} & The destination node as a string. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{batch_8h_aa29fd65bd2a493e4bd133ecf385f5d8c}\label{batch_8h_aa29fd65bd2a493e4bd133ecf385f5d8c} 
+\index{batch.h@{batch.h}!processEco@{processEco}}
+\index{processEco@{processEco}!batch.h@{batch.h}}
+\doxysubsubsection{\texorpdfstring{processEco()}{processEco()}}
+{\footnotesize\ttfamily void process\+Eco (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph,  }\item[{std\+::string}]{s,  }\item[{std\+::string}]{d,  }\item[{std\+::string}]{maximumwalkingtime,  }\item[{std\+::string}]{avoid\+Nodes,  }\item[{std\+::string}]{avoid\+Segments }\end{DoxyParamCaption})}
+
+
+
+Processes an eco (driving-\/walking) routing request. 
+
+Parses the maximum walking time and nodes/segments to avoid from the input strings, resets the graph, and calculates both a driving and walking route. The results are then appended to "{}output.\+txt"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The graph object. \\
+\hline
+{\em s} & The source node as a string. \\
+\hline
+{\em d} & The destination node as a string. \\
+\hline
+{\em maximumwalkingtime} & The maximum walking time as a string. \\
+\hline
+{\em avoid\+Nodes} & A comma-\/separated string of node IDs to avoid. \\
+\hline
+{\em avoid\+Segments} & A string representing segments (as pairs) to avoid. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{batch_8h_a8cbbb3b522f1e89570b0622bfcbf0cab}\label{batch_8h_a8cbbb3b522f1e89570b0622bfcbf0cab} 
+\index{batch.h@{batch.h}!processRestrictedDriving@{processRestrictedDriving}}
+\index{processRestrictedDriving@{processRestrictedDriving}!batch.h@{batch.h}}
+\doxysubsubsection{\texorpdfstring{processRestrictedDriving()}{processRestrictedDriving()}}
+{\footnotesize\ttfamily void process\+Restricted\+Driving (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph,  }\item[{std\+::string}]{s,  }\item[{std\+::string}]{d,  }\item[{std\+::string}]{avoid\+Nodes,  }\item[{std\+::string}]{avoid\+Segments,  }\item[{std\+::string}]{include\+Node }\end{DoxyParamCaption})}
+
+
+
+Processes a restricted driving request. 
+
+Parses avoid nodes and segments as well as an optional included node from the provided strings, resets the graph nodes, calculates a driving route under imposed restrictions, and appends the result to "{}output.\+txt"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The graph object representing nodes and edges. \\
+\hline
+{\em s} & The source node as a string. \\
+\hline
+{\em d} & The destination node as a string. \\
+\hline
+{\em avoid\+Nodes} & A comma-\/separated string of node IDs to avoid. \\
+\hline
+{\em avoid\+Segments} & A string representing segments (as pairs) to avoid. \\
+\hline
+{\em include\+Node} & A string representing a node that must be included in the path. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,67 @@
+\doxysection{driving-\/walking.h}
+\hypertarget{driving-walking_8h_source}{}\label{driving-walking_8h_source}\index{src/driving-\/walking.h@{src/driving-\/walking.h}}
+\mbox{\hyperlink{driving-walking_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DRIVING\_WALKING\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DRIVING\_WALKING\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{menu_8h}{menu.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structDrivingWalkingResult}{DrivingWalkingResult}}\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ vector<int>\ \mbox{\hyperlink{structDrivingWalkingResult_a6f059ab67cccac66351020229b2aa513}{driving\_route}}\ =\ \{\};}
+\DoxyCodeLine{00013\ \ \ \ \ vector<int>\ \mbox{\hyperlink{structDrivingWalkingResult_acfe9f4df555d65c3718a000801e7ad22}{walking\_route}}\ =\ \{\};}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structDrivingWalkingResult_a28b22a5db3b619f4f0661aaaead39a76}{driving\_time}}\ =\ 0;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structDrivingWalkingResult_afc18031aa2fa4774c278fe6bf9816cc6}{walking\_time}}\ =\ 0;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structDrivingWalkingResult_a29d91aedcc418a6586143cf922784661}{parking\_node}}\ =\ 0;}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structDrivingWalkingResult_abffb56c2ce92f3a9aae3a885ee7d8d09}{no\_parking}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structDrivingWalkingResult_a6ccb031288bf873311e9c21b490e7312}{no\_range}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCompareNodeWalking}{CompareNodeWalking}}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCompareNodeWalking_aa7429eaa3dd2d917906a63c3e9b775df}{operator()}}(\mbox{\hyperlink{classNode}{Node}}*\ a,\ \mbox{\hyperlink{classNode}{Node}}*\ b)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a-\/>\mbox{\hyperlink{classNode_afc43adbaea919638f5b6c0e96fdb61d4}{getWalkingDist}}()\ >\ b-\/>\mbox{\hyperlink{classNode_afc43adbaea919638f5b6c0e96fdb61d4}{getWalkingDist}}();}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCompareNodeDriving}{CompareNodeDriving}}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCompareNodeDriving_ae19736ade85abdbb750f4c152fa79767}{operator()}}(\mbox{\hyperlink{classNode}{Node}}*\ a,\ \mbox{\hyperlink{classNode}{Node}}*\ b)\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a-\/>\mbox{\hyperlink{classNode_aef2fab11e82901b2a35af6c4837d18b2}{getDist}}()\ >\ b-\/>\mbox{\hyperlink{classNode_aef2fab11e82901b2a35af6c4837d18b2}{getDist}}();}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDrivingWalking}{DrivingWalking}}\ \{}
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{structDrivingWalkingResult}{DrivingWalkingResult}}\ result;}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{structDrivingWalkingResult}{DrivingWalkingResult}}\ alternative1;}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{structDrivingWalkingResult}{DrivingWalkingResult}}\ alternative2;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{classGraph}{Graph}}\ graph;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{int}\ source;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ destination;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{double}\ maxWalkTime;}
+\DoxyCodeLine{00044\ \ \ \ \ unordered\_set<int>\ avoidNodes;}
+\DoxyCodeLine{00045\ \ \ \ \ unordered\_set<pair<int,\ int>,\ \mbox{\hyperlink{structpair__hash}{pair\_hash}}>\ avoidSegments;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00052\ \ \ \ \ unordered\_set<Node\ *>\ walking\_to\_parks();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{bool}\ driving\_to\_parks(unordered\_set<Node\ *>\ parkingNodes);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{classDrivingWalking}{DrivingWalking}}(\mbox{\hyperlink{classGraph}{Graph}}\ graph,\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ destination,\ \textcolor{keywordtype}{double}\ maxWalkTime,\ unordered\_set<int>\ avoidNodes,\ unordered\_set<pair<int,\ int>,\ \mbox{\hyperlink{structpair__hash}{pair\_hash}}>\ avoidSegments);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00079\ \ \ \ \ pair<DrivingWalkingResult,\ DrivingWalkingResult>\ \mbox{\hyperlink{classDrivingWalking_a3b5a12abfc173a0e4a52078b27f4bc8c}{alternativeRoutes}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{structDrivingWalkingResult}{DrivingWalkingResult}}\ \mbox{\hyperlink{classDrivingWalking_a3b43c5a65bfcafc6dc105228a9a07215}{calculateRoute}}();}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DRIVING\_WALKING\_H}}
+
+\end{DoxyCode}

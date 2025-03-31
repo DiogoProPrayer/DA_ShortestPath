@@ -1,0 +1,283 @@
+\doxysection{Graph Class Reference}
+\hypertarget{classGraph}{}\label{classGraph}\index{Graph@{Graph}}
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGraph_a902c5b3eacb66d60752525ab23297a95}{\texorpdfstring{$\sim$}{\string~}\+Graph}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{classGraph}{Graph} class. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{find\+Node\+Index}} (const int id) const
+\begin{DoxyCompactList}\small\item\em Finds the index of a node with the ID. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classGraph_af79af858a85d22185c262e6ebab61e65}{find\+Node}} (const \mbox{\hyperlink{classNode}{Node}} \&in) const
+\begin{DoxyCompactList}\small\item\em Finds the node in the graph. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classGraph_a25c493e60a1356fd4446a7221b594db7}{find\+Node\+By\+Code}} (const std\+::string \&code) const
+\begin{DoxyCompactList}\small\item\em Finds a node in the graph by its code. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGraph_a073110c22fd8433f8d289b37a0df7488}{add\+Node}} (const \mbox{\hyperlink{classNode}{Node}} \&in)
+\begin{DoxyCompactList}\small\item\em Adds a new node to the graph. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGraph_a510a921735ca04863755d49bca1a2b0f}{add\+Edge}} (const \mbox{\hyperlink{classNode}{Node}} \&source, const \mbox{\hyperlink{classNode}{Node}} \&dest, double \mbox{\hyperlink{Mode_8cpp_a51b0081a23ec324c6453e0ea9a18dcca}{driving}}, double \mbox{\hyperlink{Mode_8cpp_ae4fc5c385fa8539b9ec9da230f014700}{walking}}) const
+\begin{DoxyCompactList}\small\item\em Adds a directed edge with times. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGraph_afdd1bbf1a5fac4ae84347c97fdc955e1}{add\+Bidirectional\+Edge}} (const \mbox{\hyperlink{classNode}{Node}} \&source, const \mbox{\hyperlink{classNode}{Node}} \&dest, double \mbox{\hyperlink{Mode_8cpp_a51b0081a23ec324c6453e0ea9a18dcca}{driving}}, double \mbox{\hyperlink{Mode_8cpp_ae4fc5c385fa8539b9ec9da230f014700}{walking}}) const
+\begin{DoxyCompactList}\small\item\em Adds bidirectional edges with times. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGraph_abb5e0517e2979c54eebdafc2a9875e8f}{get\+Num\+Vertex}} () const
+\begin{DoxyCompactList}\small\item\em Gets the total number of vertices in the graph. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{get\+Nodes}} () const
+\begin{DoxyCompactList}\small\item\em Gets all nodes in the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGraph_a5ac05db53839e72af76cdb2bafe88b77}{print\+Graph}} ()
+\begin{DoxyCompactList}\small\item\em Prints info about each node in the graph. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGraph_a97a6ee81d4a4837cfc949d512c05e5d8}{get\+Node\+Size}} () const
+\begin{DoxyCompactList}\small\item\em Gets the number of nodes in the graph. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classGraph_ab1aed12b46c724e884ddd6c5f70e6758}{get\+Node}} (int idx) const
+\begin{DoxyCompactList}\small\item\em Gets the node by the index. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classGraph_a48fc08564ef7b53660a8ba7e809897a5}{find\+Vertex\+Idx}} (const \mbox{\hyperlink{classNode}{Node}} \&in) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classGraph_aa11ae6cc9599144667c7134d7a7af927}{Nodes}}
+\item 
+double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classGraph_a9e61864da69191c1896a25a708d1a02d}{dist\+Matrix}} = nullptr
+\item 
+int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classGraph_a3ae09699c3616af3ebfcb1eb045f2b62}{path\+Matrix}} = nullptr
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classGraph_a902c5b3eacb66d60752525ab23297a95}\label{classGraph_a902c5b3eacb66d60752525ab23297a95} 
+\index{Graph@{Graph}!````~Graph@{\texorpdfstring{$\sim$}{\string~}Graph}}
+\index{````~Graph@{\texorpdfstring{$\sim$}{\string~}Graph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Graph()}{\string~Graph()}}
+{\footnotesize\ttfamily Graph\+::\texorpdfstring{$\sim$}{\string~}\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \doxylink{classGraph}{Graph} class. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classGraph_afdd1bbf1a5fac4ae84347c97fdc955e1}\label{classGraph_afdd1bbf1a5fac4ae84347c97fdc955e1} 
+\index{Graph@{Graph}!addBidirectionalEdge@{addBidirectionalEdge}}
+\index{addBidirectionalEdge@{addBidirectionalEdge}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addBidirectionalEdge()}{addBidirectionalEdge()}}
+{\footnotesize\ttfamily bool Graph\+::add\+Bidirectional\+Edge (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \&}]{source,  }\item[{const \mbox{\hyperlink{classNode}{Node}} \&}]{dest,  }\item[{double}]{driving,  }\item[{double}]{walking }\end{DoxyParamCaption}) const}
+
+
+
+Adds bidirectional edges with times. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source \doxylink{classNode}{Node} \\
+\hline
+{\em dest} & The destination \doxylink{classNode}{Node} \\
+\hline
+{\em driving} & Driving time for each direction \\
+\hline
+{\em walking} & Walking time for each direction \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if possible, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{classGraph_a510a921735ca04863755d49bca1a2b0f}\label{classGraph_a510a921735ca04863755d49bca1a2b0f} 
+\index{Graph@{Graph}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}}
+{\footnotesize\ttfamily bool Graph\+::add\+Edge (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \&}]{source,  }\item[{const \mbox{\hyperlink{classNode}{Node}} \&}]{dest,  }\item[{double}]{driving,  }\item[{double}]{walking }\end{DoxyParamCaption}) const}
+
+
+
+Adds a directed edge with times. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source \doxylink{classNode}{Node} \\
+\hline
+{\em dest} & The destination \doxylink{classNode}{Node} \\
+\hline
+{\em driving} & Driving time between the nodes \\
+\hline
+{\em walking} & Walking time between the nodes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if possible, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{classGraph_a073110c22fd8433f8d289b37a0df7488}\label{classGraph_a073110c22fd8433f8d289b37a0df7488} 
+\index{Graph@{Graph}!addNode@{addNode}}
+\index{addNode@{addNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addNode()}{addNode()}}
+{\footnotesize\ttfamily bool Graph\+::add\+Node (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \&}]{in }\end{DoxyParamCaption})}
+
+
+
+Adds a new node to the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & The node to be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if possible, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{classGraph_af79af858a85d22185c262e6ebab61e65}\label{classGraph_af79af858a85d22185c262e6ebab61e65} 
+\index{Graph@{Graph}!findNode@{findNode}}
+\index{findNode@{findNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{findNode()}{findNode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} Graph\+::find\+Node (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \&}]{in }\end{DoxyParamCaption}) const}
+
+
+
+Finds the node in the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & The node to find \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The pointer to the node in the graph 
+\end{DoxyReturn}
+\Hypertarget{classGraph_a25c493e60a1356fd4446a7221b594db7}\label{classGraph_a25c493e60a1356fd4446a7221b594db7} 
+\index{Graph@{Graph}!findNodeByCode@{findNodeByCode}}
+\index{findNodeByCode@{findNodeByCode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{findNodeByCode()}{findNodeByCode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} Graph\+::find\+Node\+By\+Code (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{code }\end{DoxyParamCaption}) const}
+
+
+
+Finds a node in the graph by its code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em code} & The code string of the node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the node of the graph 
+\end{DoxyReturn}
+\Hypertarget{classGraph_a269614f87700abdcf1d425a46d40b119}\label{classGraph_a269614f87700abdcf1d425a46d40b119} 
+\index{Graph@{Graph}!findNodeIndex@{findNodeIndex}}
+\index{findNodeIndex@{findNodeIndex}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{findNodeIndex()}{findNodeIndex()}}
+{\footnotesize\ttfamily int Graph\+::find\+Node\+Index (\begin{DoxyParamCaption}\item[{const int}]{id }\end{DoxyParamCaption}) const}
+
+
+
+Finds the index of a node with the ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the node if found, -\/1 otherwise 
+\end{DoxyReturn}
+\Hypertarget{classGraph_a48fc08564ef7b53660a8ba7e809897a5}\label{classGraph_a48fc08564ef7b53660a8ba7e809897a5} 
+\index{Graph@{Graph}!findVertexIdx@{findVertexIdx}}
+\index{findVertexIdx@{findVertexIdx}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{findVertexIdx()}{findVertexIdx()}}
+{\footnotesize\ttfamily int Graph\+::find\+Vertex\+Idx (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \&}]{in }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classGraph_ab1aed12b46c724e884ddd6c5f70e6758}\label{classGraph_ab1aed12b46c724e884ddd6c5f70e6758} 
+\index{Graph@{Graph}!getNode@{getNode}}
+\index{getNode@{getNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getNode()}{getNode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} Graph\+::get\+Node (\begin{DoxyParamCaption}\item[{int}]{idx }\end{DoxyParamCaption}) const}
+
+
+
+Gets the node by the index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em idx} & The position of the node in the graph \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the \doxylink{classNode}{Node} 
+\end{DoxyReturn}
+\Hypertarget{classGraph_a19dd4023a8381c6aba175ce46f603e40}\label{classGraph_a19dd4023a8381c6aba175ce46f603e40} 
+\index{Graph@{Graph}!getNodes@{getNodes}}
+\index{getNodes@{getNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getNodes()}{getNodes()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ Graph\+::get\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets all nodes in the graph. 
+
+\begin{DoxyReturn}{Returns}
+A vector of \doxylink{classNode}{Node} pointers 
+\end{DoxyReturn}
+\Hypertarget{classGraph_a97a6ee81d4a4837cfc949d512c05e5d8}\label{classGraph_a97a6ee81d4a4837cfc949d512c05e5d8} 
+\index{Graph@{Graph}!getNodeSize@{getNodeSize}}
+\index{getNodeSize@{getNodeSize}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getNodeSize()}{getNodeSize()}}
+{\footnotesize\ttfamily int Graph\+::get\+Node\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the number of nodes in the graph. 
+
+\begin{DoxyReturn}{Returns}
+The number of nodes in the graph 
+\end{DoxyReturn}
+\Hypertarget{classGraph_abb5e0517e2979c54eebdafc2a9875e8f}\label{classGraph_abb5e0517e2979c54eebdafc2a9875e8f} 
+\index{Graph@{Graph}!getNumVertex@{getNumVertex}}
+\index{getNumVertex@{getNumVertex}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getNumVertex()}{getNumVertex()}}
+{\footnotesize\ttfamily int Graph\+::get\+Num\+Vertex (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the total number of vertices in the graph. 
+
+\begin{DoxyReturn}{Returns}
+The number of nodes in the graph 
+\end{DoxyReturn}
+\Hypertarget{classGraph_a5ac05db53839e72af76cdb2bafe88b77}\label{classGraph_a5ac05db53839e72af76cdb2bafe88b77} 
+\index{Graph@{Graph}!printGraph@{printGraph}}
+\index{printGraph@{printGraph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{printGraph()}{printGraph()}}
+{\footnotesize\ttfamily void Graph\+::print\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints info about each node in the graph. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classGraph_a9e61864da69191c1896a25a708d1a02d}\label{classGraph_a9e61864da69191c1896a25a708d1a02d} 
+\index{Graph@{Graph}!distMatrix@{distMatrix}}
+\index{distMatrix@{distMatrix}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{distMatrix}{distMatrix}}
+{\footnotesize\ttfamily double\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Graph\+::dist\+Matrix = nullptr\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classGraph_aa11ae6cc9599144667c7134d7a7af927}\label{classGraph_aa11ae6cc9599144667c7134d7a7af927} 
+\index{Graph@{Graph}!Nodes@{Nodes}}
+\index{Nodes@{Nodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{Nodes}{Nodes}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}$>$ Graph\+::\+Nodes\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classGraph_a3ae09699c3616af3ebfcb1eb045f2b62}\label{classGraph_a3ae09699c3616af3ebfcb1eb045f2b62} 
+\index{Graph@{Graph}!pathMatrix@{pathMatrix}}
+\index{pathMatrix@{pathMatrix}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{pathMatrix}{pathMatrix}}
+{\footnotesize\ttfamily int\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Graph\+::path\+Matrix = nullptr\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{Graph_8h}{Graph.\+h}}\item 
+src/\mbox{\hyperlink{Graph_8cpp}{Graph.\+cpp}}\end{DoxyCompactItemize}

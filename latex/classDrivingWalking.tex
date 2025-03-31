@@ -1,0 +1,76 @@
+\doxysection{Driving\+Walking Class Reference}
+\hypertarget{classDrivingWalking}{}\label{classDrivingWalking}\index{DrivingWalking@{DrivingWalking}}
+
+
+{\ttfamily \#include $<$driving-\/walking.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDrivingWalking_a6e5e7fc49e2e85b091a7a9ba09247fd1}{Driving\+Walking}} (\mbox{\hyperlink{classGraph}{Graph}} graph, int source, int destination, double max\+Walk\+Time, unordered\+\_\+set$<$ int $>$ avoid\+Nodes, unordered\+\_\+set$<$ pair$<$ int, int $>$, \mbox{\hyperlink{structpair__hash}{pair\+\_\+hash}} $>$ avoid\+Segments)
+\begin{DoxyCompactList}\small\item\em \doxylink{classDrivingWalking}{Driving\+Walking} constructor. \end{DoxyCompactList}\item 
+pair$<$ \mbox{\hyperlink{structDrivingWalkingResult}{Driving\+Walking\+Result}}, \mbox{\hyperlink{structDrivingWalkingResult}{Driving\+Walking\+Result}} $>$ \mbox{\hyperlink{classDrivingWalking_a3b5a12abfc173a0e4a52078b27f4bc8c}{alternative\+Routes}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the complete driving and walking rout. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structDrivingWalkingResult}{Driving\+Walking\+Result}} \mbox{\hyperlink{classDrivingWalking_a3b43c5a65bfcafc6dc105228a9a07215}{calculate\+Route}} ()
+\begin{DoxyCompactList}\small\item\em Calculates alternative routes by relaxing restrictions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classDrivingWalking_a6e5e7fc49e2e85b091a7a9ba09247fd1}\label{classDrivingWalking_a6e5e7fc49e2e85b091a7a9ba09247fd1} 
+\index{DrivingWalking@{DrivingWalking}!DrivingWalking@{DrivingWalking}}
+\index{DrivingWalking@{DrivingWalking}!DrivingWalking@{DrivingWalking}}
+\doxysubsubsection{\texorpdfstring{DrivingWalking()}{DrivingWalking()}}
+{\footnotesize\ttfamily Driving\+Walking\+::\+Driving\+Walking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph,  }\item[{int}]{source,  }\item[{int}]{destination,  }\item[{double}]{max\+Walk\+Time,  }\item[{unordered\+\_\+set$<$ int $>$}]{avoid\+Nodes,  }\item[{unordered\+\_\+set$<$ pair$<$ int, int $>$, \mbox{\hyperlink{structpair__hash}{pair\+\_\+hash}} $>$}]{avoid\+Segments }\end{DoxyParamCaption})}
+
+
+
+\doxylink{classDrivingWalking}{Driving\+Walking} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The graph representing the map \\
+\hline
+{\em source} & The starting node ID for driving \\
+\hline
+{\em max\+Walk\+Time} & Maximum walking time allowed \\
+\hline
+{\em avoid\+Nodes} & Set of node IDs to avoid \\
+\hline
+{\em avoid\+Segments} & Set of segments (pair of node IDs) to avoid \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classDrivingWalking_a3b5a12abfc173a0e4a52078b27f4bc8c}\label{classDrivingWalking_a3b5a12abfc173a0e4a52078b27f4bc8c} 
+\index{DrivingWalking@{DrivingWalking}!alternativeRoutes@{alternativeRoutes}}
+\index{alternativeRoutes@{alternativeRoutes}!DrivingWalking@{DrivingWalking}}
+\doxysubsubsection{\texorpdfstring{alternativeRoutes()}{alternativeRoutes()}}
+{\footnotesize\ttfamily pair$<$ \mbox{\hyperlink{structDrivingWalkingResult}{Driving\+Walking\+Result}}, \mbox{\hyperlink{structDrivingWalkingResult}{Driving\+Walking\+Result}} $>$ Driving\+Walking\+::alternative\+Routes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates the complete driving and walking rout. 
+
+Complexity O(\+E log V) \begin{DoxyReturn}{Returns}
+\doxylink{structDrivingWalkingResult}{Driving\+Walking\+Result} -\/ routes and times 
+\end{DoxyReturn}
+\Hypertarget{classDrivingWalking_a3b43c5a65bfcafc6dc105228a9a07215}\label{classDrivingWalking_a3b43c5a65bfcafc6dc105228a9a07215} 
+\index{DrivingWalking@{DrivingWalking}!calculateRoute@{calculateRoute}}
+\index{calculateRoute@{calculateRoute}!DrivingWalking@{DrivingWalking}}
+\doxysubsubsection{\texorpdfstring{calculateRoute()}{calculateRoute()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structDrivingWalkingResult}{Driving\+Walking\+Result}} Driving\+Walking\+::calculate\+Route (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates alternative routes by relaxing restrictions. 
+
+Complexity O((\+E log V)) \begin{DoxyReturn}{Returns}
+Pair of \doxylink{structDrivingWalkingResult}{Driving\+Walking\+Result} -\/ 2 alternative routes 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{driving-walking_8h}{driving-\/walking.\+h}}\item 
+src/\mbox{\hyperlink{driving-walking_8cpp}{driving-\/walking.\+cpp}}\end{DoxyCompactItemize}

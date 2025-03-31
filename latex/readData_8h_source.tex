@@ -1,0 +1,75 @@
+\doxysection{read\+Data.\+h}
+\hypertarget{readData_8h_source}{}\label{readData_8h_source}\index{src/readData.h@{src/readData.h}}
+\mbox{\hyperlink{readData_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ Read}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ Read}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Graph_8h}{Graph.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Node_8h}{Node.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{readData_8h_a9d1e16997f218aed85d06d9845b45fc9}{readData}}(\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph)\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ std::string\ data,location,code,location2;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ id,fpos;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ walk,drive;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{bool}\ parking;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ std::ifstream\ locations(\textcolor{stringliteral}{"{}../assets/Locations.csv"{}});}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{if}\ (!locations.is\_open())\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ Locations.csv"{}}\ <<\ std::endl;\textcolor{comment}{//\ Exit\ the\ program\ if\ the\ file\ cannot\ be\ opened}}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ getline(locations,\ data);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{while}\ (\ getline(locations,\ data))\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ fpos=data.find(\textcolor{charliteral}{','});}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ location=data.substr(0,fpos);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ data=data.substr(fpos+1,data.length());}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ fpos=data.find(\textcolor{charliteral}{','});}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{id}=stoi(data.substr(0,fpos));}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ data=data.substr(fpos+1,data.length());}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ fpos=data.find(\textcolor{charliteral}{','});}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ code=data.substr(0,fpos);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ data=data.substr(fpos+1,data.length());}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ parking=std::stoi(data.substr(0,data.length()));}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *n=\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classNode}{Node}}(location,\textcolor{keywordtype}{id},code,parking);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ graph.\mbox{\hyperlink{classGraph_a073110c22fd8433f8d289b37a0df7488}{addNode}}(*n);}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ locations.close();}
+\DoxyCodeLine{00041\ \ \ \ \ std::ifstream\ distances(\textcolor{stringliteral}{"{}../assets/Distances.csv"{}});}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{if}\ (!distances.is\_open())\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ Distances.csv"{}}\ <<\ std::endl;\textcolor{comment}{//\ Exit\ the\ program\ if\ the\ file\ cannot\ be\ opened}}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ getline(distances,\ data);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{while}\ (\ getline(distances,\ data))\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ fpos=data.find(\textcolor{charliteral}{','});}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ location=data.substr(0,fpos);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ data=data.substr(fpos+1,data.length());}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ fpos=data.find(\textcolor{charliteral}{','});}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ location2=data.substr(0,fpos);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ data=data.substr(fpos+1,data.length());}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ fpos=data.find(\textcolor{charliteral}{','});}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ data.substr(0,fpos)!=\textcolor{stringliteral}{"{}X"{}}?\ drive=std::stod(data.substr(0,fpos)):drive=-\/1;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ data=data.substr(fpos+1,data.length());}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ data.substr(0,data.length())!=\textcolor{stringliteral}{"{}X"{}}?\ walk=std::stod(data.substr(0,data.length())):walk=-\/1;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *n1=graph.\mbox{\hyperlink{classGraph_a25c493e60a1356fd4446a7221b594db7}{findNodeByCode}}(location);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *n2=graph.\mbox{\hyperlink{classGraph_a25c493e60a1356fd4446a7221b594db7}{findNodeByCode}}(location2);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n1\ \&\&\ n2)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ graph.\mbox{\hyperlink{classGraph_afdd1bbf1a5fac4ae84347c97fdc955e1}{addBidirectionalEdge}}(*n1,*n2,drive,walk);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout<<\ \textcolor{stringliteral}{"{}one\ of\ this\ nodes\ is\ not\ in\ the\ graph"{}};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ distances.close();}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ }
+
+\end{DoxyCode}

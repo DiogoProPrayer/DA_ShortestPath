@@ -1,0 +1,55 @@
+\doxysection{Edge.\+h}
+\hypertarget{Edge_8h_source}{}\label{Edge_8h_source}\index{src/Edge.h@{src/Edge.h}}
+\mbox{\hyperlink{Edge_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ buttercup\ on\ 17-\/03-\/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ EDGE\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ EDGE\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Node_8h}{Node.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNode}{Node}};}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classEdge}{Edge}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *\mbox{\hyperlink{classEdge_a2d8ad3c71be57bfb6eedba0315c4a880}{org}};}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *\mbox{\hyperlink{classEdge_a70eb1c0683ec0a252fbeff0cdf7403ef}{dest}};}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classEdge_afe6252f160e3319045f202b22c9df339}{drivingTime}};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classEdge_a981699d25ded1def9228fe137b679e20}{walkingTime}};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classEdge_aa4e2883518a2e2bd15cf8f1272e83327}{visited}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classEdge_a3ad46b1f94ba018c3887706cb6532f36}{Edge}}(\mbox{\hyperlink{classNode}{Node}}\ *\mbox{\hyperlink{classEdge_a2d8ad3c71be57bfb6eedba0315c4a880}{org}},\ \mbox{\hyperlink{classNode}{Node}}*\mbox{\hyperlink{classEdge_a70eb1c0683ec0a252fbeff0cdf7403ef}{dest}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{Mode_8cpp_a51b0081a23ec324c6453e0ea9a18dcca}{driving}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{Mode_8cpp_ae4fc5c385fa8539b9ec9da230f014700}{walking}})\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ this-\/>org=\mbox{\hyperlink{classEdge_a2d8ad3c71be57bfb6eedba0315c4a880}{org}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ this-\/>dest=\mbox{\hyperlink{classEdge_a70eb1c0683ec0a252fbeff0cdf7403ef}{dest}};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classEdge_afe6252f160e3319045f202b22c9df339}{drivingTime}}=\mbox{\hyperlink{Mode_8cpp_a51b0081a23ec324c6453e0ea9a18dcca}{driving}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classEdge_a981699d25ded1def9228fe137b679e20}{walkingTime}}=\mbox{\hyperlink{Mode_8cpp_ae4fc5c385fa8539b9ec9da230f014700}{walking}};}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *\ \mbox{\hyperlink{classEdge_af2cd0f7cba34228f76c4b20a84a2de9d}{getDest}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classEdge_a70eb1c0683ec0a252fbeff0cdf7403ef}{dest}};}
+\DoxyCodeLine{00037\ \ \ \ \ \};}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *\ \mbox{\hyperlink{classEdge_af999c2a84d2da0e46eabe8674bc68b91}{getOrig}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classEdge_a2d8ad3c71be57bfb6eedba0315c4a880}{org}};}
+\DoxyCodeLine{00040\ \ \ \ \ \};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classEdge_ac17adf824adf8f1ffbcbcdec5a52fd0d}{getDrivingTime}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classEdge_afe6252f160e3319045f202b22c9df339}{drivingTime}};}
+\DoxyCodeLine{00043\ \ \ \ \ \};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classEdge_af4c649139ee4f87c3944a1ecffccf05b}{getWalkingTime}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classEdge_a981699d25ded1def9228fe137b679e20}{walkingTime}};}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classEdge_a23f2335498dd519408e27acca941317c}{getVisited}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classEdge_aa4e2883518a2e2bd15cf8f1272e83327}{visited}};}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classEdge_abdc5553d33379775bf9635777c894aa7}{setVisited}}(\textcolor{keywordtype}{bool}\ visit)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ this-\/>visited=visit;}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ }
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//EDGE\_H}}
+\DoxyCodeLine{00056\ }
+
+\end{DoxyCode}
