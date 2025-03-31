@@ -221,7 +221,7 @@ void processEco(Graph graph, string s, string d, string maximumwalkingtime, stri
         {
             return;
         }
-        out << "\n\nSource:" << source << endl;
+        out << "\nSource:" << source << endl;
         out << "Destination:" << destination << endl;
         out << "DrivingRoute1:";
         out << res.first.driving_route[0];
