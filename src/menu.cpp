@@ -46,9 +46,9 @@ void menuDrivingRoute(Graph graph)
         reset();
         cout << COLOR_GREEN << "Calculating best and alternative routes..." << COLOR_RESET << endl;
         singleMode result = noRestriction(stoi(source), stoi(destination), graph, 0);
-        cout << COLOR_YELLOW << "\n \nSource: " << source << COLOR_RESET << endl;
+        cout << COLOR_YELLOW << "\n\nSource: " << source << COLOR_RESET << endl;
         cout << COLOR_YELLOW << "Destination: " << destination << COLOR_RESET << endl;
-        cout << COLOR_GREEN << "Best path: " << COLOR_RESET;
+        cout << COLOR_GREEN << "Best path: ";
         if (result.bestpath.empty())
         {
             cout << COLOR_RED << "No possible route" << COLOR_RESET << endl;
@@ -61,6 +61,7 @@ void menuDrivingRoute(Graph graph)
             }
             cout << "(" << result.bestDistance << ")" << endl;
         }
+        cout << COLOR_RESET;
         cout << COLOR_GREEN << "Alternative path: " << COLOR_GREEN;
         if (result.alternative.empty())
         {
@@ -121,7 +122,7 @@ void menuDrivingRoute(Graph graph)
         }
         cout << COLOR_GREEN << "Calculating route..." << COLOR_RESET << endl;
         singleMode result = driving(sourc, dest, graph, avoidNodesSet, avoidEdges, include);
-        cout << COLOR_YELLOW << "\n \n Source: " << source << COLOR_RESET << endl;
+        cout << COLOR_YELLOW << "\n\nSource: " << source << COLOR_RESET << endl;
         cout << COLOR_YELLOW << "Destination: " << destination << COLOR_RESET << endl;
         cout << COLOR_GREEN << "Restricted Driving Rote: " << COLOR_RESET;
         if (result.bestpath.empty())
@@ -159,11 +160,11 @@ void menuWalkingRoute(Graph graph)
         cout << COLOR_YELLOW << "Enter destination node ID: " << COLOR_RESET;
         cin >> destination;
         reset();
-        cout << COLOR_GREEN << "Calculating best and alternative routes..." << COLOR_RESET << endl;
+        cout << COLOR_GREEN << "\nCalculating best and alternative routes..." << COLOR_RESET << endl;
         singleMode result = noRestriction(stoi(source), stoi(destination), graph, 1);
-        cout << COLOR_YELLOW << "Source: " << source << endl;
+        cout << COLOR_YELLOW << "\n\nSource: " << source << endl;
         cout << COLOR_YELLOW << "Destination: " << destination << endl;
-        cout << COLOR_GREEN << "Best path: " << COLOR_RESET;
+        cout << COLOR_GREEN << "Best path: ";
         if (result.bestpath.empty())
         {
             cout << COLOR_RED << "No possible route" << COLOR_RESET << endl;
@@ -176,7 +177,7 @@ void menuWalkingRoute(Graph graph)
             }
             cout << "(" << result.bestDistance << ")" << endl;
         }
-        cout << COLOR_GREEN << "Alternative path: " << COLOR_RESET;
+        cout << COLOR_GREEN << "Alternative path: ";
         if (result.alternative.empty())
         {
             cout << COLOR_RED << "No possible route" << COLOR_RESET << endl;
@@ -189,6 +190,7 @@ void menuWalkingRoute(Graph graph)
             }
             cout << "(" << result.alternativeDistance << ")" << endl;
         }
+        cout<<COLOR_RESET;
     }
     else if (option == 2)
     {
@@ -236,7 +238,7 @@ void menuWalkingRoute(Graph graph)
         }
         cout << COLOR_GREEN << "Calculating route..." << COLOR_RESET << endl;
         singleMode result = walking(sourc, dest, graph, avoidNodesSet, avoidEdges, include);
-        cout << COLOR_YELLOW << "Source: " << source << endl;
+        cout << COLOR_YELLOW << "\n\nSource: " << source << endl;
         cout << COLOR_YELLOW << "Destination: " << destination << endl;
         cout << COLOR_GREEN << "Restricted Driving Rote: " << COLOR_RESET;
         if (result.bestpath.empty())

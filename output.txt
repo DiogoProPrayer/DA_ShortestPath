@@ -1,0 +1,82 @@
+
+
+Source:3
+Destination:8
+BestDrivingRoute:3,2,4,8(19)
+AlternativeDrivingRoute:3,7,8(34)
+
+
+Source:8
+Destination:1
+BestDrivingRoute:8,4,2,1(24)
+AlternativeDrivingRoute:none
+
+
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,3,7,8,4(52)
+
+
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,3,7,4(62)
+
+
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,3,7,8,4(52)
+
+
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,3,7,8,4(52)
+
+
+Source:8
+Destination:5
+DrivingRoute:8,4,2,3(19)
+ParkingNode: 3
+WalkingRoute:3,5(10)
+TotalTime:29
+
+
+Source:8
+Destination:5
+DrivingRoute:none
+ParkingNode:none
+WalkingRoute:none
+TotalTime:
+Message:No possible route with a maximum walking time of 5 minutes.
+
+
+Source:8
+Destination:5
+DrivingRoute1:8,4,2,3(19)
+ParkingNode1: 3
+WalkingRoute1:3,5(10)
+TotalTime1:29
+DrivingRoute2:8,4,6(21)
+ParkingNode2: 6
+WalkingRoute2:6,5(10)
+TotalTime2:31
+
+
+Source:8
+Destination:5
+DrivingRoute:none
+ParkingNode:none
+WalkingRoute:none
+TotalTime:
+Message:No possible route with a maximum walking time of 5 minutes.
+
+
+Source:8
+Destination:5
+DrivingRoute1:8,4,2,3(19)
+ParkingNode1: 3
+WalkingRoute1:3,5(10)
+TotalTime1:29
+DrivingRoute2:8,4,6(21)
+ParkingNode2: 6
+WalkingRoute2:6,5(10)
+TotalTime2:31
