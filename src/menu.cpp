@@ -4,7 +4,7 @@
 #include "menu.h"
 #include <regex>
 #include "driving-walking.h"
-#include "Mode.h"
+#include "drive.h"
 using namespace std;
 
 // Color macros

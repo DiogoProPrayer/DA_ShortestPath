@@ -4,7 +4,7 @@
 #include <unordered_set>
 #include <regex>
 #include "driving-walking.h"
-#include "Mode.h"
+#include "drive.h"
 
 using namespace std;
 
@@ -49,7 +49,7 @@ void processRestrictedDriving(Graph graph, string s, string d, string avoidNodes
     }
 
     // Open file output.txt to append text
-    ofstream out("output.txt", ios::app);
+    ofstream out("../output.txt", ios::app);
     if (!out.is_open())
     {
         cout << "Error opening file: output.txt" << endl;
@@ -86,7 +86,7 @@ void processDriving(Graph graph, string s, string d)
     }
 
     // open file output.txt to append text
-    ofstream out("output.txt", ios::app);
+    ofstream out("../output.txt", ios::app);
     if (!out.is_open())
     {
         cout << "Error opening file: output.txt" << endl;
@@ -166,7 +166,7 @@ void processEco(Graph graph, string s, string d, string maximumwalkingtime, stri
         node->resetNode();
     }
     // open file output.txt to append text
-    ofstream out("output.txt", ios::app);
+    ofstream out("../output.txt", ios::app);
     if (!out.is_open())
     {
         cout << "Error opening file: output.txt" << endl;
@@ -439,7 +439,7 @@ void batch(Graph graph)
     string line;
 
     // If there is a file called output,txt, delete it
-    remove("output.txt");
+    remove("../output.txt");
 
     while (getline(file, line))
     {

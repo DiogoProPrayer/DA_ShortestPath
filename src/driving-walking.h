@@ -69,7 +69,7 @@ public:
     * @param avoidNodes Set of node IDs to avoid
     * @param avoidSegments Set of segments (pair of node IDs) to avoid
     */
-    DrivingWalking(Graph graph,int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments);
+    DrivingWalking(Graph &graph,int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments);
 
     /**
     * @brief Calculates the complete driving and walking rout

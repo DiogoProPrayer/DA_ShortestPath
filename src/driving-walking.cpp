@@ -4,7 +4,7 @@
 using namespace std;
 
 
-DrivingWalking::DrivingWalking(Graph graph, int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments)
+DrivingWalking::DrivingWalking(Graph &graph, int source, int destination, double maxWalkTime, unordered_set<int> avoidNodes, unordered_set<pair<int, int>, pair_hash> avoidSegments)
 {
     this->graph = graph;
     this->source = source;
