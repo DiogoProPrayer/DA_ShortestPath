@@ -13,11 +13,13 @@ var searchData=
   ['getnumvertex_10',['getNumVertex',['../classGraph.html#abb5e0517e2979c54eebdafc2a9875e8f',1,'Graph']]],
   ['getorig_11',['getOrig',['../classEdge.html#af999c2a84d2da0e46eabe8674bc68b91',1,'Edge']]],
   ['getparking_12',['getParking',['../classNode.html#a64b20e98ae0011129b750e5702dde1d9',1,'Node']]],
-  ['getpath_13',['getpath',['../Mode_8cpp.html#a34d375a41b5a3d3d7bf1c0692b7d6697',1,'getPath(int source, int dest, Graph &amp;graph):&#160;Mode.cpp'],['../Mode_8h.html#a34d375a41b5a3d3d7bf1c0692b7d6697',1,'getPath(int source, int dest, Graph &amp;graph):&#160;Mode.cpp'],['../test_8cpp.html#a34d375a41b5a3d3d7bf1c0692b7d6697',1,'getPath(int source, int dest, Graph &amp;graph):&#160;test.cpp']]],
-  ['getpred_14',['getPred',['../classNode.html#ab58f3421db9b34b67e5f082569da2a5a',1,'Node']]],
-  ['getvisited_15',['getVisited',['../classEdge.html#a23f2335498dd519408e27acca941317c',1,'Edge']]],
-  ['getwalkingdist_16',['getWalkingDist',['../classNode.html#afc43adbaea919638f5b6c0e96fdb61d4',1,'Node']]],
-  ['getwalkingpred_17',['getWalkingPred',['../classNode.html#ad78b5eb0e4808b510422c571dbf42824',1,'Node']]],
-  ['getwalkingtime_18',['getWalkingTime',['../classEdge.html#af4c649139ee4f87c3944a1ecffccf05b',1,'Edge']]],
-  ['getwalkingvisited_19',['getWalkingVisited',['../classNode.html#ae520840ff269994f9b239647b3e68455',1,'Node']]]
+  ['getparkingnodes_13',['getParkingNodes',['../drive_8h.html#a7c65d54d8b99ac97fddfd028b41b3860',1,'drive.h']]],
+  ['getpath_14',['getpath',['../drive_8h.html#a87bebf13b5e9c2bbac75212e90e7d85a',1,'getPath(int source, int dest, Graph &amp;graph, bool mode):&#160;drive.h'],['../test_8cpp.html#a34d375a41b5a3d3d7bf1c0692b7d6697',1,'getPath(int source, int dest, Graph &amp;graph):&#160;test.cpp']]],
+  ['getpathdw_15',['getPathDW',['../drive_8h.html#a728a174787bf125ff70b461cbfdd7195',1,'drive.h']]],
+  ['getpred_16',['getPred',['../classNode.html#ab58f3421db9b34b67e5f082569da2a5a',1,'Node']]],
+  ['getvisited_17',['getVisited',['../classEdge.html#a23f2335498dd519408e27acca941317c',1,'Edge']]],
+  ['getwalkingdist_18',['getWalkingDist',['../classNode.html#afc43adbaea919638f5b6c0e96fdb61d4',1,'Node']]],
+  ['getwalkingpred_19',['getWalkingPred',['../classNode.html#ad78b5eb0e4808b510422c571dbf42824',1,'Node']]],
+  ['getwalkingtime_20',['getWalkingTime',['../classEdge.html#af4c649139ee4f87c3944a1ecffccf05b',1,'Edge']]],
+  ['getwalkingvisited_21',['getWalkingVisited',['../classNode.html#ae520840ff269994f9b239647b3e68455',1,'Node']]]
 ];

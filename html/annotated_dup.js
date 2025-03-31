@@ -8,5 +8,6 @@ var annotated_dup =
     [ "Graph", "classGraph.html", "classGraph" ],
     [ "Node", "classNode.html", "classNode" ],
     [ "pair_hash", "structpair__hash.html", "structpair__hash" ],
-    [ "singleMode", "structsingleMode.html", "structsingleMode" ]
+    [ "singleMode", "structsingleMode.html", "structsingleMode" ],
+    [ "WalkDrive", "structWalkDrive.html", "structWalkDrive" ]
 ];

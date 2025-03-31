@@ -26,20 +26,20 @@ void \mbox{\hyperlink{test_8cpp_acfeeb005847071dbe899c572b4ef749d}{algorithm}} (
 \begin{DoxyCompactList}\small\item\em Dijkstra\textquotesingle{}s algorithm to find the shortest path between two nodes. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{test_8cpp_a20b8a4a509e72102296cfeb879df307a}{unset\+Nodes\+And\+Edges}} (\mbox{\hyperlink{classGraph}{Graph}} \&graph)
 \begin{DoxyCompactList}\small\item\em Set all nodes and edges to unvisited and set the distance for the dijkstra algorithm. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{test_8cpp_a8b2e88e22f7b8e69157a5238c5e3eb7b}{set\+Some\+Nodes\+Visited}} (\mbox{\hyperlink{classGraph}{Graph}} \&graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{Mode_8cpp_af161d28ba1b92737c1e7f05f8a8f3ee9}{limit}})
+void \mbox{\hyperlink{test_8cpp_a8b2e88e22f7b8e69157a5238c5e3eb7b}{set\+Some\+Nodes\+Visited}} (\mbox{\hyperlink{classGraph}{Graph}} \&graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}})
 \begin{DoxyCompactList}\small\item\em Set the nodes to avoid to visited. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{test_8cpp_a48f41bb59c780ef8bb3283d3bde6fabd}{set\+Some\+Edges\+Visited}} (\mbox{\hyperlink{classGraph}{Graph}} \&graph, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&edges\+To\+Avoid)
 \begin{DoxyCompactList}\small\item\em Set the edges to avoid to visited. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structsingleMode}{single\+Mode}} \mbox{\hyperlink{test_8cpp_a3f7d6be51f697150d564004ff7c97765}{no\+Restriction}} (int source, int dest, \mbox{\hyperlink{classGraph}{Graph}} graph, int mode)
-\begin{DoxyCompactList}\small\item\em Find the shortest path between two nodes with no restrictions on the nodes and edges. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structsingleMode}{single\+Mode}} \mbox{\hyperlink{test_8cpp_a91954ccb44b93b0aba324709b8bf8633}{restricted\+Edges\+And\+Nodes}} (int source, int dest, \mbox{\hyperlink{classGraph}{Graph}} graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{Mode_8cpp_af161d28ba1b92737c1e7f05f8a8f3ee9}{limit}}, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&edges\+To\+Avoid, int mode)
+\item 
+\mbox{\hyperlink{structsingleMode}{single\+Mode}} \mbox{\hyperlink{test_8cpp_a91954ccb44b93b0aba324709b8bf8633}{restricted\+Edges\+And\+Nodes}} (int source, int dest, \mbox{\hyperlink{classGraph}{Graph}} graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&edges\+To\+Avoid, int mode)
 \begin{DoxyCompactList}\small\item\em Find the shortest path between two nodes with restrictions on the nodes and edges. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structsingleMode}{single\+Mode}} \mbox{\hyperlink{test_8cpp_a96f671a8a71b84deceae2f9ff4403da8}{include\+Node\+With\+Restrict\+Nodes\+And\+Edges}} (int source, int dest, \mbox{\hyperlink{classGraph}{Graph}} \&graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{Mode_8cpp_af161d28ba1b92737c1e7f05f8a8f3ee9}{limit}}, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&edges\+To\+Avoid, int include, int mode)
+\mbox{\hyperlink{structsingleMode}{single\+Mode}} \mbox{\hyperlink{test_8cpp_a96f671a8a71b84deceae2f9ff4403da8}{include\+Node\+With\+Restrict\+Nodes\+And\+Edges}} (int source, int dest, \mbox{\hyperlink{classGraph}{Graph}} \&graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&edges\+To\+Avoid, int include, int mode)
 \begin{DoxyCompactList}\small\item\em Find the shortest path between two nodes with a node included and restrictions on the nodes and edges. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structsingleMode}{single\+Mode}} \mbox{\hyperlink{test_8cpp_a51b0081a23ec324c6453e0ea9a18dcca}{driving}} (int source, int dest, \mbox{\hyperlink{classGraph}{Graph}} \&graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{Mode_8cpp_af161d28ba1b92737c1e7f05f8a8f3ee9}{limit}}, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&edges\+To\+Avoid, int include)
-\begin{DoxyCompactList}\small\item\em Calculates driving path between two nodes. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structsingleMode}{single\+Mode}} \mbox{\hyperlink{test_8cpp_ae4fc5c385fa8539b9ec9da230f014700}{walking}} (int source, int dest, \mbox{\hyperlink{classGraph}{Graph}} \&graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{Mode_8cpp_af161d28ba1b92737c1e7f05f8a8f3ee9}{limit}}, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&edges\+To\+Avoid, int include)
-\begin{DoxyCompactList}\small\item\em Calculates walking path between two nodes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structsingleMode}{single\+Mode}} \mbox{\hyperlink{test_8cpp_a51b0081a23ec324c6453e0ea9a18dcca}{driving}} (int source, int dest, \mbox{\hyperlink{classGraph}{Graph}} \&graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&edges\+To\+Avoid, int include)
+\item 
+\mbox{\hyperlink{structsingleMode}{single\+Mode}} \mbox{\hyperlink{test_8cpp_ae4fc5c385fa8539b9ec9da230f014700}{walking}} (int source, int dest, \mbox{\hyperlink{classGraph}{Graph}} \&graph, std\+::unordered\+\_\+set$<$ int $>$ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&edges\+To\+Avoid, int include)
+\item 
 int \mbox{\hyperlink{test_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
 \end{DoxyCompactItemize}
 
@@ -96,30 +96,6 @@ false
 \doxysubsubsection{\texorpdfstring{driving()}{driving()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structsingleMode}{single\+Mode}} driving (\begin{DoxyParamCaption}\item[{int}]{source,  }\item[{int}]{dest,  }\item[{\mbox{\hyperlink{classGraph}{Graph}} \&}]{graph,  }\item[{std\+::unordered\+\_\+set$<$ int $>$ \&}]{limit,  }\item[{std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&}]{edges\+To\+Avoid,  }\item[{int}]{include }\end{DoxyParamCaption})}
 
-
-
-Calculates driving path between two nodes. 
-
-Complexity O((V + E) log(\+V)) 
-\begin{DoxyParams}{Parameters}
-{\em source} & The starting node ID \\
-\hline
-{\em destination} & The destination node ID \\
-\hline
-{\em graph} & \doxylink{classGraph}{Graph} object -\/ with nodes \\
-\hline
-{\em limit} & Set of node IDs -\/ to mark as visited \\
-\hline
-{\em edges\+To\+Avoid} & Set of edges to avoid \\
-\hline
-{\em include} & \doxylink{classNode}{Node} ID to include in path \\
-\hline
-{\em mode} & Decide between driving and walking \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{structsingleMode}{single\+Mode} -\/ best path and distance 
-\end{DoxyReturn}
 \Hypertarget{test_8cpp_a34d375a41b5a3d3d7bf1c0692b7d6697}\label{test_8cpp_a34d375a41b5a3d3d7bf1c0692b7d6697} 
 \index{test.cpp@{test.cpp}!getPath@{getPath}}
 \index{getPath@{getPath}!test.cpp@{test.cpp}}
@@ -209,24 +185,6 @@ std\+::set$<$int$>$
 \doxysubsubsection{\texorpdfstring{noRestriction()}{noRestriction()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structsingleMode}{single\+Mode}} no\+Restriction (\begin{DoxyParamCaption}\item[{int}]{source,  }\item[{int}]{dest,  }\item[{\mbox{\hyperlink{classGraph}{Graph}}}]{graph,  }\item[{int}]{mode }\end{DoxyParamCaption})}
 
-
-
-Find the shortest path between two nodes with no restrictions on the nodes and edges. 
-
-Complexity O((V + E) log(\+V)) 
-\begin{DoxyParams}{Parameters}
-{\em source} & The starting node ID \\
-\hline
-{\em destination} & The destination node ID \\
-\hline
-{\em graph} & \doxylink{classGraph}{Graph} object -\/ with nodes \\
-\hline
-{\em mode} & Decide between driving and walking \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{structsingleMode}{single\+Mode} -\/ best path and distance 
-\end{DoxyReturn}
 \Hypertarget{test_8cpp_a91954ccb44b93b0aba324709b8bf8633}\label{test_8cpp_a91954ccb44b93b0aba324709b8bf8633} 
 \index{test.cpp@{test.cpp}!restrictedEdgesAndNodes@{restrictedEdgesAndNodes}}
 \index{restrictedEdgesAndNodes@{restrictedEdgesAndNodes}!test.cpp@{test.cpp}}
@@ -315,27 +273,3 @@ Complexity O(V+E)
 \doxysubsubsection{\texorpdfstring{walking()}{walking()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structsingleMode}{single\+Mode}} walking (\begin{DoxyParamCaption}\item[{int}]{source,  }\item[{int}]{dest,  }\item[{\mbox{\hyperlink{classGraph}{Graph}} \&}]{graph,  }\item[{std\+::unordered\+\_\+set$<$ int $>$ \&}]{limit,  }\item[{std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \&}]{edges\+To\+Avoid,  }\item[{int}]{include }\end{DoxyParamCaption})}
 
-
-
-Calculates walking path between two nodes. 
-
-Complexity O((V + E) log(\+V)) 
-\begin{DoxyParams}{Parameters}
-{\em source} & The starting node ID \\
-\hline
-{\em destination} & The destination node ID \\
-\hline
-{\em graph} & \doxylink{classGraph}{Graph} object -\/ with nodes \\
-\hline
-{\em limit} & Set of node IDs -\/ to mark as visited \\
-\hline
-{\em edges\+To\+Avoid} & Set of edges to avoid \\
-\hline
-{\em include} & \doxylink{classNode}{Node} ID to include in path \\
-\hline
-{\em mode} & Decide between driving and walking \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{structsingleMode}{single\+Mode} -\/ best path and distance 
-\end{DoxyReturn}

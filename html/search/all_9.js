@@ -7,7 +7,5 @@ var searchData=
   ['menu_2eh_4',['menu.h',['../menu_8h.html',1,'']]],
   ['menudrivingroute_5',['menudrivingroute',['../menu_8cpp.html#a5ea6057b1e17a762ad76b291c60d9c8e',1,'menuDrivingRoute(Graph graph):&#160;menu.cpp'],['../menu_8h.html#a5ea6057b1e17a762ad76b291c60d9c8e',1,'menuDrivingRoute(Graph graph):&#160;menu.cpp']]],
   ['menuecoroute_6',['menuecoroute',['../menu_8cpp.html#a76137c6aef779de662b89e74442e4b92',1,'menuEcoRoute(Graph graph):&#160;menu.cpp'],['../menu_8h.html#a76137c6aef779de662b89e74442e4b92',1,'menuEcoRoute(Graph graph):&#160;menu.cpp']]],
-  ['menuwalkingroute_7',['menuWalkingRoute',['../menu_8cpp.html#add11c04e061911ce4e9dc254b4208419',1,'menu.cpp']]],
-  ['mode_2ecpp_8',['Mode.cpp',['../Mode_8cpp.html',1,'']]],
-  ['mode_2eh_9',['Mode.h',['../Mode_8h.html',1,'']]]
+  ['menuwalkingroute_7',['menuWalkingRoute',['../menu_8cpp.html#add11c04e061911ce4e9dc254b4208419',1,'menu.cpp']]]
 ];

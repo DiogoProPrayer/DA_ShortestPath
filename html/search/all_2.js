@@ -10,7 +10,8 @@ var searchData=
   ['color_5fred_7',['color_red',['../main_8cpp.html#ad86358bf19927183dd7b4ae215a29731',1,'COLOR_RED:&#160;main.cpp'],['../menu_8cpp.html#ad86358bf19927183dd7b4ae215a29731',1,'COLOR_RED:&#160;menu.cpp']]],
   ['color_5freset_8',['color_reset',['../menu_8cpp.html#a17f760256046df23dd0ab46602f04d02',1,'COLOR_RESET:&#160;menu.cpp'],['../main_8cpp.html#a17f760256046df23dd0ab46602f04d02',1,'COLOR_RESET:&#160;main.cpp']]],
   ['color_5fyellow_9',['color_yellow',['../main_8cpp.html#a4534b577b74a58b0f4b7be027af664e0',1,'COLOR_YELLOW:&#160;main.cpp'],['../menu_8cpp.html#a4534b577b74a58b0f4b7be027af664e0',1,'COLOR_YELLOW:&#160;menu.cpp']]],
-  ['compare_10',['compare',['../Mode_8h.html#a572ec40022fccb6fa409e1df83501d79',1,'compare(const std::pair&lt; double, int &gt; &amp;d1, const std::pair&lt; double, int &gt; &amp;d2):&#160;Mode.cpp'],['../test_8cpp.html#a572ec40022fccb6fa409e1df83501d79',1,'compare(const std::pair&lt; double, int &gt; &amp;d1, const std::pair&lt; double, int &gt; &amp;d2):&#160;test.cpp'],['../Mode_8cpp.html#a572ec40022fccb6fa409e1df83501d79',1,'compare(const std::pair&lt; double, int &gt; &amp;d1, const std::pair&lt; double, int &gt; &amp;d2):&#160;Mode.cpp']]],
-  ['comparenodedriving_11',['CompareNodeDriving',['../structCompareNodeDriving.html',1,'']]],
-  ['comparenodewalking_12',['CompareNodeWalking',['../structCompareNodeWalking.html',1,'']]]
+  ['compare_10',['compare',['../test_8cpp.html#a572ec40022fccb6fa409e1df83501d79',1,'test.cpp']]],
+  ['comparedist_11',['comparedist',['../drive_8h.html#afd614503a6583d5cba4a164856e77b83',1,'drive.h']]],
+  ['comparenodedriving_12',['CompareNodeDriving',['../structCompareNodeDriving.html',1,'']]],
+  ['comparenodewalking_13',['CompareNodeWalking',['../structCompareNodeWalking.html',1,'']]]
 ];

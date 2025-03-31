@@ -1,0 +1,401 @@
+\doxysection{drive.\+h}
+\hypertarget{drive_8h_source}{}\label{drive_8h_source}\index{src/drive.h@{src/drive.h}}
+\mbox{\hyperlink{drive_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ WALKDRIVE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ WALKDRIVE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Graph_8h}{Graph.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsingleMode}{singleMode}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{structsingleMode_abbe227eadc50c7a923d78556aac7d3da}{bestpath}};}
+\DoxyCodeLine{00015\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{structsingleMode_a4efb762c146b407225f8806cc2583328}{alternative}};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structsingleMode_abc0321ccf253e43b24addaac0a0d4ed1}{bestDistance}};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structsingleMode_a7f175c91e19db4845eed4ccb3625b060}{alternativeDistance}};}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structWalkDrive}{WalkDrive}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structWalkDrive_a78671e9faa8ab0ac8c48e33cc5418cb1}{parking}};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structWalkDrive_acc1048fb14d70134446d23c9e8f479ae}{range}};}
+\DoxyCodeLine{00023\ \ \ \ \ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ \mbox{\hyperlink{structWalkDrive_aa3fbd7ce021b05e9071c33d9815d2773}{drivingRoute}};}
+\DoxyCodeLine{00024\ \ \ \ \ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ \mbox{\hyperlink{structWalkDrive_a891dcc046898e0f2217e8bc6341f25aa}{walkingRoute}};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structWalkDrive_a5e45eaa8a0965c67c686cf388969ab95}{parkingNode}};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structWalkDrive_a3f8abe1ab6b550de93b3b57037c4618e}{totalTime}};}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{inline}\ std::vector<std::pair<int,\ int>>\ \mbox{\hyperlink{drive_8h_a85f97fa51445ad7bfabb5665cc7dd250}{edglimit}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ std::vector<int>\ \&path)}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ std::vector<std::pair<int,\ int>>\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ path.size()\ -\/\ 1;\ i++)}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}.emplace\_back(path[i],\ path[i\ +\ 1]);}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}};}
+\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{inline}\ std::unordered\_set<int>\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ std::vector<int>\ \&path)}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ std::unordered\_set<int>\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}};}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ :\ path)}
+\DoxyCodeLine{00058\ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ !=\ dest\ \&\&\ i\ !=\ source)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}.emplace(i);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}};}
+\DoxyCodeLine{00065\ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{drive_8h_afd614503a6583d5cba4a164856e77b83}{comparedist}}(\textcolor{keyword}{const}\ std::pair<double,\ int>\ \&d1,\ \textcolor{keyword}{const}\ std::pair<double,\ int>\ \&d2)}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{return}\ d1.first\ >\ d2.first;}
+\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{drive_8h_afac135fb007917d916d89cd668b31761}{unsetNodesAndEdges}}(\mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ \textcolor{keywordtype}{int}\ mode)}
+\DoxyCodeLine{00087\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ std::vector<Node\ *>\ Nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ graph.\mbox{\hyperlink{classGraph_a97a6ee81d4a4837cfc949d512c05e5d8}{getNodeSize}}();\ i++)}
+\DoxyCodeLine{00090\ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ Nodes[i]-\/>setVisited(\textcolor{keyword}{false});}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mode)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ Nodes[i]-\/>setWalkingPred(-\/1);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ Nodes[i]-\/>setWalkingDist(std::numeric\_limits<double>::infinity());}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ Nodes[i]-\/>setPred(-\/1);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ Nodes[i]-\/>setDist(std::numeric\_limits<double>::infinity());}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!Nodes[i]-\/>getAdj().empty())}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{classEdge}{Edge}}\ *edge\ :\ Nodes[i]-\/>getAdj())}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ edge-\/>setVisited(\textcolor{keyword}{false});}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{drive_8h_aa427789da559637baf7efc59d9449898}{someNodesVisited}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ std::unordered\_set<int>\ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}})}
+\DoxyCodeLine{00120\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}.empty())}
+\DoxyCodeLine{00122\ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ std::vector<Node\ *>\ Nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ graph.\mbox{\hyperlink{classGraph_a97a6ee81d4a4837cfc949d512c05e5d8}{getNodeSize}}();\ i++)}
+\DoxyCodeLine{00127\ \ \ \ \ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}.find(Nodes[i]-\/>getId())\ !=\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}.end())}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ Nodes[i]-\/>setVisited(\textcolor{keyword}{true});}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{drive_8h_a9fad46e63eb5b1b43dd5eb29e5b354b0}{someEdgesVisited}}(\mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ std::vector<std::pair<int,\ int>>\ \&edgesToAvoid)}
+\DoxyCodeLine{00142\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordflow}{if}\ (edgesToAvoid.empty())}
+\DoxyCodeLine{00144\ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00146\ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ std::vector<Node\ *>\ Nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{int}\ index1;}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{int}\ index2;}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::pair<int,\ int>\ edge\ :\ edgesToAvoid)}
+\DoxyCodeLine{00151\ \ \ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ index1\ =\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(edge.first);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ index2\ =\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(edge.second);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ Nodes[index1]-\/>setEdgeVisited(Nodes[index2],\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ Nodes[index2]-\/>setEdgeVisited(Nodes[index1],\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00166\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{drive_8h_a32864f7ace572944f5b8607d7d2a8cf6}{algorithm}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ \textcolor{keywordtype}{int}\ mode)}
+\DoxyCodeLine{00167\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ std::pair<double,\ int>\ DistNode;}
+\DoxyCodeLine{00169\ \ \ \ \ std::priority\_queue<std::pair<double,\ int>,\ std::vector<std::pair<double,\ int>>,\ \textcolor{keyword}{decltype}(\&\mbox{\hyperlink{drive_8h_afd614503a6583d5cba4a164856e77b83}{comparedist}})>\ dis(\mbox{\hyperlink{drive_8h_afd614503a6583d5cba4a164856e77b83}{comparedist}});}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(source);}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{float}\ d;}
+\DoxyCodeLine{00172\ \ \ \ \ std::vector<Node\ *>\ Nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00173\ \ \ \ \ std::vector<Edge\ *>\ \mbox{\hyperlink{drive_8h_a96ab8f67bb4d2cda86d3d14092e1e263}{adj}};}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{if}\ (mode\ ==\ 0)}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ Nodes[index]-\/>setDist(0);}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ Nodes[index]-\/>setWalkingDist(0);}
+\DoxyCodeLine{00178\ \ \ \ \ dis.push(\{0,\ source\});}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{while}\ (!dis.empty())}
+\DoxyCodeLine{00180\ \ \ \ \ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ DistNode\ =\ dis.top();}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ dis.pop();}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ index\ =\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(DistNode.second);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *sourceNode\ =\ Nodes[index];}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{drive_8h_a96ab8f67bb4d2cda86d3d14092e1e263}{adj}}\ =\ Nodes[index]-\/>\mbox{\hyperlink{classNode_a5ac9a56b483c1393d5da874344766bad}{getAdj}}();}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ sourceNode-\/>\mbox{\hyperlink{classNode_a6fe3ebcd0eaf9fece72dfbc0ffc257bb}{setVisited}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{classEdge}{Edge}}\ *edg\ :\ \mbox{\hyperlink{drive_8h_a96ab8f67bb4d2cda86d3d14092e1e263}{adj}})}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ d\ =\ mode\ ?\ edg-\/>getWalkingTime()\ :\ edg-\/>getDrivingTime();}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *destNode\ =\ edg-\/>getDest();}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d\ !=\ -\/1\ \&\&\ !destNode-\/>\mbox{\hyperlink{classNode_a97dd8f95e09a0516f8939627f94bd58e}{isVisited}}()\ \&\&\ !sourceNode-\/>\mbox{\hyperlink{classNode_a08029288d2e1323814e8a228e339931e}{isEdgeVisited}}(destNode))}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mode\ ==\ 0)}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sourceNode-\/>\mbox{\hyperlink{classNode_aef2fab11e82901b2a35af6c4837d18b2}{getDist}}()\ +\ d\ <\ destNode-\/>\mbox{\hyperlink{classNode_aef2fab11e82901b2a35af6c4837d18b2}{getDist}}())}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ destNode-\/>\mbox{\hyperlink{classNode_a2b362ede276752ef43c1cc45eeb64b79}{setDist}}(sourceNode-\/>\mbox{\hyperlink{classNode_aef2fab11e82901b2a35af6c4837d18b2}{getDist}}()\ +\ d);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ destNode-\/>\mbox{\hyperlink{classNode_a3f540d999eaf6a9ca7723513ba7fea84}{setPred}}(sourceNode-\/>\mbox{\hyperlink{classNode_a04d6761bf0ead66eb628a6ef5abc34e1}{getId}}());}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dis.push(\{destNode-\/>\mbox{\hyperlink{classNode_aef2fab11e82901b2a35af6c4837d18b2}{getDist}}(),\ destNode-\/>\mbox{\hyperlink{classNode_a04d6761bf0ead66eb628a6ef5abc34e1}{getId}}()\});}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sourceNode-\/>\mbox{\hyperlink{classNode_afc43adbaea919638f5b6c0e96fdb61d4}{getWalkingDist}}()\ +\ d\ <\ destNode-\/>\mbox{\hyperlink{classNode_afc43adbaea919638f5b6c0e96fdb61d4}{getWalkingDist}}())}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ destNode-\/>\mbox{\hyperlink{classNode_a1bd131609fb8224ec7ff31d5b521b92e}{setWalkingDist}}(sourceNode-\/>\mbox{\hyperlink{classNode_afc43adbaea919638f5b6c0e96fdb61d4}{getWalkingDist}}()\ +\ d);}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ destNode-\/>\mbox{\hyperlink{classNode_a2bfcf6fbdb32bd720034085d50e80fac}{setWalkingPred}}(sourceNode-\/>\mbox{\hyperlink{classNode_a04d6761bf0ead66eb628a6ef5abc34e1}{getId}}());}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dis.push(\{destNode-\/>\mbox{\hyperlink{classNode_afc43adbaea919638f5b6c0e96fdb61d4}{getWalkingDist}}(),\ destNode-\/>\mbox{\hyperlink{classNode_a04d6761bf0ead66eb628a6ef5abc34e1}{getId}}()\});}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00213\ \ \ \ \ \}}
+\DoxyCodeLine{00214\ \}}
+\DoxyCodeLine{00225\ \textcolor{keyword}{inline}\ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ \mbox{\hyperlink{drive_8h_a87bebf13b5e9c2bbac75212e90e7d85a}{getPath}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ \textcolor{keywordtype}{bool}\ mode)}
+\DoxyCodeLine{00226\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ std::vector<int>\ path;}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordtype}{double}\ distance\ =\ 0;}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(dest);}
+\DoxyCodeLine{00230\ \ \ \ \ std::vector<Node\ *>\ Nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordflow}{if}\ (mode\ ?\ Nodes[index]-\/>getWalkingDist()\ ==\ std::numeric\_limits<double>::infinity()\ :\ Nodes[index]-\/>getDist()\ ==\ std::numeric\_limits<double>::infinity())}
+\DoxyCodeLine{00232\ \ \ \ \ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{path,\ distance\};}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordtype}{int}\ currentlocation\ =\ dest;}
+\DoxyCodeLine{00236\ \ \ \ \ distance\ =\ mode\ ?\ Nodes[index]-\/>getWalkingDist()\ :\ Nodes[index]-\/>getDist();}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{while}\ (currentlocation\ !=\ source)}
+\DoxyCodeLine{00238\ \ \ \ \ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ path.push\_back(currentlocation);}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ currentlocation\ =\ mode\ ?\ Nodes[graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(currentlocation)]-\/>getWalkingPred()\ :\ Nodes[graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(currentlocation)]-\/>getPred();}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \ \ \ \ path.push\_back(source);}
+\DoxyCodeLine{00243\ \ \ \ \ std::reverse(path.begin(),\ path.end());}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordflow}{return}\ \{path,\ distance\};}
+\DoxyCodeLine{00245\ \}}
+\DoxyCodeLine{00255\ \textcolor{keyword}{inline}\ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ \mbox{\hyperlink{drive_8h_a728a174787bf125ff70b461cbfdd7195}{getPathDW}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ \textcolor{keywordtype}{bool}\ mode)}
+\DoxyCodeLine{00256\ \{}
+\DoxyCodeLine{00257\ \ \ \ \ std::vector<int>\ path;}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordtype}{double}\ distance\ =\ 0;}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(dest);}
+\DoxyCodeLine{00260\ \ \ \ \ std::vector<Node\ *>\ Nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{if}\ (mode\ ?\ Nodes[index]-\/>getWalkingDist()\ ==\ std::numeric\_limits<double>::infinity()\ :\ Nodes[index]-\/>getDist()\ ==\ std::numeric\_limits<double>::infinity())}
+\DoxyCodeLine{00262\ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{path,\ distance\};}
+\DoxyCodeLine{00264\ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keywordtype}{int}\ currentlocation\ =\ dest;}
+\DoxyCodeLine{00266\ \ \ \ \ distance\ =\ mode\ ?\ Nodes[index]-\/>getWalkingDist()\ :\ Nodes[index]-\/>getDist();}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordflow}{while}\ (currentlocation\ !=\ source)}
+\DoxyCodeLine{00268\ \ \ \ \ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ path.push\_back(currentlocation);}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ currentlocation\ =\ mode\ ?\ Nodes[graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(currentlocation)]-\/>getWalkingPred()\ :\ Nodes[graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(currentlocation)]-\/>getPred();}
+\DoxyCodeLine{00271\ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \ \ \ \ path.push\_back(source);}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordflow}{if}\ (!mode)}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ std::reverse(path.begin(),\ path.end());}
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordflow}{return}\ \{path,\ distance\};}
+\DoxyCodeLine{00276\ \}}
+\DoxyCodeLine{00286\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structsingleMode}{singleMode}}\ \mbox{\hyperlink{drive_8h_a3f7d6be51f697150d564004ff7c97765}{noRestriction}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ \mbox{\hyperlink{classGraph}{Graph}}\ graph,\ \textcolor{keywordtype}{int}\ mode)}
+\DoxyCodeLine{00287\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ path;}
+\DoxyCodeLine{00289\ \ \ \ \ \mbox{\hyperlink{structsingleMode}{singleMode}}\ result;}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keywordflow}{if}\ (graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(source)\ ==\ -\/1\ ||\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(dest)\ ==\ -\/1)}
+\DoxyCodeLine{00291\ \ \ \ \ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00293\ \ \ \ \ \}}
+\DoxyCodeLine{00294\ \ \ \ \ \mbox{\hyperlink{drive_8h_afac135fb007917d916d89cd668b31761}{unsetNodesAndEdges}}(graph,\ mode);}
+\DoxyCodeLine{00295\ \ \ \ \ \mbox{\hyperlink{drive_8h_a32864f7ace572944f5b8607d7d2a8cf6}{algorithm}}(source,\ graph,\ mode);}
+\DoxyCodeLine{00296\ \ \ \ \ path\ =\ \mbox{\hyperlink{drive_8h_a87bebf13b5e9c2bbac75212e90e7d85a}{getPath}}(source,\ dest,\ graph,\ mode);}
+\DoxyCodeLine{00297\ \ \ \ \ result.\mbox{\hyperlink{structsingleMode_abbe227eadc50c7a923d78556aac7d3da}{bestpath}}\ =\ path.first;}
+\DoxyCodeLine{00298\ \ \ \ \ result.\mbox{\hyperlink{structsingleMode_abc0321ccf253e43b24addaac0a0d4ed1}{bestDistance}}\ =\ path.second;}
+\DoxyCodeLine{00299\ \ \ \ \ std::unordered\_set<int>\ lim\ =\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}(source,\ dest,\ result.\mbox{\hyperlink{structsingleMode_abbe227eadc50c7a923d78556aac7d3da}{bestpath}});}
+\DoxyCodeLine{00300\ \ \ \ \ std::vector<std::pair<int,\ int>>\ edglim\ =\ \mbox{\hyperlink{drive_8h_a85f97fa51445ad7bfabb5665cc7dd250}{edglimit}}(source,\ dest,\ result.\mbox{\hyperlink{structsingleMode_abbe227eadc50c7a923d78556aac7d3da}{bestpath}});}
+\DoxyCodeLine{00301\ \ \ \ \ \mbox{\hyperlink{drive_8h_afac135fb007917d916d89cd668b31761}{unsetNodesAndEdges}}(graph,\ mode);}
+\DoxyCodeLine{00302\ \ \ \ \ \mbox{\hyperlink{drive_8h_aa427789da559637baf7efc59d9449898}{someNodesVisited}}(graph,\ lim);}
+\DoxyCodeLine{00303\ \ \ \ \ \mbox{\hyperlink{drive_8h_a9fad46e63eb5b1b43dd5eb29e5b354b0}{someEdgesVisited}}(graph,\ edglim);}
+\DoxyCodeLine{00304\ \ \ \ \ \mbox{\hyperlink{drive_8h_a32864f7ace572944f5b8607d7d2a8cf6}{algorithm}}(source,\ graph,\ mode);}
+\DoxyCodeLine{00305\ \ \ \ \ path\ =\ \mbox{\hyperlink{drive_8h_a87bebf13b5e9c2bbac75212e90e7d85a}{getPath}}(source,\ dest,\ graph,\ mode);}
+\DoxyCodeLine{00306\ \ \ \ \ result.\mbox{\hyperlink{structsingleMode_a4efb762c146b407225f8806cc2583328}{alternative}}\ =\ path.first;}
+\DoxyCodeLine{00307\ \ \ \ \ result.\mbox{\hyperlink{structsingleMode_a7f175c91e19db4845eed4ccb3625b060}{alternativeDistance}}\ =\ path.second;}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00321\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structsingleMode}{singleMode}}\ \mbox{\hyperlink{drive_8h_a91954ccb44b93b0aba324709b8bf8633}{restrictedEdgesAndNodes}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ \mbox{\hyperlink{classGraph}{Graph}}\ graph,\ std::unordered\_set<int>\ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}},\ std::vector<std::pair<int,\ int>>\ \&edgesToAvoid,\ \textcolor{keywordtype}{int}\ mode)}
+\DoxyCodeLine{00322\ \{}
+\DoxyCodeLine{00323\ \ \ \ \ \mbox{\hyperlink{structsingleMode}{singleMode}}\ result;}
+\DoxyCodeLine{00324\ \ \ \ \ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ path;}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordflow}{if}\ (graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(source)\ ==\ -\/1\ ||\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(dest)\ ==\ -\/1)}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00327\ \ \ \ \ std::vector<Node\ *>\ Nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00328\ \ \ \ \ \mbox{\hyperlink{drive_8h_afac135fb007917d916d89cd668b31761}{unsetNodesAndEdges}}(graph,\ mode);}
+\DoxyCodeLine{00329\ \ \ \ \ \mbox{\hyperlink{drive_8h_aa427789da559637baf7efc59d9449898}{someNodesVisited}}(graph,\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}});}
+\DoxyCodeLine{00330\ \ \ \ \ \mbox{\hyperlink{drive_8h_a9fad46e63eb5b1b43dd5eb29e5b354b0}{someEdgesVisited}}(graph,\ edgesToAvoid);}
+\DoxyCodeLine{00331\ \ \ \ \ \mbox{\hyperlink{drive_8h_a32864f7ace572944f5b8607d7d2a8cf6}{algorithm}}(source,\ graph,\ mode);}
+\DoxyCodeLine{00332\ \ \ \ \ path\ =\ \mbox{\hyperlink{drive_8h_a87bebf13b5e9c2bbac75212e90e7d85a}{getPath}}(source,\ dest,\ graph,\ mode);}
+\DoxyCodeLine{00333\ \ \ \ \ result.\mbox{\hyperlink{structsingleMode_abbe227eadc50c7a923d78556aac7d3da}{bestpath}}\ =\ path.first;}
+\DoxyCodeLine{00334\ \ \ \ \ result.\mbox{\hyperlink{structsingleMode_abc0321ccf253e43b24addaac0a0d4ed1}{bestDistance}}\ =\ path.second;}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00336\ \}}
+\DoxyCodeLine{00349\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structsingleMode}{singleMode}}\ \mbox{\hyperlink{drive_8h_a96f671a8a71b84deceae2f9ff4403da8}{includeNodeWithRestrictNodesAndEdges}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ std::unordered\_set<int>\ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}},\ std::vector<std::pair<int,\ int>>\ \&edgesToAvoid,\ \textcolor{keywordtype}{int}\ include,\ \textcolor{keywordtype}{int}\ mode)}
+\DoxyCodeLine{00350\ \{}
+\DoxyCodeLine{00351\ \ \ \ \ \mbox{\hyperlink{structsingleMode}{singleMode}}\ result;}
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keywordflow}{if}\ (graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(source)\ ==\ -\/1\ ||\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(dest)\ ==\ -\/1\ ||\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(include)\ ==\ -\/1)}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00354\ \ \ \ \ std::vector<Node\ *>\ Nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00355\ \ \ \ \ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ path;}
+\DoxyCodeLine{00356\ \ \ \ \ \mbox{\hyperlink{drive_8h_afac135fb007917d916d89cd668b31761}{unsetNodesAndEdges}}(graph,\ mode);}
+\DoxyCodeLine{00357\ \ \ \ \ \mbox{\hyperlink{drive_8h_aa427789da559637baf7efc59d9449898}{someNodesVisited}}(graph,\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}});}
+\DoxyCodeLine{00358\ \ \ \ \ \mbox{\hyperlink{drive_8h_a9fad46e63eb5b1b43dd5eb29e5b354b0}{someEdgesVisited}}(graph,\ edgesToAvoid);}
+\DoxyCodeLine{00359\ \ \ \ \ \mbox{\hyperlink{drive_8h_a32864f7ace572944f5b8607d7d2a8cf6}{algorithm}}(source,\ graph,\ mode);}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordflow}{if}\ (Nodes[graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(include)]-\/>getDist()\ ==\ std::numeric\_limits<double>::infinity())}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00362\ \ \ \ \ path\ =\ \mbox{\hyperlink{drive_8h_a87bebf13b5e9c2bbac75212e90e7d85a}{getPath}}(source,\ include,\ graph,\ mode);}
+\DoxyCodeLine{00363\ \ \ \ \ \mbox{\hyperlink{drive_8h_afac135fb007917d916d89cd668b31761}{unsetNodesAndEdges}}(graph,\ mode);}
+\DoxyCodeLine{00364\ \ \ \ \ \mbox{\hyperlink{drive_8h_aa427789da559637baf7efc59d9449898}{someNodesVisited}}(graph,\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}});}
+\DoxyCodeLine{00365\ \ \ \ \ \mbox{\hyperlink{drive_8h_a9fad46e63eb5b1b43dd5eb29e5b354b0}{someEdgesVisited}}(graph,\ edgesToAvoid);}
+\DoxyCodeLine{00366\ \ \ \ \ \mbox{\hyperlink{drive_8h_a32864f7ace572944f5b8607d7d2a8cf6}{algorithm}}(include,\ graph,\ mode);}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keywordflow}{if}\ (Nodes[graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(dest)]-\/>getDist()\ ==\ std::numeric\_limits<double>::infinity())}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00369\ \ \ \ \ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ path2\ =\ \mbox{\hyperlink{drive_8h_a87bebf13b5e9c2bbac75212e90e7d85a}{getPath}}(include,\ dest,\ graph,\ mode);}
+\DoxyCodeLine{00370\ \ \ \ \ path.first.insert(path.first.end(),\ path2.first.begin()\ +\ 1,\ path2.first.end());}
+\DoxyCodeLine{00371\ \ \ \ \ path.second\ +=\ path2.second;}
+\DoxyCodeLine{00372\ \ \ \ \ result.\mbox{\hyperlink{structsingleMode_abbe227eadc50c7a923d78556aac7d3da}{bestpath}}\ =\ path.first;}
+\DoxyCodeLine{00373\ \ \ \ \ result.\mbox{\hyperlink{structsingleMode_abc0321ccf253e43b24addaac0a0d4ed1}{bestDistance}}\ =\ path.second;}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00375\ \}}
+\DoxyCodeLine{00388\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structsingleMode}{singleMode}}\ \mbox{\hyperlink{drive_8h_a51b0081a23ec324c6453e0ea9a18dcca}{driving}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ std::unordered\_set<int>\ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}},\ std::vector<std::pair<int,\ int>>\ \&edgesToAvoid,\ \textcolor{keywordtype}{int}\ include)}
+\DoxyCodeLine{00389\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keywordflow}{if}\ (include\ ==\ -\/1)}
+\DoxyCodeLine{00391\ \ \ \ \ \{}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{drive_8h_a91954ccb44b93b0aba324709b8bf8633}{restrictedEdgesAndNodes}}(source,\ dest,\ graph,\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}},\ edgesToAvoid,\ 0);}
+\DoxyCodeLine{00393\ \ \ \ \ \}}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{drive_8h_a96f671a8a71b84deceae2f9ff4403da8}{includeNodeWithRestrictNodesAndEdges}}(source,\ dest,\ graph,\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}},\ edgesToAvoid,\ include,\ 0);}
+\DoxyCodeLine{00395\ \}}
+\DoxyCodeLine{00408\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structsingleMode}{singleMode}}\ \mbox{\hyperlink{drive_8h_ae4fc5c385fa8539b9ec9da230f014700}{walking}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ std::unordered\_set<int>\ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}},\ std::vector<std::pair<int,\ int>>\ \&edgesToAvoid,\ \textcolor{keywordtype}{int}\ include)}
+\DoxyCodeLine{00409\ \{}
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keywordflow}{if}\ (edgesToAvoid.empty()\ \&\&\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}.empty()\ \&\&\ include\ ==\ -\/1)}
+\DoxyCodeLine{00411\ \ \ \ \ \{}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{drive_8h_a3f7d6be51f697150d564004ff7c97765}{noRestriction}}(source,\ dest,\ graph,\ 1);}
+\DoxyCodeLine{00413\ \ \ \ \ \}}
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordflow}{if}\ (include\ ==\ -\/1)}
+\DoxyCodeLine{00415\ \ \ \ \ \{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{drive_8h_a91954ccb44b93b0aba324709b8bf8633}{restrictedEdgesAndNodes}}(source,\ dest,\ graph,\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}},\ edgesToAvoid,\ 1);}
+\DoxyCodeLine{00417\ \ \ \ \ \}}
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{drive_8h_a96f671a8a71b84deceae2f9ff4403da8}{includeNodeWithRestrictNodesAndEdges}}(source,\ dest,\ graph,\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}},\ edgesToAvoid,\ include,\ 1);}
+\DoxyCodeLine{00419\ \}}
+\DoxyCodeLine{00429\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{drive_8h_a96ab8f67bb4d2cda86d3d14092e1e263}{adj}}(\textcolor{keywordtype}{int}\ sourc,\ \textcolor{keywordtype}{int}\ dest,\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph)}
+\DoxyCodeLine{00430\ \{}
+\DoxyCodeLine{00431\ \ \ \ \ std::vector<Node\ *>\ nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00432\ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *source\ =\ nodes[graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(sourc)];}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{classEdge}{Edge}}\ *edg\ :\ source-\/>\mbox{\hyperlink{classNode_a5ac9a56b483c1393d5da874344766bad}{getAdj}}())}
+\DoxyCodeLine{00434\ \ \ \ \ \{}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edg-\/>getDest()-\/>getId()\ ==\ dest)}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00437\ \ \ \ \ \}}
+\DoxyCodeLine{00438\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00439\ \}}
+\DoxyCodeLine{00447\ \textcolor{keyword}{inline}\ std::unordered\_set<int>\ \mbox{\hyperlink{drive_8h_a7c65d54d8b99ac97fddfd028b41b3860}{getParkingNodes}}(\mbox{\hyperlink{classGraph}{Graph}}\ \&graph)}
+\DoxyCodeLine{00448\ \{}
+\DoxyCodeLine{00449\ \ \ \ \ std::unordered\_set<int>\ parkingNodes;}
+\DoxyCodeLine{00450\ \ \ \ \ std::vector<Node\ *>\ nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{classNode}{Node}}\ *node\ :\ nodes)}
+\DoxyCodeLine{00452\ \ \ \ \ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (node-\/>getParking())}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ parkingNodes.insert(node-\/>getId());}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00457\ \ \ \ \ \}}
+\DoxyCodeLine{00458\ \ \ \ \ \textcolor{keywordflow}{return}\ parkingNodes;}
+\DoxyCodeLine{00459\ \}}
+\DoxyCodeLine{00467\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{drive_8h_ad50fc9a60f6e8ad90b2efbaf6e57890c}{walkcomp}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structWalkDrive}{WalkDrive}}\ d1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structWalkDrive}{WalkDrive}}\ d2)}
+\DoxyCodeLine{00468\ \{}
+\DoxyCodeLine{00469\ \ \ \ \ \textcolor{keywordflow}{return}\ d1.\mbox{\hyperlink{structWalkDrive_a3f8abe1ab6b550de93b3b57037c4618e}{totalTime}}\ >\ d2.\mbox{\hyperlink{structWalkDrive_a3f8abe1ab6b550de93b3b57037c4618e}{totalTime}};}
+\DoxyCodeLine{00470\ \}}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00485\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structWalkDrive}{WalkDrive}}\ \mbox{\hyperlink{drive_8h_aa0fb65d1c4352b22fd1abb15a357bbc4}{walkingDriving}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ dest,\ \mbox{\hyperlink{classGraph}{Graph}}\ \&graph,\ std::unordered\_set<int>\ \&\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}},\ std::vector<std::pair<int,\ int>>\ \&edgesToAvoid,\ \textcolor{keywordtype}{double}\ maxWalkingTime,\ std::vector<WalkDrive>\ \&al)}
+\DoxyCodeLine{00486\ \{}
+\DoxyCodeLine{00487\ \ \ \ \ \mbox{\hyperlink{structWalkDrive}{WalkDrive}}\ result,\ alternative;}
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keywordflow}{if}\ (graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(source)\ ==\ -\/1\ ||\ graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(dest)\ ==\ -\/1)}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00490\ \ \ \ \ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ drivingRoute;}
+\DoxyCodeLine{00491\ \ \ \ \ std::pair<std::vector<int>,\ \textcolor{keywordtype}{double}>\ walkRoute;}
+\DoxyCodeLine{00492\ \ \ \ \ std::vector<Node\ *>\ nodes\ =\ graph.\mbox{\hyperlink{classGraph_a19dd4023a8381c6aba175ce46f603e40}{getNodes}}();}
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{drive_8h_a96ab8f67bb4d2cda86d3d14092e1e263}{adj}}(source,\ dest,\ graph))}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00495\ \ \ \ \ std::unordered\_set<int>\ parkingNodes\ =\ \mbox{\hyperlink{drive_8h_a7c65d54d8b99ac97fddfd028b41b3860}{getParkingNodes}}(graph);}
+\DoxyCodeLine{00496\ \ \ \ \ \mbox{\hyperlink{drive_8h_afac135fb007917d916d89cd668b31761}{unsetNodesAndEdges}}(graph,\ 0);}
+\DoxyCodeLine{00497\ \ \ \ \ \mbox{\hyperlink{drive_8h_aa427789da559637baf7efc59d9449898}{someNodesVisited}}(graph,\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}});}
+\DoxyCodeLine{00498\ \ \ \ \ \mbox{\hyperlink{drive_8h_a9fad46e63eb5b1b43dd5eb29e5b354b0}{someEdgesVisited}}(graph,\ edgesToAvoid);}
+\DoxyCodeLine{00499\ \ \ \ \ \mbox{\hyperlink{drive_8h_a32864f7ace572944f5b8607d7d2a8cf6}{algorithm}}(source,\ graph,\ 0);}
+\DoxyCodeLine{00500\ \ \ \ \ \mbox{\hyperlink{drive_8h_afac135fb007917d916d89cd668b31761}{unsetNodesAndEdges}}(graph,\ 1);}
+\DoxyCodeLine{00501\ \ \ \ \ \mbox{\hyperlink{drive_8h_aa427789da559637baf7efc59d9449898}{someNodesVisited}}(graph,\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}});}
+\DoxyCodeLine{00502\ \ \ \ \ \mbox{\hyperlink{drive_8h_a9fad46e63eb5b1b43dd5eb29e5b354b0}{someEdgesVisited}}(graph,\ edgesToAvoid);}
+\DoxyCodeLine{00503\ \ \ \ \ \mbox{\hyperlink{drive_8h_a32864f7ace572944f5b8607d7d2a8cf6}{algorithm}}(dest,\ graph,\ 1);}
+\DoxyCodeLine{00504\ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ *\mbox{\hyperlink{classNode}{Node}};}
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{keywordtype}{int}\ count\ =\ 0;}
+\DoxyCodeLine{00506\ \ \ \ \ std::priority\_queue<WalkDrive,\ std::vector<WalkDrive>,\ \textcolor{keyword}{decltype}(\&\mbox{\hyperlink{drive_8h_ad50fc9a60f6e8ad90b2efbaf6e57890c}{walkcomp}})>\ alt(\mbox{\hyperlink{drive_8h_ad50fc9a60f6e8ad90b2efbaf6e57890c}{walkcomp}});}
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ node\ :\ parkingNodes)}
+\DoxyCodeLine{00508\ \ \ \ \ \{}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}.find(node)\ ==\ \mbox{\hyperlink{drive_8h_a417886beb77c8adaf4f58816179a32ac}{limit}}.end())}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}\ =\ nodes[graph.\mbox{\hyperlink{classGraph_a269614f87700abdcf1d425a46d40b119}{findNodeIndex}}(node)];}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ walktime\ =\ \mbox{\hyperlink{classNode}{Node}}-\/>\mbox{\hyperlink{classNode_afc43adbaea919638f5b6c0e96fdb61d4}{getWalkingDist}}();}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ drivetime\ =\ \mbox{\hyperlink{classNode}{Node}}-\/>\mbox{\hyperlink{classNode_aef2fab11e82901b2a35af6c4837d18b2}{getDist}}();}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (walktime\ !=\ numeric\_limits<double>::infinity()\ \&\&\ drivetime\ !=\ numeric\_limits<double>::infinity())}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ count++;}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ drivingRoute\ =\ \mbox{\hyperlink{drive_8h_a728a174787bf125ff70b461cbfdd7195}{getPathDW}}(source,\ node,\ graph,\ 0);}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ walkRoute\ =\ \mbox{\hyperlink{drive_8h_a728a174787bf125ff70b461cbfdd7195}{getPathDW}}(dest,\ node,\ graph,\ 1);}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alternative.\mbox{\hyperlink{structWalkDrive_a78671e9faa8ab0ac8c48e33cc5418cb1}{parking}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alternative.\mbox{\hyperlink{structWalkDrive_a5e45eaa8a0965c67c686cf388969ab95}{parkingNode}}\ =\ node;}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alternative.\mbox{\hyperlink{structWalkDrive_acc1048fb14d70134446d23c9e8f479ae}{range}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alternative.\mbox{\hyperlink{structWalkDrive_aa3fbd7ce021b05e9071c33d9815d2773}{drivingRoute}}\ =\ drivingRoute;}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alternative.\mbox{\hyperlink{structWalkDrive_a891dcc046898e0f2217e8bc6341f25aa}{walkingRoute}}\ =\ walkRoute;}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alternative.\mbox{\hyperlink{structWalkDrive_a3f8abe1ab6b550de93b3b57037c4618e}{totalTime}}\ =\ walktime\ +\ drivetime;}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alt.push(alternative);}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00528\ \ \ \ \ \}}
+\DoxyCodeLine{00529\ \ \ \ \ \textcolor{keywordflow}{while}\ (!alt.empty())}
+\DoxyCodeLine{00530\ \ \ \ \ \{}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ al.push\_back(alt.top());}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ alt.pop();}
+\DoxyCodeLine{00533\ \ \ \ \ \}}
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{structWalkDrive}{WalkDrive}}\ a\ :\ al)}
+\DoxyCodeLine{00535\ \ \ \ \ \{}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a.walkingRoute.second\ <=\ maxWalkingTime)}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ a;}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00541\ \ \ \ \ \}}
+\DoxyCodeLine{00542\ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ ==\ 0)}
+\DoxyCodeLine{00543\ \ \ \ \ \{}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{structWalkDrive_a78671e9faa8ab0ac8c48e33cc5418cb1}{parking}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{structWalkDrive_acc1048fb14d70134446d23c9e8f479ae}{range}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00546\ \ \ \ \ \}}
+\DoxyCodeLine{00547\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (count\ !=\ 0)}
+\DoxyCodeLine{00548\ \ \ \ \ \{}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{structWalkDrive_a78671e9faa8ab0ac8c48e33cc5418cb1}{parking}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{structWalkDrive_acc1048fb14d70134446d23c9e8f479ae}{range}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00551\ \ \ \ \ \}}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00554\ \}}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
