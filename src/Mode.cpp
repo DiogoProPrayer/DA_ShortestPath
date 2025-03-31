@@ -112,7 +112,7 @@ void unsetNodesAndEdges(Graph &graph){
         Nodes[i]->setVisited(false);
         Nodes[i]->setPred(-1);
         Nodes[i]->setDist(std::numeric_limits<double>::infinity());
-        if(Nodes[i]->getAdj().empty()){
+        if(!Nodes[i]->getAdj().empty()){
             for(Edge* edge : Nodes[i]->getAdj()){
                 edge->setVisited(false);
             }
